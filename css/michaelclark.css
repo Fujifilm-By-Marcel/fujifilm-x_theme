@@ -1,0 +1,122 @@
+/*
+Colours:
+Red: #ee2a3a
+Green: #accb7d
+
+Text:
+Body text color: #706f6f
+Headings: #000000
+
+Background:
+Background grey: #dadada
+*/
+
+#container{margin-top:72px;color:#706f6f;}
+@media (max-width:1200px){#container{margin-top:48px;}}
+
+p{margin-bottom:1em;}
+
+em{font-style: italic;}
+
+/* headers */
+h1,h2,h3,h4,h5{
+	color: #000;
+	font-family: "Fjalla One", sans-serif;
+	font-weight:400;
+	margin-bottom: 1em;	
+}
+
+h1{font-size:2.8em;}
+h2{font-size:2.5em;margin: .5em 0;}
+h3{font-size:1.5em;}
+
+hr{background: #fff;height: 2px;}
+
+h1.michaelGreen, h2.michaelGreen, h3.michaelGreen{color:#accb7d !important}
+h1.michaelRed, h2.michaelRed, h3.michaelRed{color:#ee2a3a !important}
+
+
+.headline{text-align:center;}
+
+
+.bg2{background:#dadada}
+
+.top-banner-img{
+	width:100%;
+}
+
+.strong-p{
+	color:#000;
+	font-weight:bold;
+}
+
+.section{overflow:hidden;}
+
+
+/* location */
+.location table{
+	width:100%;
+}
+
+.location tr{
+	border-bottom:1px solid #231f20;
+}
+
+.location th.columnheader{
+	font-size:1.5em;
+	color:#000;
+	text-align:left;
+	font-family: "Fjalla One", sans-serif;
+}
+
+.location th.rowheader{
+	font-size:1.1em;
+	text-align:left;
+}
+
+.location td.rowinfo.dealer{
+	font-size:1.5em;	
+}
+
+.location td.rowinfo{
+	font-size:1.1em;
+	color:#000;
+	text-align:right;
+	font-family: "Fjalla One", sans-serif;
+}
+
+.location .michaelclark-button{
+	float: right;
+	margin: 1em 0;
+}
+
+/* button */
+.michaelclark-button{
+    cursor: pointer;
+    color: #fff;
+    background: #ee2a3a;
+    padding: .2em 2em;
+    margin-bottom:1em;
+    font-size: 1.3em;
+	font-family: "Fjalla One", sans-serif;
+}
+
+/* Michal's mugshot */
+.mugshot{
+	width:100%;
+	margin-bottom:2em;
+	padding-right: 2em;
+}
+
+.slideshow-container{
+	max-width:100%;	
+}
+
+.img-desktop, .img-mobile{display:none;}
+
+@media (min-width:601px){
+	.img-desktop{display:block;}
+}
+@media (max-width:600px){
+	.img-mobile{display:block;}
+}

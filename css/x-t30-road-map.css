@@ -1,0 +1,52 @@
+/* X-T30 Road Map */
+#fujifilmxgfxmap_hype_container {
+    width: 100% !important;
+    min-height: 667px;
+   margin: 30px 0 !important;
+}
+
+#xt30_ajax_post {
+    margin-bottom: 30px;
+}
+#xt30_ajax_post .xt30-related-title {
+    margin-top: 30px;
+}
+
+.xt30.loading {
+   content: "";
+   margin: 0 auto;
+   width: 40px;
+   height: 40px;
+   background: transparent;
+   border-top: 2px solid #292929;
+   border-right: 2px solid transparent;
+   border-radius: 50%;
+   -webkit-animation: 1s spin linear infinite;
+   animation: 1s spin linear infinite;
+}
+
+#fujifilmxgfxmap_hype_container_loading {
+   content: "" !important;
+   width: 40px !important;
+   height: 40px !important;
+   background: transparent !important;
+   border-top: 2px solid #292929 !important;
+   border-right: 2px solid transparent !important;
+    border-left: none !important;
+    border-bottom: none !important;
+   border-radius: 50% !important;
+   -webkit-animation: 1s spin linear infinite;
+   animation: 1s spin linear infinite;
+    color: #ffffff !important;
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translate(-50%,-50%);
+}
+
+@media only screen and (max-width:768px) {
+	#fujifilmxgfxmap_hype_container {
+        min-height: 470px;
+    }
+}
+/* / X-T30 Road Map */

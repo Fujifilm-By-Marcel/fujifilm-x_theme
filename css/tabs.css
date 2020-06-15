@@ -1,0 +1,39 @@
+.tab-filters {
+    padding: 0 0 30px;
+    font-size: 0;
+    height: auto;
+    position: relative;
+    line-height: 0px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	text-align:center;
+}
+
+.tab-filters li.active {
+    border-bottom: 2px solid #fb0020 !important;
+}
+
+.tab-filters li {
+    border-bottom: 2px solid #656464;
+    height: 30px;
+    color: #656464;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 17px;
+    display: inline-block;
+    -webkit-transition: ease border-bottom 100ms;
+    -o-transition: ease border-bottom 100ms;
+    transition: ease border-bottom 100ms;
+	margin: 0 15px 20px;
+	
+}
+
+.tabcontent{
+	display:none;
+}

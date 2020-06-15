@@ -1,0 +1,106 @@
+.xt30-row {
+    width: 92%;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #bfbfbf;
+	max-width:1000px;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:left;
+}
+
+.xt30-row .featured-image {
+    width: 30%;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 3% 0 0;
+}
+
+.xt30-row.most-recent .featured-image {
+    width: 100%;
+    margin: 0 0 20px 0;
+}
+
+.xt30-row .xt30-preview {
+    width: 65%;
+    display: inline-block;
+    vertical-align: top;
+}
+.xt30-row.most-recent .xt30-preview {
+    width: 100%;
+}
+
+.xt30-row .xt30-synopsis{
+	margin-bottom:10px;
+}
+
+.xt30-tagline{
+	margin: 0 !important;
+    border: 0 !important;	
+    text-align:center !important;
+}
+.xt30-tagline::before{
+	background: none !important;
+}
+
+
+#SPECIFICATIONS{text-align:left; max-width:880px;margin:auto;width:92%}
+
+
+.single-gear-chooser dl {
+    border-bottom: 1px solid #808080;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(128, 128, 128);
+    margin: 0;
+    padding: 7px 0;
+}
+.single-gear-chooser dl dt {
+    float: left;
+    width: 150px;
+}
+.single-gear-chooser dl dd {
+    margin: 0 0 0 150px;
+}
+.specs dt {
+    text-transform: uppercase;
+}
+dt {
+    font-weight: 600;
+}
+
+
+.story .lower__first{padding-top: 0 !important}
+
+.story{
+	margin-bottom: 50px;
+}
+
+.xt30-preview a{
+	color:#000;
+}
+.xt30-preview a h3{
+	font-weight:bold;
+	margin-bottom: 15px !important;
+}
+
+
+@media screen and (min-width: 768px), print{
+	.max-1000{
+		max-width:1000px;
+	}
+	
+}
+@media screen and (max-width: 768px), print{
+	.xt30-row .featured-image {
+		width: 100%;
+		margin: 0 0 20px;
+	}
+	.xt30-row .xt30-preview {
+		width: 100%;
+		display: inline-block;
+		vertical-align: top;
+	}
+}
+
+

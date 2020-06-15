@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="jquery-slideshow.css">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="jquery-slideshow.js"></script>
+
+
+</head>
+<body>
+<div style="width:400px;">
+<div class="my-slideshow0">
+	<div class="slides-container">
+		
+
+		<div class="mySlide">
+			<img src="https://fujifilm-x.com/wp-content/uploads/2019/09/CMW1632.jpg" />
+		</div>
+		<div class="mySlide">
+			<img src="https://fujifilm-x.com/wp-content/uploads/2019/09/CBG6214.jpg" />
+		</div>
+		<div class="mySlide">
+			<img src="https://fujifilm-x.com/wp-content/uploads/2019/09/CBG5895.jpg" />
+		</div>
+		
+		
+		<!-- Next and previous buttons -->
+		<a class="myprev">&#10094;</a>
+		<a class="mynext">&#10095;</a>
+		<div class="myoverlay">
+			<button class='myplaybutton'></button>
+		</div>
+	</div>
+	<br>
+	<!-- The dots/circles -->
+	<div class="slideshow-nav">											
+		<span class="mydot"></span>
+		<span class="mydot"></span>
+		<span class="mydot"></span>		
+	</div>
+</div>
+
+<div class="my-slideshow1">
+	<div class="slides-container">
+		
+
+		<div class="mySlide">
+			<img src="https://fujifilm-x.com/wp-content/uploads/2019/09/CMW1632.jpg" />
+		</div>
+		<div class="mySlide">
+			<img src="https://fujifilm-x.com/wp-content/uploads/2019/09/CBG6214.jpg" />
+		</div>
+		<div class="mySlide">
+			<img src="https://fujifilm-x.com/wp-content/uploads/2019/09/CBG5895.jpg" />
+		</div>
+		
+		
+		<!-- Next and previous buttons -->
+		<a class="myprev">&#10094;</a>
+		<a class="mynext">&#10095;</a>
+		<div class="myoverlay">
+			<button class='myplaybutton'></button>
+		</div>
+		<div class="myprogressbar"><div class="myprogress"></div></div>
+	</div>
+	<br>
+	<!-- The dots/circles -->
+	<div class="slideshow-nav">											
+		<span class="mydot"></span>
+		<span class="mydot"></span>
+		<span class="mydot"></span>		
+	</div>
+	
+</div>
+</div>
+
+<script>
+var slideshow;
+$( document ).ready(function() {
+	slideshow = $(".my-slideshow0").slideshow();
+	slideshow = $(".my-slideshow1").slideshow({				
+		playbutton: true
+	});
+});
+
+</script>
+
+</body>
+
+</html>
