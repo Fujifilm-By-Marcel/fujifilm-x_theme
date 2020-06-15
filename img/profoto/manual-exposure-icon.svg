@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="83" height="59" viewBox="0 0 83 59">
+    <g fill="none" fill-rule="evenodd">
+        <text fill="#000" font-family="FjallaOne" font-size="31.5">
+            <tspan x="42.255" y="48.641">M</tspan>
+        </text>
+        <rect width="80" height="56" x="1.5" y="1.5" stroke="#000" stroke-width="3" rx="12"/>
+        <path fill="#000" d="M22.867 9.077h7.567l-4.393 13.81h11.964l-3.722 12.05h6.462L26.895 48.41l-6.513-13.474h6.514l2.694-7.506H16.6z"/>
+    </g>
+</svg>

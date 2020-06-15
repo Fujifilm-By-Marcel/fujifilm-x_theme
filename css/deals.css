@@ -1,0 +1,237 @@
+/* Hero banner */
+.deals-hero-banner{	margin-bottom:20px; }
+@media (min-width:601px){ 
+	.deals-hero-banner.desktop{ display:block; }
+	.deals-hero-banner.mobile{ display:none; }
+}
+@media (max-width:600px){
+	.deals-hero-banner.desktop{ display:none; }
+	.deals-hero-banner.mobile{ display:block; }
+}
+
+/* Tab filters */
+.tab-filters li, .tab-filters li.active{
+	border:none;
+}
+.tab-filters li{
+	font-size:12px;
+	line-height:unset;
+	margin:0 1px 2px;
+}
+.tab-filters li .tablinks-container{
+	background: #656464;
+    padding: 15px 20px;
+    color: #fff;
+}
+.tab-filters li.active .tablinks-container{
+	background: #fb0020;
+}
+.tab-filters li .tablinks-container:hover{
+	background: #7c7c7b;	
+}
+.tab-filters li.active .tablinks-container:hover{
+	background: #fb0020;
+}
+
+/* Tab Header */
+.tab-header{
+	font-family: "Fjalla One", sans-serif;
+	text-align: center;
+	margin-bottom:.8em;
+}
+
+/* Deals tile */
+.deal{
+	background-color:#f6f6f6;
+	text-align:center;
+	margin-bottom:40px;
+
+	box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  	transition: all 0.25s cubic-bezier(0.67, 0, 0.11, 1.01);
+  	overflow:hidden;
+}
+.deal:hover {
+  	box-shadow: 0 5px 15px rgba(0,0,0,0.3);  
+}
+.deal a{
+	text-decoration: none;
+}
+.deal .deal-title{
+	font-family: "Fjalla One", sans-serif;
+    margin: 15px 10px;
+}
+.deal .deal-img{
+	margin-bottom:.8em;
+	padding:0 15px;
+}
+.deal .regular-price{
+	font-family: noto-sans-condensed, sans-serif;
+}
+.deal .sale-price{
+	font-family: "Fjalla One", sans-serif;
+	margin-bottom:.8em;
+}
+.deal .savings{
+	background-color:#e62d36;
+	width:100%;
+	color:#fff;
+	font-family: "Fjalla One", sans-serif;
+	padding: 6px 10px;
+}
+.deal .additional-incentive{
+	background-color: #58595B;
+	font-family: "Fjalla One", sans-serif;
+	width:100%;
+	color:#fff;
+	padding: 6px 10px;
+}
+.deal .slideshow-nav{
+	display:block;
+	margin-bottom:0;
+	z-index:1;
+}
+
+/* Responsive font sizes */
+@media (min-width:768px) { 
+	.tab-header{
+		font-size:48px;
+		line-height:52px;
+	}
+	.deal .deal-title{
+		font-size:24px;
+		line-height:28px;
+	}		
+	.deal .regular-price{
+		font-size:22px;
+		line-height:26px;
+	}
+	.deal .sale-price{
+		font-size:24px;
+		line-height:28px;
+	}
+	.deal .savings{
+		font-size:30px;
+		line-height: 34px;
+	}
+	.deal .additional-incentive{
+		font-size: 20px;
+    	line-height: 26px;
+	}
+}
+@media (max-width:767px) { 
+	.tab-header{
+		font-size:40px;
+		line-height:44px;
+	}
+	.deal .deal-title{
+		font-size:26px;
+		line-height:30px;
+	}		
+	.deal .regular-price{
+		font-size:20px;
+		line-height:24px;
+	}
+	.deal .sale-price{
+		font-size:22px;
+		line-height:26px;
+	}
+	.deal .savings{
+		font-size:28px;
+		line-height: 32px;
+	}
+	.deal .additional-incentive{
+		font-size: 20px;
+    	line-height: 26px;
+	}
+}
+
+/* Slideshow customizations*/
+.myprev, .mynext{display:none !important;}
+.mydot{border-radius:2px;}
+.mydot:hover {
+    box-shadow: 0px 0px 3px 2px rgb(77, 144, 254);
+}
+.mydot.active{
+	outline-color: rgb(77, 144, 254); // #4D90FE
+	outline-offset: -2px;
+	outline-style: auto;
+	outline-width: 5px;
+}
+
+/* Sidepop module */
+#sidepop-container{
+	transform-origin: 100% 100%;
+    transform: rotate(-90deg);
+    right: -320px;        
+    display: none;
+	z-index: 1000;
+	position: fixed;
+	top: 15%;
+	opacity:0;
+}
+#sidepop-container .sidepop-button{
+    background: #000;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;    
+    font-size: 1em;
+    letter-spacing: 2px;
+    font-weight: bold;
+    border-top: 5px solid #aaa;	
+	float:left;
+ }
+ #sidepop-container .sidepop-button:first-child{
+ 	margin-right:40px;
+ }
+#sidepop-container .sidepop-button:hover{
+	border-color:#ccc;	
+}
+
+/*screen size column length marker*/
+@media (min-width:1201px){.window-size-marker{z-index:4;}}
+@media (max-width:1200px){.window-size-marker{z-index:3;}}
+@media (max-width:992px){.window-size-marker{z-index:2;}}
+@media (max-width:600px){.window-size-marker{z-index:1;}}
+
+#newsletter-myBtn{display:none !important;}
+
+.deal{position:relative;}
+
+.overlay {
+	transition: .5s ease;
+	opacity: 0;
+	position: absolute;
+	top: 0;  
+    background: #000;
+    width: 100%;
+    height: 100%;
+}
+
+.cta-button{
+	opacity: 0;
+	background:#e62d36;
+	color:#fff;
+	position: absolute;
+
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+
+	text-align: center;
+	padding: 5px 20px;
+	font-size: 19px;
+	font-family: "Fjalla One", sans-serif;
+	text-transform:uppercase;
+	width: fit-content;
+}
+
+
+.deal:hover .overlay {
+    opacity: .5;
+}
+
+.deal:hover .cta-button{
+	opacity:1;
+}
+
