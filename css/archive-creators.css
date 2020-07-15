@@ -2,9 +2,6 @@
   /* add container padding */
   /* remove container padding on mobile */
   /* Navigation styles (shared desktop and mobile) */
-  /* hide mobile nav by default */
-  /* force hide monile nav on desktop */
-  /* show mobile nav on mobile */
 }
 .main .container-fluid {
   padding: 0 3rem;
@@ -19,6 +16,9 @@
   background-color: black;
   /* Nav styles (desktop Only) */
   /* Nav styles (mobile Only) */
+  /* hide mobile nav by default */
+  /* force hide monile nav on desktop */
+  /* show mobile nav on mobile */
 }
 .main .creators-navigation .row {
   margin-bottom: 0;
@@ -85,21 +85,21 @@
   background-color: #ddd;
   color: black;
 }
-.main .creators-navigation.creators-mobile-nav,
-.main .hamburger-menu-icon {
+.main .creators-navigation .creators-mobile-nav,
+.main .creators-navigation .hamburger-menu-icon {
   display: none;
 }
 @media (min-width: 768px) {
-  .main .creators-navigation.creators-mobile-nav,
-  .main .hamburger-menu-icon {
+  .main .creators-navigation .creators-mobile-nav,
+  .main .creators-navigation .hamburger-menu-icon {
     display: none !important;
   }
 }
 @media (max-width: 767px) {
-  .main .creators-navigation.creators-desktop-nav .hamburger-menu-icon {
+  .main .creators-navigation .creators-desktop-nav .hamburger-menu-icon {
     display: block;
   }
-  .main .creators-navigation.creators-desktop-nav .creators-navigation-list ul {
+  .main .creators-navigation .creators-desktop-nav .creators-navigation-list ul {
     display: none;
   }
 }
@@ -173,10 +173,10 @@
   content: "";
   display: block;
   margin: 0 auto;
-  width: 93%;
+  width: 90%;
   border-bottom: 1px solid #eb022f;
   position: relative;
-  left: 2px;
+  left: 6px;
 }
 @media (max-width: 599px) {
   .main .creator-filters .filters .search-box-container .search-box {
@@ -217,7 +217,7 @@
   border-radius: 8px;
   background-color: #eb022f;
   padding: 0.25rem 1rem;
-  margin: auto;
+  margin: auto auto 0;
   font-size: 0.75rem;
   color: white;
   display: inline-block;
