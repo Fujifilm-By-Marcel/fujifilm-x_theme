@@ -58,63 +58,113 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/img/creators/";
 	</div>
 
 	<div class="container">
-		<div class="row">
-			<div class="col s12 creator-filters">
+		<div class="row creator-filters creator-categories">
+			<div class="col s12">
 				<div class="row">
 					<div class="filters">
-						<div class="col s12 m8 filter-container">						
+						<div class="col s12 m8 filter-container">				
 							<p>
 								<span class="filter-instructions">FILTER BY ></span>
 								<span class="filter-option active"><a href="#">ALL</a></span>
-								<span class="filter-option"><a href="#">CREATORS</a></span>
-								<span class="filter-option"><a href="#">X&#8209;PHOTOGRAPHERS</a></span>
+								<?php
+								$taxonomy = 'creator_category';
+								$terms = get_terms($taxonomy); // Get all terms of a taxonomy
+								if ( $terms && !is_wp_error( $terms ) ) :
+								?>								    
+						        <?php foreach ( $terms as $term ) { ?>
+						            <span class="filter-option"><a href="<?php echo get_term_link($term->slug, $taxonomy); ?>"><?php echo $term->name; ?></a></span>
+						        <?php } ?>  								    
+								<?php endif;  ?>
 							</p>						
 						</div>
 						<div class="col s12 m4 search-box-container">
 							<div class="search-box">
-								<input type="text" size="13" placeholder="SEARCH CREATORS" id="search-box">
-								<a href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+								<form id="search-form" method="get">
+									<input type="text" name="search" size="13" placeholder="SEARCH CREATORS" id="search-box" value='<?php echo $_GET["search"] ?>'>								
+									<a href="#" onclick='document.getElementById("search-form").submit();return false;'><i class="fa fa-search" aria-hidden="true"></i></a>
+								</form>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<div class="container creators">
-		<div class="creator">
-			<div class="creator-content">
-				<img src="">
-				<h3>CREATOR</h3>
-				<p class="creator-name">Reggie Ballesteros</p>
-				<h3>BIO</h3>
-				<p class="creator-desc">I identify as a Fujifilm wedding photographer as well as an educator that is an active member of the Fujifilm community who serves to teach all to see and think like photographers.</p>
-				<a class="creator-btn" href="#">view profile</a>
+		<div class="row creator-filters creator-tags">
+			<div class="col s12">
+				<div class="row">
+					<div class="filters">
+						<div class="col s12 m8 filter-container">				
+							<p>
+								<span class="filter-instructions">PHOTOGRAPHIC STYLE ></span>
+								<span class="filter-option"><a href="#" onclick="clearTags(this);return false;">CLEAR ALL <span class="close">x</span></a></span>
+								<?php
+								$taxonomy = 'creator_tag';
+								$terms = get_terms($taxonomy); // Get all terms of a taxonomy
+								if ( $terms && !is_wp_error( $terms ) ) :
+								?>								    
+						        <?php foreach ( $terms as $term ) { ?>
+						            <span class="filter-option"><a href="#" onclick="filterTag(this);return false;"><?php echo $term->name; ?></a></span>
+						        <?php } ?>  								    
+								<?php endif;  ?>
+							</p>						
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
+	</div> 
 
-		<div class="creator">
-			<div class="creator-content">
-				<img src="">
-				<h3>CREATOR</h3>
-				<p class="creator-name">Reggie Ballesteros</p>
-				<h3>BIO</h3>
-				<p class="creator-desc">My work aims to diversify the traditional canon of photography by using images to spark culturally relevant conversations. Studying literature, in particular historical fiction, widened my perspective.</p>
-				<a class="creator-btn" href="#">view profile</a>
+	<div class="container">
+		<div class="row creators">
+			<?php
+			$args = array(
+				'post_type' => 'creators',
+				'post_status' => array('publish'),
+				'orderby' => 'publish_date',  
+				'order' => 'DESC',
+			);
+			
+			if(isset($_GET["search"])){
+				$args['s'] = $_GET["search"];
+			}
+
+			$the_query = new WP_Query( $args );
+			if ( $the_query->have_posts() ) : 
+			while ( $the_query->have_posts() ) : $the_query->the_post();
+			$terms = get_the_terms(get_the_ID(), 'creator_category');
+			$term_name = $terms[0]->name;
+            ?>
+			<div class="col s12 m6 l6 xl4 creator">				
+				<div class="creator-content"> 
+					<img width="160" height="160" src="<?php the_field("archive_portrait"); ?>">
+					<h3><?php echo $term_name ?></h3>
+					<p class="creator-name"><?php the_title(); ?></p>
+					<h3>BIO</h3>
+					<p class="creator-desc"><?php the_field("short_bio"); ?></p>
+					<a class="creator-btn" href="#">view profile</a>
+				</div>
 			</div>
+			<?php
+			endwhile;
+			endif;
+			?>			
 		</div>
-
-		<div class="creator">
-			<div class="creator-content">
-				<img src="">
-				<h3>CREATOR</h3>
-				<p class="creator-name">Reggie Ballesteros</p>
-				<h3>BIO</h3>
-				<p class="creator-desc">Due to my childhood and being raised over seas in a 3rd world country I have a unique perspective on culture and the differences in relationships.</p>
-				<a class="creator-btn" href="#">view profile</a>
-			</div>
-		</div>	
 	</div>
 
 </section>
+<script>
+function filterTag(obj){
+	(function($) {
+		console.log($(obj));
+		/*var input = $("<input>")
+               .attr("type", "hidden")
+               .attr("name", "mydata").val("bla");
+$('#form1').append(input);*/
+	})( jQuery );
+}
+function clearTags(obj){
+	(function($) {
+		console.log($(obj));
+	})( jQuery );
+}
+</script>

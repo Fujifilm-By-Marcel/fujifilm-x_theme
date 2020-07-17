@@ -129,6 +129,10 @@
   background-color: #d8d8d8;
   margin: 0 1rem;
 }
+.main .creator-filters.creator-tags {
+  background: none;
+  margin-bottom: 20px;
+}
 .main .creator-filters .row {
   margin-bottom: 0;
 }
@@ -141,8 +145,27 @@
   font-size: 0.75rem;
   margin: 0 0.875rem;
 }
-.main .creator-filters .filters .filter-option.active {
-  color: #eb022f;
+.main .creator-filters .filters .filter-option a {
+  text-decoration: none;
+  color: #505050;
+}
+.main .creator-filters .filters .filter-option a:hover {
+  color: black;
+}
+.main .creator-filters .filters .filter-option.active a {
+  color: white;
+  background: #eb022f;
+  border-radius: 4px;
+  padding: 1px 10px;
+}
+.main .creator-filters .filters .filter-option.active a:hover {
+  color: white;
+}
+.main .creator-filters .filters .filter-option .close {
+  font-size: 0.675em;
+  position: relative;
+  top: -50%;
+  vertical-align: middle;
 }
 @media (max-width: 767px) {
   .main .creator-filters .filters p {
@@ -155,14 +178,16 @@
   color: #eb022f;
   font-size: 0.75rem;
 }
-.main .creator-filters .filters .search-box input#search-box {
+.main .creator-filters .filters .search-box form {
+  display: inline-block;
+}
+.main .creator-filters .filters .search-box form input#search-box {
   background: transparent;
   text-align: center;
-  padding: 0 0.3125rem;
   font-size: 0.75rem;
   font-weight: bold;
 }
-.main .creator-filters .filters .search-box input#search-box::placeholder {
+.main .creator-filters .filters .search-box form input#search-box::placeholder {
   color: #eb022f;
 }
 .main .creator-filters .filters .search-box i {
@@ -173,10 +198,10 @@
   content: "";
   display: block;
   margin: 0 auto;
-  width: 90%;
+  width: 92%;
   border-bottom: 1px solid #eb022f;
   position: relative;
-  left: 6px;
+  left: 4px;
 }
 @media (max-width: 599px) {
   .main .creator-filters .filters .search-box-container .search-box {
@@ -189,21 +214,33 @@
 }
 .main .creators .creator {
   display: flex;
-  width: 33%;
+  margin: 0;
 }
 .main .creators .creator .creator-content {
   border-radius: 8px;
   border: 4px solid #eb022f;
-  padding: 2rem 1.25rem;
+  padding: 5rem 1.25rem 2rem;
   margin: 0 1em 2em;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  margin-top: 100px;
+  position: relative;
+}
+.main .creators .creator .creator-content img {
+  margin: 0 auto;
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 160px;
 }
 .main .creators .creator .creator-content h3 {
   font-size: 0.75rem;
   color: #eb022f;
   font-weight: bold;
   line-height: normal;
+  text-transform: uppercase;
 }
 .main .creators .creator .creator-content .creator-name {
   font-size: 1.5rem;
