@@ -2,19 +2,16 @@
 @greytext: #505050;
  
 .main {
-
 	/* add container padding */
 	.container-fluid{
 		padding:0 3rem;
 	}
-
 	/* remove container padding on mobile */
 	@media (max-width:767px){
 		.container-fluid{
 			padding:0;
 		}
 	}
-
 	/* Navigation styles (shared desktop and mobile) */
 	.creators-navigation{		
 		margin-bottom:2rem;
@@ -101,15 +98,13 @@
 		/* hide mobile nav by default */
 		.creators-mobile-nav, .hamburger-menu-icon{
 			display:none;
-		}
-		
+		}		
 		/* force hide monile nav on desktop */
 		@media (min-width:768px){
 			.creators-mobile-nav, .hamburger-menu-icon{
 				display:none !important;
 			}
 		}
-
 		/* show mobile nav on mobile */
 		@media (max-width:767px){
 			.creators-desktop-nav {
@@ -122,9 +117,6 @@
 			}
 		}
 	}
-
-
-
 	.infobox-col{
 		border-left: solid 4px @red; 
 		.infobox{
@@ -146,7 +138,6 @@
 			}
 		}
 	}
-
 	.creator-filters{
 		border-radius: 8px;
 		background-color: #d8d8d8;
@@ -154,6 +145,12 @@
 		&.creator-tags{
 			background:none;
 			margin-bottom:20px;
+			.close{
+				display:none;
+			}
+			.active .close, .clear-all .close{
+				display:inline;
+			}
 		}
 		.row{
 			margin-bottom:0;
@@ -184,12 +181,11 @@
 	    			}
 	    		}
 	    		.close{
-					font-size: .675em;
+					font-size: .5em;
 					position: relative;
-					top: -50%;
-					vertical-align: middle;
+				    left: 5px; 
+				    vertical-align: middle;
 	    		}
-	    		
 			}
 			@media  (max-width: 767px) {
 				p {
@@ -201,9 +197,9 @@
 	    		margin: 0 0 .3125rem 0;
 	    		color:@red;
 	    		font-size: .75rem;
-	    		form{
+	    		form#search-form{
 	    			display:inline-block;
-					input#search-box{				
+					input#search{				
 						background: transparent;
 					    text-align: center;
 					    font-size: .75rem;
