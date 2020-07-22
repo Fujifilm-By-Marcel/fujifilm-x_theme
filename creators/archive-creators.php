@@ -6,32 +6,17 @@ function load_usa_js_css(){
 } 
 add_action( 'wp_enqueue_scripts', 'load_usa_js_css' );
 
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 
-add_filter('the_title','some_callback');
-function some_callback($data){
-    global $post;
-    // where $data would be string(#) "current title"
-    // Example:
-    // (you would want to change $post->ID to however you are getting the book order #,
-    // but you can see how it works this way with global $post;)
-    return 'Creators';
-}
-
-add_filter("pre_get_document_title", "my_callback");
-
-function my_callback($old_title){
-    return "My Modified Title";
-}
-
+global $post;
+$post = get_page_by_path( 'creators' );
+setup_postdata( $post );
 get_header(); 
 get_sidebar();
-
-remove_filter( 'the_title','some_callback' );
-
+ 
 $imgDirectory = get_stylesheet_directory_uri()."/en-us/img/creators/";
-
-
-
 ?>
 <section class="main"> 
 	<?php 
@@ -39,7 +24,7 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/img/creators/";
 	?>
 	<div class="container">
 		<div class="row">
-			<div class="col s12 m6 infobox-col">
+			<div class="col s12 m12 l6 infobox-col">
 				<div class="infobox">
 					<h2>MEET OUR CREATORS</h2>
 					<p class="tagline">PHOTOGRAPHY AND VIDEO</p>
@@ -159,7 +144,10 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/img/creators/";
 	<div class="container">
 		<div class="row creators">
 			<?php
+			//get page
             $paged = ( $_GET['page'] ) ? $_GET['page'] : 1;
+			
+            //setup args
 			$args = array(
 				'post_type' => 'creators',
 				'post_status' => array('publish'),
@@ -170,6 +158,7 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/img/creators/";
 				'tax_query' => array(),
 			);
 
+			//add the activecat if it exists
 			if( $activeCat ){
 				array_push($args['tax_query'],
 			        array (
@@ -180,6 +169,7 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/img/creators/";
 			    );
 			}			
 
+			//add tags if they exist
 			if( isset($_GET["tags"]) && $_GET["tags"] != "" ){
 				array_push($args['tax_query'], 
 					array (
@@ -190,10 +180,12 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/img/creators/";
 				);
 			}
 
+			//add search if it exists
 			if( isset($_GET["search"]) ){
 				$args['s'] = $_GET["search"];
 			}
 
+			//iterate they query
 			$the_query = new WP_Query( $args );
 			if ( $the_query->have_posts() ) : 
 			while ( $the_query->have_posts() ) : $the_query->the_post();
