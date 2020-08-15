@@ -1,7 +1,7 @@
 <?php 
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', false, NULL, 'all');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/css/archive-creators.css', false, NULL, 'all');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.0.6');
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/js/common.js', array(), '1.0.0', true);
 } 
 add_action( 'wp_enqueue_scripts', 'load_usa_js_css' );
@@ -16,23 +16,32 @@ setup_postdata( $post );
 get_header(); 
 get_sidebar();
  
-$imgDirectory = get_stylesheet_directory_uri()."/en-us/img/creators/";
+$imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 ?>
 <section class="main"> 
 	<?php 
 	require get_stylesheet_directory().'/en-us/creators/navigation.php';
 	?>
+
+	<?php $post_id = get_page_by_path( 'creators' ); ?>
+	<?php if( have_rows('archive_page', $post_id) ): ?>
+    <?php while( have_rows('archive_page', $post_id) ): the_row(); ?>
+    <?php if( get_sub_field('header', $post_id) ): ?>
 	<div class="container">
 		<div class="row">
 			<div class="col s12 m12 l6 infobox-col">
 				<div class="infobox">
-					<h2>MEET OUR CREATORS</h2>
-					<p class="tagline">PHOTOGRAPHY AND VIDEO</p>
-					<p>Vestibulum rutrum quam vitae fringilla tincidunt. Suspendisse nec tortor urna. Ut laoreet sodales nisi, quis iaculis nulla iaculis vitae. Donec sagittis faucibus lacus eget blandit. Mauris vitae ultric.</p>
+					<h2><?php the_sub_field("header", $post_id) ?></h2>
+					<div class="tagline"><?php the_sub_field("tagline", $post_id) ?></div>
+					<?php the_sub_field("text", $post_id) ?>
 				</div>
 			</div>
 		</div>
 	</div>
+	<?php endif; ?>
+	<?php endwhile; ?>
+	<?php endif; ?>
+
 
 	<div class="container">
 		<div class="row creator-filters creator-categories">
@@ -41,13 +50,13 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/img/creators/";
 					<div class="filters">
 						<div class="col s12 m8 filter-container">		
 							<?php 								
-								function getAllActiveClass(){
-									if( is_post_type_archive("creators") ){
-										return "active";
-									} else {
-										return "";
-									}
+							function getAllActiveClass(){
+								if( is_post_type_archive("creators") ){
+									return "active";
+								} else {
+									return "";
 								}
+							}
 							?>		
 							<p>
 								<span class="filter-instructions">FILTER BY ></span>
@@ -66,7 +75,7 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/img/creators/";
 									}
 								}
 						        foreach ( $terms as $term ) { ?>
-						            <span class="filter-option <?php echo getCatActiveClass($term->slug, $activeCat) ?>"><a href="<?php echo get_term_link($term->slug, $taxonomy); ?>"><?php echo $term->name; ?></a></span>				        	
+						            <span class="filter-option <?php echo getCatActiveClass($term->slug, $activeCat) ?>"><a href="<?php echo get_term_link($term->slug, $taxonomy); ?>"><?php echo $term->name."s"; ?></a></span>				        	
 						        <?php } ?>  								    
 								<?php endif;  ?>
 							</p>						
@@ -88,7 +97,7 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/img/creators/";
 			<div class="col s12">
 				<div class="row">
 					<div class="filters">
-						<div class="col s12 m8 filter-container">				
+						<div class="col s12 filter-container">				
 							<p>
 								<span class="filter-instructions">PHOTOGRAPHIC STYLE ></span>
 								<span class="filter-option clear-all"><a href="#" onclick="clearTags(this);return false;">CLEAR ALL <span class="close">X</span></a></span>
@@ -154,7 +163,7 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/img/creators/";
 				'orderby' => 'publish_date',  
 				'order' => 'DESC',
 				'paged' => $paged,
-				'posts_per_page' => 6,
+				'posts_per_page' => 9,
 				'tax_query' => array(),
 			);
 
@@ -181,7 +190,7 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/img/creators/";
 			}
 
 			//add search if it exists
-			if( isset($_GET["search"]) ){
+			if( isset($_GET["search"]) && $_GET["search"] != "" ){
 				$args['s'] = $_GET["search"];
 			}
 
@@ -194,36 +203,56 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/img/creators/";
             ?>
 			<div class="col s12 m6 l6 xl4 creator">				
 				<div class="creator-content"> 
-					<img width="160" height="160" src="<?php the_field("archive_portrait"); ?>">
+					<?php 
+					if( get_field("archive_portrait_2x") && get_field("archive_portrait_3x") ){
+						$srcset = "srcset='";
+						$srcset .= get_field("archive_portrait")." 1x, ";
+						$srcset .= get_field("archive_portrait_2x")." 2x, ";
+						$srcset .= get_field("archive_portrait_3x")." 3x, ";
+						$srcset .= "'";
+					} else {
+						$srcset = "";
+					}
+					?>
+					<img width="160" height="160" src="<?php the_field("archive_portrait"); ?>" <?php echo $srcset; ?> >
 					<h3><?php echo $term_name ?></h3>
 					<p class="creator-name"><?php the_title(); ?></p>
 					<h3>BIO</h3>
 					<p class="creator-desc"><?php the_field("short_bio"); ?></p>
-					<a class="creator-btn" href="#">view profile</a>
+					<a class="creator-btn" href="<?php the_permalink() ?>">view profile</a>
 				</div>
 			</div>
 			<?php endwhile;	?>
-			<div class="pagenation">
-		      <?php 
-		          $pagination = paginate_links( array(
-		              'base'         => @add_query_arg('page','%#%'),
-		              'total'        => $the_query->max_num_pages,
-		              'current'      => $paged,
-		              'format'       => '?paged=%#%',
-		              'show_all'     => false,
-		              'type'         => 'list',
-		              'end_size'     => 2,
-		              'mid_size'     => 1,
-		              'prev_next'    => true,
-		              'add_fragment' => '',
-		          ) );
-		          //str_replace( "pagination", 'pagenation', $pagination );
-		          $pagination = str_replace( " Previous", '', $pagination );
-		          $pagination = str_replace( "Next ", '', $pagination );
-		          print_r($pagination);
-		      ?>
+
+		    <?php else: ?>
+		    <div class="col s12">
+		    	<p style="text-align:center;">No results. <a href="#" onclick="clearSearch();return false;">Click here</a> to clear your search terms.</p>
 		    </div>
 			<?php endif; ?>			
+		</div>
+		<div class="row">
+			<div class="col s12">
+				<div class="pagenation">
+			      <?php 
+			          $pagination = paginate_links( array(
+			              'base'         => @add_query_arg('page','%#%'),
+			              'total'        => $the_query->max_num_pages,
+			              'current'      => $paged,
+			              'format'       => '?paged=%#%',
+			              'show_all'     => false,
+			              'type'         => 'list',
+			              'end_size'     => 2,
+			              'mid_size'     => 1,
+			              'prev_next'    => true,
+			              'add_fragment' => '',
+			          ) );
+			          //str_replace( "pagination", 'pagenation', $pagination );
+			          $pagination = str_replace( " Previous", '', $pagination );
+			          $pagination = str_replace( "Next ", '', $pagination );
+			          print_r($pagination);
+			      ?>
+			    </div>
+			</div>
 		</div>
 	</div>
 </section>
@@ -266,6 +295,10 @@ function toggleTag(obj){
 			jQueryObj.removeClass("active");
 		}
 	})( jQuery, obj );
+}
+function clearSearch(){
+	$("input#search").val("");
+	$("form#search-form").submit();
 }
 </script>
 

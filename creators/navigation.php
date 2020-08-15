@@ -1,3 +1,26 @@
+<?php 
+	if ( is_archive() || is_single() ) {
+		$creators_active = "class='active'";
+	} else {
+		$creators_active = "";
+	}
+	if ( is_page( "about-creators" ) ){
+		$about_active = "class='active'";
+	} else {
+		$about_active = "";
+	}
+	if ( is_page( "home-creators" ) ){
+		$home_active = "class='active'";
+	} else {
+		$home_active = "";
+	}
+	if ( is_page( "gallery-creators" ) ){
+		$gallery_active = "class='active'";
+	} else {
+		$gallery_active = "";
+	}
+
+?>
 <section class="creators-navigation">
 	<section class="creators-desktop-nav">
 		<div class="container-fluid">
@@ -8,10 +31,10 @@
 				<div class="col s4 m8">
 					<div class="creators-navigation-list">
 						<ul>
-							<li><a href="#">home</a></li>
-							<li><a href="#">about</a></li>
-							<li><a class="active" href="#">creators</a></li>
-							<li><a href="#">gallery</a></li>
+							<li><a <?php echo $home_active ?> href="<?php echo get_permalink( get_page_by_path( 'home-creators' ) ) ?>">home</a></li>
+							<li><a <?php echo $about_active ?> href="<?php echo get_permalink( get_page_by_path( 'about-creators' ) ) ?>">about</a></li>
+							<li><a <?php echo $creators_active ?> href="<?php echo get_post_type_archive_link( 'creators' ) ?>">creators</a></li>
+							<li><a <?php echo $gallery_active ?> href="<?php echo get_permalink( get_page_by_path( 'gallery-creators' ) ) ?>">gallery</a></li>
 						</ul>
 						<a href="javascript:void(0);" class="hamburger-menu-icon" onclick="openMenu()">
 					    	<i class="fa fa-bars"></i>
@@ -27,10 +50,10 @@
 				<div class="col s12">
 					<div class="creators-navigation-list">
 						<ul>
-							<li><a href="#">home</a></li>
-							<li><a href="#">about</a></li>
-							<li><a class="active" href="#">creators</a></li>
-							<li><a href="#">gallery</a></li>
+							<li><a <?php echo $home_active ?> href="<?php echo get_permalink( get_page_by_path( 'home-creators' ) ) ?>">home</a></li>
+							<li><a <?php echo $about_active ?> href="<?php echo get_permalink( get_page_by_path( 'about-creators' ) ) ?>">about</a></li>
+							<li><a <?php echo $creators_active ?> href="<?php echo get_post_type_archive_link( 'creators' ) ?>">creators</a></li>
+							<li><a <?php echo $gallery_active ?> href="<?php echo get_permalink( get_page_by_path( 'gallery-creators' ) ) ?>">gallery</a></li>
 						</ul>
 					</div>
 				</div>
