@@ -1,4 +1,13 @@
 (function($) {
+	$.fn.isInViewport = function () {
+	    let elementTop = $(this).offset().top;
+	    let elementBottom = elementTop + $(this).outerHeight();
+
+	    let viewportTop = $(window).scrollTop();
+	    let viewportBottom = viewportTop + $(window).height();
+
+	    return elementBottom > viewportTop && elementTop < viewportBottom;
+	};
 	
 	$.fn.slideshow = function(options) {	
 	
@@ -6,13 +15,15 @@
 		var settings = $.extend({
 			
 			playbutton: false,
+			autoplay: false,
 			playslideduration: 3000,
+			pauseonviewport: false,
 			
 		}, options );
 		
 		return this.each(function() {
 
-
+			var myslideshow = $(this);
 			var slideIndex = 1;	
 			var slides = $(this).find(".mySlide");
 			var dots = $(this).find(".mydot");
@@ -85,6 +96,25 @@
 			else{			
 				prev.hide();
 				next.hide();				
+			}
+
+			if(settings.autoplay){				
+				//start progress animation
+				progress.stop( true, true ).animate({
+				  width: "100%"
+				}, settings.playslideduration, function () { $(this).removeAttr('style'); });
+
+				playSlideshow();
+			}
+
+			if(settings.autoplay && settings.pauseonviewport){
+				$(window).scroll(function () {
+				    if (myslideshow.isInViewport()) {
+				        playSlideshow();
+				    } else {
+				        pauseSlideshow();
+				    }
+				});
 			}
 			
 			

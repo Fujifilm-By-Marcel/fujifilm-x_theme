@@ -1,11 +1,16 @@
 <?php 
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', array(),'1.0.0');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.0.19'); 
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.19');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/css/jquery-slideshow.css', array(),'1.0.4');
+	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
+	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
+
+
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/js/common.js', array(), '1.0.0', true);
 	wp_enqueue_script('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/js/jquery-slideshow.js', array(), '1.0.0',true); 
 	wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/js/lazyload.js', array(), '1.22',true); 
+	wp_enqueue_script('owl-carousel', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/owl.carousel.min.js', array(), '1.0.1',true); 
 } 
 add_action( 'wp_enqueue_scripts', 'load_usa_js_css' );
 
@@ -20,9 +25,11 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 
 $terms = get_the_terms(get_the_ID(), 'creator_category');
 $term_name = trim ( $terms[0]->name );
+$isCreator = true;
 if( $term_name == "X‑Photographer" ){
 	$badgecolClass = "s6";
 	$badgecolHide = "";
+	$isCreator = false;
 } else {
 	$badgecolClass = "s12";
 	$badgecolHide = 'style="display:none;"';
@@ -31,7 +38,7 @@ if( $term_name == "X‑Photographer" ){
 <style>
 
 </style>
-<section class="main"> 
+<section class="main creators-single"> 
 	<?php 
 	require get_stylesheet_directory().'/en-us/creators/navigation.php';
 	?>
@@ -89,6 +96,7 @@ if( $term_name == "X‑Photographer" ){
 				<div class="social-icons lowres-only">
 					<?php if(get_sub_field('youtube')){ ?><a target="_blank" href="<?php the_sub_field('youtube') ?>"><span><img src="<?php echo $imgDirectory ?>svg/youtube-icon.svg"></span></a><?php } ?>
 					<?php if(get_sub_field('instagram')){ ?><a target="_blank" href="<?php the_sub_field('instagram') ?>"><span><img src="<?php echo $imgDirectory ?>svg/instagram-icon-black.svg"></span></a><?php } ?>
+					<?php if(get_sub_field('twitter')){ ?><a target="_blank" href="<?php the_sub_field('twitter') ?>"><span><img src="<?php echo $imgDirectory ?>svg/twitter-icon.svg?v=2"></span></a><?php } ?>
 					<?php if(get_sub_field('facebook')){ ?><a target="_blank" href="<?php the_sub_field('facebook') ?>"><span><img src="<?php echo $imgDirectory ?>svg/facebook-icon-black.svg"></span></a><?php } ?>
 					<?php if(get_sub_field('vimeo')){ ?><a target="_blank" href="<?php the_sub_field('vimeo') ?>"><span><img src="<?php echo $imgDirectory ?>svg/vimeo-logo.svg"></span></a><?php } ?>
 				</div>
@@ -102,6 +110,7 @@ if( $term_name == "X‑Photographer" ){
 					<div class="social-icons highres-only">
 						<?php if(get_sub_field('youtube')){ ?><a target="_blank" href="<?php the_sub_field('youtube') ?>"><span><img src="<?php echo $imgDirectory ?>svg/youtube-icon.svg"></span></a><?php } ?>
 						<?php if(get_sub_field('instagram')){ ?><a target="_blank" href="<?php the_sub_field('instagram') ?>"><span><img src="<?php echo $imgDirectory ?>svg/instagram-icon-black.svg"></span></a><?php } ?>
+						<?php if(get_sub_field('twitter')){ ?><a target="_blank" href="<?php the_sub_field('twitter') ?>"><span><img src="<?php echo $imgDirectory ?>svg/twitter-icon.svg?v=2"></span></a><?php } ?>
 						<?php if(get_sub_field('facebook')){ ?><a target="_blank" href="<?php the_sub_field('facebook') ?>"><span><img src="<?php echo $imgDirectory ?>svg/facebook-icon-black.svg"></span></a><?php } ?>
 						<?php if(get_sub_field('vimeo')){ ?><a target="_blank" href="<?php the_sub_field('vimeo') ?>"><span><img src="<?php echo $imgDirectory ?>svg/vimeo-logo.svg"></span></a><?php } ?>
 					</div>
@@ -127,7 +136,7 @@ if( $term_name == "X‑Photographer" ){
 			</div>
 		</div>
 	</div> 
-
+	<?php if(!$isCreator): ?>
 	<?php if( have_rows('gallery') ): ?>
 	<section class="gallery-container">
 		<div class="container">
@@ -155,14 +164,34 @@ if( $term_name == "X‑Photographer" ){
 		</div>
 	</section>
 	<?php endif; ?>
-
+	<?php else: ?>
+	<?php if( have_rows('gallery') ): ?>
+	<section class="creators-owl-container">
+		<div class="owl-carousel">
+		 	<?php 
+			$i = 0;
+			while( have_rows('gallery') ) : the_row(); 
+			$i++;
+			?>						
+			<a href="#" class="modal-opener" data-modal="modal-<?php echo $i; ?>">
+				<?php if( get_sub_field('youtube_id') ){ ?>
+				<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
+				<?php } 
+				$imgsrc = wp_get_attachment_image_src( get_sub_field('thumbnail_image'), full ); ?>
+				<img src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>">
+			</a>							
+		 	<?php endwhile; ?> 
+		</div>
+	</section>
+	<?php endif; ?>
+	<?php endif; ?>
 	<?php if( have_rows('gallery') ): ?>
 		<?php 
 		$i = 0;
 		while( have_rows('gallery') ) : the_row(); 
 		$i++;
 		?>
-		<div id="modal-<?php echo $i ?>" class="modal">
+		<div id="modal-<?php echo $i ?>" class="modal" onclick="closeModal(<?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>)">
 		    <div class="modal-content">
 		        <div class="close" onclick="closeModal(<?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>)">
 		            <span class="cursor">&times;</span>
@@ -273,7 +302,7 @@ if( $term_name == "X‑Photographer" ){
 	<?php $post_id = get_page_by_path( 'creators' ); ?>
 	<?php if( have_rows('about', $post_id)  ): ?>
     <?php while( have_rows('about', $post_id) ): the_row(); ?>
-	<section class="grey-background">
+	<!--<section class="grey-background">
 		<div class="container ">
 			<div class="row">
 				<div class="col s12 information-block center">
@@ -289,12 +318,12 @@ if( $term_name == "X‑Photographer" ){
 				</div>
 			</div>
 		</div>
-	</section>
+	</section>-->
 	<?php endwhile; ?>
 	<?php endif;  ?>
 	<?php if( have_rows('collaborate', $post_id) ): ?>
     <?php while( have_rows('collaborate', $post_id) ): the_row(); ?>
-	<section class="black-background">
+	<!--<section class="black-background">
 		<div class="container">
 			<div class="row">
 				<div class="col s12 information-block center">
@@ -310,9 +339,9 @@ if( $term_name == "X‑Photographer" ){
 				</div>
 			</div>
 		</div>
-		<?php endwhile; ?>
-		<?php endif; ?>
-	</section>
+	</section>-->
+	<?php endwhile; ?>
+	<?php endif; ?>
 </section>
 <script>
     // Open the Modal
@@ -343,6 +372,26 @@ if( $term_name == "X‑Photographer" ){
             jQuery(".my-slideshow").slideshow({				
 
 			});
+			jQuery('.owl-carousel').owlCarousel({
+			    margin:10,
+			    nav:true,
+			    responsive:{
+			        0:{
+			            items:1
+			        },
+			        600:{
+			            items:2
+			        },
+			        1120:{
+			            items:3
+			        },
+			        1800:{
+			        	items:4
+			        }
+			    }
+			});			
+			jQuery(".owl-prev span").text("");
+			jQuery(".owl-next span").text("");
 
         });
         $( window ).ready(function() {

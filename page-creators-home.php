@@ -4,13 +4,13 @@ Template Name: Page-creators-home
 */
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', false, NULL, 'all');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', false, NULL, 'all');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.10');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/css/jquery-slideshow.css',array(),'1.0.4');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
 	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
 
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/js/common.js', array(), '1.0.0', true);
-	wp_enqueue_script('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/js/jquery-slideshow.js', array(), '1.0.0',true); 
+	wp_enqueue_script('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/js/jquery-slideshow.js', array(), '1.0.3',true); 
 	wp_enqueue_script('owl-carousel', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/owl.carousel.min.js', array(), '1.0.1',true); 
 
 } 
@@ -24,7 +24,44 @@ get_header();
 get_sidebar();
  
 $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
+
+//get 5 random images from creator galleries
+$args = array(
+	'post_type' => 'creators',
+	'post_status' => array('publish'),
+	'orderby' => 'rand',
+	'posts_per_page' => 5,
+	'tax_query' => array(),
+);
+
+//iterate the query
+$randomized_images = [];
+$the_query = new WP_Query( $args );
+if ( $the_query->have_posts() ) : 
+while ( $the_query->have_posts() ) : $the_query->the_post(); 	
+	$randomized_gallery = get_field( 'gallery' );
+	shuffle( $randomized_gallery );
+	$myNode['name'] = get_the_title();
+	$myNode['image'] = wp_get_attachment_image_src( $randomized_gallery[0]['fullsize_image'], 'large' );
+	while ( $myNode['image'][2] >= 600 || !isset($myNode['image']) )
+	{
+		array_shift ( $randomized_gallery );
+		$myNode['image'] = wp_get_attachment_image_src( $randomized_gallery[0]['fullsize_image'], 'large' );			
+	}
+
+	array_push( $randomized_images, $myNode );
+
+endwhile;
+endif; 
+wp_reset_postdata(); 
+
+
+//echo "<pre>";
+//print_r($randomized_images);
+//echo "</pre>";
 ?>
+
+
 <section class="main creators-home" style="margin-top: 71px;"> 
 	<?php 
 	require get_stylesheet_directory().'/en-us/creators/navigation.php';
@@ -41,17 +78,19 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 				<div class="col s12 m12 l8">
 					<div class="my-slideshow">
 						<div class="slides-container">
-							<?php while ( have_rows('slideshow') ) : the_row(); ?>
+							<?php foreach ($randomized_images as $randomized_image ) { ?>
 							<div class="mySlide">
-								<img src="<?php the_sub_field("image") ?>" />									
-								<p class="photo-credit"><?php the_sub_field("creator_name") ?></p> 
+								<img src="<?php echo $randomized_image['image'][0] ?>" width="<?php echo $randomized_image['image'][1] ?>" height="<?php echo $randomized_image['image'][2] ?>" />									
+								<p class="photo-credit"><?php echo $randomized_image["name"] ?></p> 
 							</div>							
-							<?php endwhile; ?>
+							<?php } ?>
+							<div class="myoverlay"><button class='myplaybutton'></button></div>
+							<div class="myprogressbar"><div class="myprogress"></div></div>
 						</div>						
 						<div class="slideshow-nav">
-							<?php while ( have_rows('slideshow') ) : the_row(); ?>
+							<?php foreach ($randomized_images as $randomized_image ) { ?>
 							<span class="mydot"></span> 
-							<?php endwhile;	?>
+							<?php }	?>
 						</div>
 					</div>
 					<div class="col s12 information-block center">
@@ -76,8 +115,7 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 			$args = array(
 				'post_type' => 'creators',
 				'post_status' => array('publish'),
-				'orderby' => 'publish_date',  
-				'order' => 'DESC',
+				'orderby' => 'rand',
 				'posts_per_page' => -1,
 			);
 
@@ -90,7 +128,12 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
             ?>
 			<div class="col creator">				
 				<div class="creator-content"> 
-					<img width="160" height="160" src="<?php the_field("archive_portrait"); ?>">
+					<div class="creator-portrait-container">
+						<img class="portrait" width="160" height="160" src="<?php the_field("archive_portrait"); ?>" <?php echo $srcset; ?> >
+						<?php if($term_name == "X‑Photographer") { ?>
+						<img class="badge" width="34" height="34" src="<?php echo $imgDirectory ?>x-photographer-badge-small.png" srcset="<?php echo $imgDirectory ?>x-photographer-badge-small.png 1x, <?php echo $imgDirectory ?>x-photographer-badge-small@2x.png 2x, <?php echo $imgDirectory ?>x-photographer-badge-small@3x.png 3x">
+						<?php } ?>
+					</div>
 					<h3><?php echo $term_name ?></h3>
 					<p class="creator-name"><?php the_title(); ?></p>
 					<h3>BIO</h3>
@@ -101,12 +144,12 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 			<?php endwhile;	?>
 			<?php endif; ?>				
 		</div> 
-		<p class="meet-creators"><a href="<?php echo get_permalink( get_page_by_path( 'creators' ) ) ?>">Meet the rest of the creators <span class="arrow-right"></span></a></p>
+		<p class="meet-creators"><a href="<?php echo get_permalink( get_page_by_path( 'creators' ) ) ?>">Meet the rest of our creators <span class="arrow-right"></span></a></p>
 	</section>
 	<?php $post_id = get_page_by_path( 'creators' ); ?>
 	<?php if( have_rows('about', $post_id)  ): ?>
     <?php while( have_rows('about', $post_id) ): the_row(); ?>
-	<section class="grey-background">
+	<!--<section class="grey-background">
 		<div class="container ">
 			<div class="row">
 				<div class="col s12 information-block center">
@@ -122,12 +165,12 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 				</div>
 			</div>
 		</div>
-	</section>
+	</section>-->
 	<?php endwhile; ?>
 	<?php endif;  ?>
 	<?php if( have_rows('collaborate', $post_id) ): ?>
     <?php while( have_rows('collaborate', $post_id) ): the_row(); ?>
-	<section class="black-background">
+	<!--<section class="black-background">
 		<div class="container">
 			<div class="row">
 				<div class="col s12 information-block center">
@@ -143,16 +186,27 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 				</div>
 			</div>
 		</div>
-		<?php endwhile; ?>
-		<?php endif; ?>
-	</section>
+	</section>-->
+	<?php endwhile; ?>
+	<?php endif; ?>
 </section>
 <script>
 	//onclick for video opener
     (function ($, document) {
+    	$.fn.isInViewport = function () {
+		    let elementTop = $(this).offset().top;
+		    let elementBottom = elementTop + $(this).outerHeight();
+
+		    let viewportTop = $(window).scrollTop();
+		    let viewportBottom = viewportTop + $(window).height();
+
+		    return elementBottom > viewportTop && elementTop < viewportBottom;
+		};
         $(document).ready(function () {
             jQuery(".my-slideshow").slideshow({				
-
+            	playbutton: true,
+            	pauseonviewport: true,
+            	autoplay: true,
 			});
 			jQuery('.owl-carousel').owlCarousel({
 			    loop:true,
@@ -179,7 +233,7 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 			jQuery(".winslow-left").show();
 			jQuery(".winslow-right").show();
 			jQuery(".page-tagline").show();
-			
+			//$(".myplaybutton").click();
         });
 
     }(jQuery, document));

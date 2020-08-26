@@ -1,7 +1,7 @@
 <?php 
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', false, NULL, 'all');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.0.6');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.18');
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/js/common.js', array(), '1.0.0', true);
 } 
 add_action( 'wp_enqueue_scripts', 'load_usa_js_css' );
@@ -93,14 +93,14 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 				</div>
 			</div>
 		</div>
-		<div class="row creator-filters creator-tags">
+		<div class="row creator-filters creator-tags is-not-modal">
 			<div class="col s12">
 				<div class="row">
 					<div class="filters">
 						<div class="col s12 filter-container">				
 							<p>
 								<span class="filter-instructions">PHOTOGRAPHIC STYLE ></span>
-								<span class="filter-option clear-all"><a href="#" onclick="clearTags(this);return false;">CLEAR ALL <span class="close">X</span></a></span>
+								<span class="filter-option clear-all"><a href="#" onclick="clearTags(this);return false;">CLEAR&nbsp;ALL&nbsp;<span class="cancel-filter">X</span></a></span>
 								<?php
 								function tagHasPosts($cat, $tag){
 									$args = array(
@@ -138,10 +138,11 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 								foreach ( $terms as $term ) { 
 									if( is_post_type_archive("creators") || tagHasPosts($activeCat, $term->slug) ){
 									?>
-						            <span class="filter-option <?php echo getTagActiveClass($term->slug); ?>"><a href="#" onclick="filterTag(this);return false;"><span class="term" data-slug="<?php echo $term->slug; ?>"><?php echo $term->name; ?></span> <span class="close">X</span></a></span>
+						            <span class="filter-option <?php echo getTagActiveClass($term->slug); ?> desktop-only"><a href="#" onclick="filterTag(this);return false;"><span class="term" data-slug="<?php echo $term->slug; ?>"><?php echo $term->name; ?></span>&nbsp;<span class="cancel-filter">X</span></a></span>
 						        <?php } 
 						    	} ?>  								    
 								<?php endif;  ?>
+								<span class="filter-option select-style"><a style="cursor:pointer;" onclick="showTagModal(this);return false;">Select&nbsp;Styles</a></span>
 							</p>						
 						</div>
 					</div>
@@ -149,6 +150,59 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 			</div>
 		</div>
 	</div> 
+	<script>
+		function showTagModal(obj){
+			(function($, obj) {
+				$("#tagModal").show();
+			})( jQuery, obj );
+		}
+	    function closeModal() {
+	        (function($) {
+	            $(".modal").css("display","none");
+	        })( jQuery );
+	    }
+	    (function ($, document) {
+	        $(document).ready(function () {
+	            if(true){
+
+	            }
+	        });
+	    }(jQuery, document));
+	</script>
+	<div class="modal" id="tagModal" style="display:none;">
+		<div class="modal-content" style="padding:2rem 0">
+			<div class="close" onclick="closeModal()">
+				<span class="cursor">&times;</span>
+			</div>
+			<h3>PHOTOGRAPHIC STYLE</h3>
+			<div class="row creator-filters creator-tags is-modal">
+				<div class="col s12">
+					<div class="row">
+						<div class="filters">
+							<div class="col s12 filter-container">
+								<p>					
+									<span class="filter-option clear-all"><a href="#" onclick="clearTags(this);return false;">CLEAR&nbsp;ALL&nbsp;<span class="cancel-filter">X</span></a></span>
+									<?php
+									$args = array();
+									$args['taxonomy'] = 'creator_tag';
+									$terms = get_terms($args); // Get all terms of a taxonomy
+									if ( $terms && !is_wp_error( $terms ) ) :
+									foreach ( $terms as $term ) { 
+										if( is_post_type_archive("creators") || tagHasPosts($activeCat, $term->slug) ){
+										?>
+							            <span class="filter-option <?php echo getTagActiveClass($term->slug); ?>"><a href="#" onclick="filterTag(this);return false;"><span class="term" data-slug="<?php echo $term->slug; ?>"><?php echo $term->name; ?></span>&nbsp;<span class="cancel-filter">X</span></a></span>
+							        <?php } 
+							    	} ?>  								    
+									<?php endif;  ?>								
+								</p>	
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<div class="container">
 		<div class="row creators">
@@ -160,8 +214,7 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 			$args = array(
 				'post_type' => 'creators',
 				'post_status' => array('publish'),
-				'orderby' => 'publish_date',  
-				'order' => 'DESC',
+				'orderby' => 'rand',  
 				'paged' => $paged,
 				'posts_per_page' => 9,
 				'tax_query' => array(),
@@ -214,7 +267,12 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 						$srcset = "";
 					}
 					?>
-					<img width="160" height="160" src="<?php the_field("archive_portrait"); ?>" <?php echo $srcset; ?> >
+					<div class="creator-portrait-container">
+						<img class="portrait" width="160" height="160" src="<?php the_field("archive_portrait"); ?>" <?php echo $srcset; ?> >
+						<?php if($term_name == "X‑Photographer") { ?>
+						<img class="badge" width="34" height="34" src="<?php echo $imgDirectory ?>x-photographer-badge-small.png" srcset="<?php echo $imgDirectory ?>x-photographer-badge-small.png 1x, <?php echo $imgDirectory ?>x-photographer-badge-small@2x.png 2x, <?php echo $imgDirectory ?>x-photographer-badge-small@3x.png 3x">
+						<?php } ?>
+					</div>
 					<h3><?php echo $term_name ?></h3>
 					<p class="creator-name"><?php the_title(); ?></p>
 					<h3>BIO</h3>
@@ -259,7 +317,11 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 <script>
 function filterTag(obj){
 	toggleTag(obj);	  
-	registerTags(); 
+	var zone = "";
+	if( obj.closest(".modal") !== null ){
+		zone = "modal";
+	}
+	registerTags(zone); 
 }
 function clearTags(obj){
 	(function($) {
@@ -271,9 +333,14 @@ function clearTags(obj){
 	})( jQuery );
 	
 }
-function registerTags(){
+function registerTags(zone){
 	(function($) {
-		var tags = $(".creator-tags .filter-option.active a .term");
+		if(zone == "modal"){
+			var tags = $(".creator-tags.is-modal .filter-option.active a .term");
+		} else{
+			console.log("zone is not modal");
+			var tags = $(".creator-tags.is-not-modal .filter-option.active a .term");
+		}
 		var inputVal = "";
 		var length = tags.length;
 		tags.each(function(i,e){
