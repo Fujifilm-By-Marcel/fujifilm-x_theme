@@ -4,7 +4,7 @@ Template Name: Page-creators-about
 */
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', false, NULL, 'all');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.0.33'); 
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.10');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/css/jquery-slideshow.css', array(),'1.0.4');
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/js/common.js', array(), '1.0.0', true);
 	wp_enqueue_script('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/js/jquery-slideshow.js', array(), '1.0.0',true);
@@ -48,7 +48,7 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 			</div>
 			<div class="row about-tab-sliders">
 				<div class="col s12">
-					<h2>How do I become a Creator or X-Photographer?</h2>
+					<h2><?php the_field('instructions_header'); ?></h2>
 				</div>
 				<div class="col s12">				
 					<?php if( have_rows('creator_instructions') ): ?>			    
