@@ -108,9 +108,7 @@ wp_reset_postdata();
 	<section class="creators-owl-container">
 		<div class="row creators owl-carousel">
 			<?php
-			//get page
-            $paged = ( $_GET['page'] ) ? $_GET['page'] : 1;
-			
+				
             //setup args
 			$args = array(
 				'post_type' => 'creators',
@@ -129,6 +127,17 @@ wp_reset_postdata();
 			<div class="col creator">				
 				<div class="creator-content"> 
 					<div class="creator-portrait-container">
+						<?php 
+						if( get_field("archive_portrait_2x") && get_field("archive_portrait_3x") ){
+							$srcset = "srcset='";
+							$srcset .= get_field("archive_portrait")." 1x, ";
+							$srcset .= get_field("archive_portrait_2x")." 2x, ";
+							$srcset .= get_field("archive_portrait_3x")." 3x, ";
+							$srcset .= "'";
+						} else {
+							$srcset = "";
+						}
+						?>
 						<img class="portrait" width="160" height="160" src="<?php the_field("archive_portrait"); ?>" <?php echo $srcset; ?> >
 						<?php if($term_name == "X‑Photographer") { ?>
 						<img class="badge" width="34" height="34" src="<?php echo $imgDirectory ?>x-photographer-badge-small.png" srcset="<?php echo $imgDirectory ?>x-photographer-badge-small.png 1x, <?php echo $imgDirectory ?>x-photographer-badge-small@2x.png 2x, <?php echo $imgDirectory ?>x-photographer-badge-small@3x.png 3x">
@@ -138,7 +147,7 @@ wp_reset_postdata();
 					<p class="creator-name"><?php the_title(); ?></p>
 					<h3>BIO</h3>
 					<p class="creator-desc"><?php the_field("short_bio"); ?></p>
-					<a class="creator-btn" href="<?php the_permalink() ?>">view profile</a>
+					<a class="creator-btn" href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>">view profile</a>
 				</div>
 			</div>
 			<?php endwhile;	?>

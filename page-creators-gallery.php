@@ -4,7 +4,7 @@ Template Name: Page-creators-gallery
 */
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', false, NULL, 'all');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.18');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.21');
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/js/common.js', array(), '1.0.0', true);
 	wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/js/lazyload.js', array(), '1.22',true); 
 } 
@@ -13,6 +13,7 @@ add_action( 'wp_enqueue_scripts', 'load_usa_js_css' );
 //ini_set('display_errors', 1);
 //ini_set('display_startup_errors', 1);
 //error_reporting(E_ALL);
+
 
 get_header(); 
 get_sidebar();
@@ -304,7 +305,7 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 						$i++;
 						?>
 						<div id="modal-<?php echo $i ?>" class="modal" onclick="closeModal(<?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>)" >
-						    <div class="modal-content">
+						    <div class="modal-content" style="background: transparent;">
 						        <div class="close" onclick="closeModal(<?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>)">
 						            <span class="cursor">&times;</span>
 						        </div>		        
@@ -312,8 +313,46 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 						        	<?php if( get_sub_field('youtube_id') ){ ?>		
 						        	<iframe class="resp-inner" src="https://www.youtube.com/embed/<?php the_sub_field('youtube_id') ?>" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 						        	<?php } else { 
-						        	$imgsrc = wp_get_attachment_image_src( get_sub_field('fullsize_image'), 'large' ); ?>						        	
-						        	<img class="normal-inner lazyload" data-src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>" >
+						        	$imgsrc = wp_get_attachment_image_src( get_sub_field('fullsize_image'), 'large' ); 
+						        	$isVertical = false;
+						        	$verticalStyle = "style='max-height: 80vh;width: auto;'";
+						        	$horizontalStyle = "style='max-width: 70vw;height: auto;'";
+						        	
+						        	if( $imgsrc[1]/$imgsrc[2] <= 1 ){
+						        		$isVertical = true;
+						        	}
+						        	?>						        	
+						        	<img <?php if($isVertical){echo $verticalStyle;}else{echo $horizontalStyle;} ?> class="normal-inner lazyload" data-src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>" >
+						        	<?php 
+						        	/*$path = str_replace("https://fujifilm-x.com", "", $imgsrc[0] );
+						        	echo ABSPATH.$path;
+									$metadata = exif_read_data( ABSPATH .$path );*/
+									
+									//echo "<pre>";
+									//print_r( $metadata );
+									//echo "</pre>";
+									/*echo "<p style='color: white;'>";
+									echo "<span><strong>Camera Used:</strong> ";
+									if( isset($metadata['Model']) ){ echo $metadata['Model']." "; } else { echo "blank "; }
+									echo "</span><br>";
+
+									echo "<span><strong>Focal Length:</strong> ";
+									if( isset($metadata['FocalLength']) ){ echo eval ( 'return '.$metadata['FocalLength'].";" )." mm"." "; } else { echo "blank "; }
+									echo "</span><br>";
+
+									echo "<span><strong>Shutter:</strong> ";
+									if( isset($metadata['ExposureTime']) ){ echo $metadata['ExposureTime']." sec."." "; } else { echo "blank "; }
+									echo "</span><br>";
+
+									echo "<span><strong>ISO:</strong> ";
+									if( isset($metadata['ISOSpeedRatings']) ){ echo $metadata['ISOSpeedRatings']." "; } else { echo "blank "; }
+									echo "</span><br>";
+
+									echo "<span><strong>Aperture:</strong> ";
+									if( isset($metadata['COMPUTED']['ApertureFNumber']) ){ echo $metadata['COMPUTED']['ApertureFNumber']." "; } else { echo "blank "; }
+									echo "</span>";
+									echo "</p>";*/
+						        	?>
 						        	<?php } ?>
 						    	</div>		    	
 						    </div>
@@ -461,9 +500,10 @@ function clearSearch(){
         $( window ).ready(function() {
 			lazyload();
 		});
+		$(document).on('contextmenu', 'img', function() {
+		    return false;
+		})
     }(jQuery, document));
-
-
 
 </script>
 
