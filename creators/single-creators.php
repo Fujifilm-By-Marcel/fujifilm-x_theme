@@ -1,7 +1,7 @@
 <?php 
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', array(),'1.0.0');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.19');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.21');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/css/jquery-slideshow.css', array(),'1.0.4');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
 	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
@@ -13,7 +13,7 @@ function load_usa_js_css(){
 	wp_enqueue_script('owl-carousel', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/owl.carousel.min.js', array(), '1.0.1',true); 
 } 
 add_action( 'wp_enqueue_scripts', 'load_usa_js_css' );
-
+ 
 //ini_set('display_errors', 1);
 //ini_set('display_startup_errors', 1);
 //error_reporting(E_ALL);
@@ -153,7 +153,7 @@ if( $term_name == "X‑Photographer" ){
 								<?php if( get_sub_field('youtube_id') ){ ?>
 								<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
 								<?php } 
-								$imgsrc = wp_get_attachment_image_src( get_sub_field('thumbnail_image'), full ); ?>
+								$imgsrc = wp_get_attachment_image_src( get_sub_field('thumbnail_image'), 'full' ); ?>
 								<img class="lazyload" data-src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>">
 							</a>							
 						 	<?php endwhile; ?> 
@@ -177,7 +177,7 @@ if( $term_name == "X‑Photographer" ){
 				<?php if( get_sub_field('youtube_id') ){ ?>
 				<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
 				<?php } 
-				$imgsrc = wp_get_attachment_image_src( get_sub_field('thumbnail_image'), full ); ?>
+				$imgsrc = wp_get_attachment_image_src( get_sub_field('thumbnail_image'), 'full' ); ?>
 				<img src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>">
 			</a>							
 		 	<?php endwhile; ?> 
@@ -200,8 +200,15 @@ if( $term_name == "X‑Photographer" ){
 		        	<?php if( get_sub_field('youtube_id') ){ ?>		
 		        	<iframe class="resp-inner" src="https://www.youtube.com/embed/<?php the_sub_field('youtube_id') ?>" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 		        	<?php } else { 
-		        	$imgsrc = wp_get_attachment_image_src( get_sub_field('fullsize_image'), large ); ?>
-		        	<img class="normal-inner lazyload" data-src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>" >
+		        	$imgsrc = wp_get_attachment_image_src( get_sub_field('fullsize_image'), 'large' ); 
+		        	$isVertical = false;
+		        	$verticalStyle = "style='max-height: 80vh;width: auto;'";
+		        	$horizontalStyle = "style='max-width: 70vw;height: auto;'";
+		        	if( $imgsrc[1]/$imgsrc[2] <= 1 ){
+		        		$isVertical = true;
+		        	}
+		        	?>
+		        	<img <?php if($isVertical){echo $verticalStyle;}else{echo $horizontalStyle;} ?> class="normal-inner lazyload" data-src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>" >
 		        	<?php } ?>
 		    	</div>		    	
 		    </div>
@@ -382,16 +389,22 @@ if( $term_name == "X‑Photographer" ){
 			        600:{
 			            items:2
 			        },
+			        800:{
+  						items:3
+			        },
 			        1120:{
-			            items:3
+			            items:4
 			        },
 			        1800:{
-			        	items:4
+			        	items:5
 			        }
 			    }
 			});			
 			jQuery(".owl-prev span").text("");
 			jQuery(".owl-next span").text("");
+			$(document).on('contextmenu', 'img', function() {
+			    return false;
+			})
 
         });
         $( window ).ready(function() {

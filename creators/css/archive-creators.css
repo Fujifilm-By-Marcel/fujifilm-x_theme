@@ -435,8 +435,8 @@
 .main .modal {
   display: none;
   position: fixed;
-  z-index: 1;
-  padding-top: 100px;
+  z-index: 35;
+  padding-top: 50px;
   left: 0;
   top: 0;
   width: 100%;
@@ -892,7 +892,6 @@
 .creators-single section.creators-owl-container .owl-carousel .owl-stage .owl-item a {
   display: block;
   overflow: hidden;
-  max-height: 245px;
 }
 @media (max-width: 600px) {
   .creators-single section.creators-owl-container {
