@@ -420,7 +420,6 @@
   display: none;
   position: fixed;
   z-index: 35;
-  padding-top: 50px;
   left: 0;
   top: 0;
   width: 100%;
@@ -436,6 +435,8 @@
   display: inline-block;
   max-width: 80%;
   margin: 0 30px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .main .modal .modal-content .modal-prev {
   position: absolute;
@@ -469,10 +470,10 @@
 }
 @media (max-width: 600px) {
   .main .modal .modal-content .modal-prev {
-    left: -22px;
+    display: none;
   }
   .main .modal .modal-content .modal-next {
-    right: -22px;
+    display: none;
   }
 }
 .main .modal .modal-content .close {
@@ -501,8 +502,6 @@
   cursor: pointer;
 }
 .main .modal .modal-content .resp-container.youtube {
-  position: relative;
-  overflow: hidden;
   padding-top: 56.25%;
   width: 70vw;
 }
@@ -514,15 +513,14 @@
   height: 100%;
   border: 0;
 }
-.main .modal .modal-content .resp-container.image {
+.main .modal .modal-content .resp-container {
   position: relative;
   overflow: hidden;
 }
-.main .modal .modal-content .resp-container.image .resp-inner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  border: 0;
+.main .modal .modal-content .resp-container .resp-inner,
+.main .modal .modal-content .resp-container img {
+  max-height: 80vh;
+  width: auto;
 }
 .main .modal#tagModal .modal-content {
   background-color: #fefefe;

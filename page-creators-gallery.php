@@ -4,7 +4,7 @@ Template Name: Page-creators-gallery
 */
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', false, NULL, 'all');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.31');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.33');
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/js/common.js', array(), '1.0.0', true);
 	wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/js/lazyload.js', array(), '1.22',true); 
 } 
@@ -296,15 +296,15 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 						        	<iframe class="resp-inner" src="<?php the_sub_field('video_src') ?>" width="<?php the_sub_field('video_width') ?>" height="<?php the_sub_field('videoyoutube_height') ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen;" allowfullscreen></iframe>
 						        	<?php } else { 
 						        	$imgsrc = wp_get_attachment_image_src( get_sub_field('fullsize_image'), 'full' ); 
-						        	$isVertical = false;
+						        	/*$isVertical = false;
 						        	$verticalStyle = "style='max-height: 80vh;width: auto;'";
 						        	$horizontalStyle = "style='max-height: 80vh;width: auto;'";
 						        	
 						        	if( $imgsrc[1]/$imgsrc[2] <= 1 ){
 						        		$isVertical = true;
-						        	}
+						        	}*/
 						        	?>						        	
-						        	<img <?php if($isVertical){echo $verticalStyle;}else{echo $horizontalStyle;} ?> class="normal-inner lazyload" data-src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>" >
+						        	<img <?php //if($isVertical){echo $verticalStyle;}else{echo $horizontalStyle;} ?> class="normal-inner lazyload" data-src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>" >
 						        	<?php 
 						        	/*$path = str_replace("https://fujifilm-x.com", "", $imgsrc[0] );
 						        	echo ABSPATH.$path;
