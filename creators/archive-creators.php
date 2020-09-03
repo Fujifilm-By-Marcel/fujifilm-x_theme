@@ -1,7 +1,7 @@
 <?php 
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', false, NULL, 'all');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.18');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.19');
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/js/common.js', array(), '1.0.0', true);
 } 
 add_action( 'wp_enqueue_scripts', 'load_usa_js_css' );
@@ -208,15 +208,15 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 		<div class="row creators">
 			<?php
 			//get page
-            $paged = ( $_GET['page'] ) ? $_GET['page'] : 1;
+            //$paged = ( $_GET['page'] ) ? $_GET['page'] : 1;
 			
             //setup args
 			$args = array(
 				'post_type' => 'creators',
 				'post_status' => array('publish'),
 				'orderby' => 'rand',  
-				'paged' => $paged,
-				'posts_per_page' => 9,
+				//'paged' => $paged,
+				'posts_per_page' => -1,
 				'tax_query' => array(),
 			);
 
@@ -254,7 +254,7 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 			$terms = get_the_terms(get_the_ID(), 'creator_category');
 			$term_name = $terms[0]->name;
             ?>
-			<div class="col s12 m6 l6 xl4 creator">				
+			<div class="col s12 m6 l6 xl4 creator" style="display:none;">				
 				<div class="creator-content"> 
 					<?php 
 					if( get_field("archive_portrait_2x") && get_field("archive_portrait_3x") ){
@@ -290,26 +290,31 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 		</div>
 		<div class="row">
 			<div class="col s12">
+				<div class="load-more-button"><a onclick="loadMore();">Load More</a></div>
+				<!--
 				<div class="pagenation">
 			      <?php 
-			          $pagination = paginate_links( array(
-			              'base'         => @add_query_arg('page','%#%'),
-			              'total'        => $the_query->max_num_pages,
-			              'current'      => $paged,
-			              'format'       => '?paged=%#%',
-			              'show_all'     => false,
-			              'type'         => 'list',
-			              'end_size'     => 2,
-			              'mid_size'     => 1,
-			              'prev_next'    => true,
-			              'add_fragment' => '',
-			          ) );
-			          //str_replace( "pagination", 'pagenation', $pagination );
-			          $pagination = str_replace( " Previous", '', $pagination );
-			          $pagination = str_replace( "Next ", '', $pagination );
-			          print_r($pagination);
+					/*
+					$pagination = paginate_links( array(
+						'base'         => @add_query_arg('page','%#%'),
+						'total'        => $the_query->max_num_pages,
+						'current'      => $paged,
+						'format'       => '?paged=%#%',
+						'show_all'     => false,
+						'type'         => 'list',
+						'end_size'     => 2,
+						'mid_size'     => 1,
+						'prev_next'    => true,
+						'add_fragment' => '',
+					) );
+					//str_replace( "pagination", 'pagenation', $pagination );
+					$pagination = str_replace( " Previous", '', $pagination );
+					$pagination = str_replace( "Next ", '', $pagination );
+					print_r($pagination);
+					*/
 			      ?>
 			    </div>
+				-->
 			</div>
 		</div>
 	</div>
@@ -367,6 +372,30 @@ function clearSearch(){
 	$("input#search").val("");
 	$("form#search-form").submit();
 }
+function loadMore(){
+	(function($) {		
+		var hiddenCreators = $(".creator:hidden");
+		hiddenCreators.each(function(i,e){
+			var e = $(e);						
+			if( i<6 ){
+				e.show();
+				if( $(".creator:hidden").length <= 0 ){
+					$(".load-more-button").hide();
+				}
+			} else {
+				return false
+			}			
+		});
+	})( jQuery);
+}
+
+(function ($, document) {
+	$(document).ready(function () {
+		loadMore();
+		console.log("clicked");
+	});
+}(jQuery, document));
+
 </script>
 
 <?php get_footer();  ?>
