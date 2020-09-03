@@ -153,29 +153,9 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 			</div>
 		</div>
 	</div> 
-
-	<script>
-		function showTagModal(obj){
-			(function($, obj) {
-				$("#tagModal").show();
-			})( jQuery, obj );
-		}
-	    function closeModal() {
-	        (function($) {
-	            $(".modal").css("display","none");
-	        })( jQuery );
-	    }
-	    (function ($, document) {
-	        $(document).ready(function () {
-	            if(true){
-
-	            }
-	        });
-	    }(jQuery, document));
-	</script>
 	<div class="modal" id="tagModal" style="display:none;">
 		<div class="modal-content" style="padding:2rem 0">
-			<div class="close" onclick="closeModal()">
+			<div class="close" onclick="closeModal(false, event)">
 				<span class="cursor">&times;</span>
 			</div>
 			<h3>PHOTOGRAPHIC STYLE</h3>
@@ -304,9 +284,11 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 						while( have_rows('gallery') ) : the_row(); 
 						$i++;
 						?>
-						<div id="modal-<?php echo $i ?>" class="modal" onclick="closeModal(<?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>)" >
+						<div id="modal-<?php echo $i ?>" class="modal" onclick="closeModal(<?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>, event)" >
 						    <div class="modal-content" style="background: transparent;">
-						        <div class="close" onclick="closeModal(<?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>)">
+						    	<div class="modal-prev" onclick="iterateModals(-1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>)"><span></span></div>
+		    					<div class="modal-next" onclick="iterateModals(1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>)"><span></span></div>
+						        <div class="close" onclick="closeModal(<?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>, event)">
 						            <span class="cursor">&times;</span>
 						        </div>		        
 						        <div class="resp-container <?php echo ( get_sub_field('youtube_id') ? "youtube" : "image" ) ?>">
@@ -395,97 +377,139 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 	</div>
 </section>
 <script>
-function filterCat(obj){
-	toggleTag(obj);	  
-	registerCat(obj); 
-}
-function registerCat(obj){
-	(function($, obj) {
-		var inputVal = $(obj).data("slug");
-		$("input#cat").val(inputVal);
-		$("input#tags").val("");
-		$("form#search-form").submit();
-	})( jQuery, obj );
-}
-function clearCat(obj){
-	(function($) {
-		$("input#cat").val("");
-		$("input#tags").val("");
-		$("form#search-form").submit();
-	})( jQuery );	
-}
-
-
-
-function filterTag(obj){
-	toggleTag(obj);	  
-	var zone = "";
-	if( obj.closest(".modal") !== null ){
-		zone = "modal";
+	function filterCat(obj){
+		toggleTag(obj);	  
+		registerCat(obj); 
 	}
-	registerTags(zone); 
-}
-function clearTags(obj){
-	(function($) {
-		$(".creator-tags .filter-option.active a .term").each(function(i,e){
-			$(e.closest(".filter-option")).removeClass("active");
-		});
-		registerTags();
-		$("form#search-form").submit();
-	})( jQuery );
-	
-}
-function registerTags(zone){
-	(function($) {
-		if(zone == "modal"){
-			var tags = $(".creator-tags.is-modal .filter-option.active a .term");
-		} else{
-			console.log("zone is not modal");
-			var tags = $(".creator-tags.is-not-modal .filter-option.active a .term");
+	function registerCat(obj){
+		(function($, obj) {
+			var inputVal = $(obj).data("slug");
+			$("input#cat").val(inputVal);
+			$("input#tags").val("");
+			$("form#search-form").submit();
+		})( jQuery, obj );
+	}
+	function clearCat(obj){
+		(function($) {
+			$("input#cat").val("");
+			$("input#tags").val("");
+			$("form#search-form").submit();
+		})( jQuery );	
+	}
+
+
+
+	function filterTag(obj){
+		toggleTag(obj);	  
+		var zone = "";
+		if( obj.closest(".modal") !== null ){
+			zone = "modal";
 		}
-		var inputVal = "";
-		var length = tags.length;
-		tags.each(function(i,e){
-			inputVal += $(e).data("slug");
-			if (i !== (length - 1)) {
-				inputVal += ",";
+		registerTags(zone); 
+	}
+	function clearTags(obj){
+		(function($) {
+			$(".creator-tags .filter-option.active a .term").each(function(i,e){
+				$(e.closest(".filter-option")).removeClass("active");
+			});
+			registerTags();
+			$("form#search-form").submit();
+		})( jQuery );
+		
+	}
+	function registerTags(zone){
+		(function($) {
+			if(zone == "modal"){
+				var tags = $(".creator-tags.is-modal .filter-option.active a .term");
+			} else{
+				console.log("zone is not modal");
+				var tags = $(".creator-tags.is-not-modal .filter-option.active a .term");
 			}
-		});
-		$("input#tags").val(inputVal);
+			var inputVal = "";
+			var length = tags.length;
+			tags.each(function(i,e){
+				inputVal += $(e).data("slug");
+				if (i !== (length - 1)) {
+					inputVal += ",";
+				}
+			});
+			$("input#tags").val(inputVal);
+			$("form#search-form").submit();
+		})( jQuery );
+	}
+	function toggleTag(obj){
+		(function($, obj) {
+			jQueryObj = $(obj.closest(".filter-option"));
+			if(!jQueryObj.hasClass("active")){
+				jQueryObj.addClass("active");
+			} else {
+				jQueryObj.removeClass("active");
+			}
+		})( jQuery, obj );
+	}
+	function clearSearch(){
+		$("input#search").val("");
 		$("form#search-form").submit();
-	})( jQuery );
-}
-function toggleTag(obj){
-	(function($, obj) {
-		jQueryObj = $(obj.closest(".filter-option"));
-		if(!jQueryObj.hasClass("active")){
-			jQueryObj.addClass("active");
-		} else {
-			jQueryObj.removeClass("active");
-		}
-	})( jQuery, obj );
-}
-function clearSearch(){
-	$("input#search").val("");
-	$("form#search-form").submit();
-}
-</script>
-<script>
+	}
+
     // Open the Modal
     function openModal(myElement) {
         jQuery("#"+myElement).css("display","block");
     }
     // Close the Modal
-    function closeModal(isVideo) {
+    function closeModal(isVideo, e) {
         (function($) {
-            $(".modal").css("display","none");
-            if(isVideo){  
-                $('.resp-inner').each(function(){
-                    this.src = this.src;
-                });       
+        	if ( $(e.target).hasClass("close") || $(e.target).hasClass("modal") || $(e.target).hasClass("cursor") || e == "iterate" ){	           
+        		$(".modal").css("display","none");
+	            if(isVideo){  
+	                $('.resp-inner').each(function(){
+	                    this.src = this.src;
+	                });       
+	            }
             }
         })( jQuery );
     }
+    function iterateModals(direction, dataModal, isVideo){
+    	var myModal = $( ".modal-opener[data-modal='"+dataModal+"']" );
+    	closeModal(isVideo, "iterate");
+    	var myOwl = myModal.closest(".owl-item");    	
+    	if(direction == 1){
+    		if( myOwl.length ){
+    			if( myOwl.next().length ){
+    				openModal(myOwl.next().find(".modal-opener").data('modal'));	    			
+    			} else {
+    				openModal($(".owl-item").first().find(".modal-opener").data('modal'));
+    			}
+    		}
+    		else{
+    			if( myModal.next().length ){
+    				openModal(myModal.next().data('modal'));    			
+    			} else {
+    				openModal($(".modal-opener").first().data('modal'));    			
+    			}
+    		}
+    	} else if (direction == -1){
+    		if( myOwl.length ){
+    			if( myOwl.prev().length ){
+    				openModal(myOwl.prev().find(".modal-opener").data('modal'));    			
+    			} else {
+					openModal($(".owl-item").last().find(".modal-opener").data('modal'));
+    			}
+    		}
+    		else{
+    			if( myModal.prev().length ){
+    				openModal(myModal.prev().data('modal'));    			
+    			} else {
+    				openModal($(".modal-opener").last().data('modal'));    			
+    			}
+    		}
+    	}
+    }
+	function showTagModal(obj){
+		(function($, obj) {
+			$("#tagModal").show();
+		})( jQuery, obj );
+	}
     //onclick for video opener
     (function ($, document) {
         $(document).ready(function () {
@@ -504,7 +528,5 @@ function clearSearch(){
 		    return false;
 		})
     }(jQuery, document));
-
 </script>
-
 <?php get_footer();  ?>

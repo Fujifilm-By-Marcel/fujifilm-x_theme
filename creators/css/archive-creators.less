@@ -427,6 +427,7 @@
 				.modal-opener{
 					position: relative;
 	    			display: block;
+
 	    			&:hover .play-icon{
 	    				cursor:pointer;
 						transform: translate(-50%, -50%) scale(1.2);
@@ -483,7 +484,7 @@
 		text-align:center;
   	    .modal-content {
 			position: relative;
-			background-color: #fefefe;
+			background-color: #aaa;
 			padding: 0;
 			display: inline-block;
 			max-width:80%;
@@ -491,6 +492,36 @@
 			width: 90%;
 			max-width: 1200px;*/
 
+			.modal-prev{
+				position: absolute;
+			    left: -30px;
+			    top: 50%;
+			    cursor:pointer;
+			    span{
+					width: 0; 
+					height: 0; 
+					border-top: 9px solid transparent;
+					border-bottom: 9px solid transparent; 	  
+					border-right:10px solid @red; 
+					float:left;
+					transform: scale(1.6, 1);
+				}
+			}
+			.modal-next{
+				position: absolute;
+			    right: -30px;
+			    top: 50%; 
+			    cursor:pointer;
+			    span{
+					width: 0; 
+					height: 0; 
+					border-top: 9px solid transparent;
+					border-bottom: 9px solid transparent; 	  
+					border-left:10px solid @red; 
+					float:left;
+					transform: scale(1.6, 1);
+				}
+			}
 			
  			.close {
 				color: white;
@@ -545,6 +576,11 @@
 			}
 	    }
 	}
+
+	.modal-opener{
+		cursor:pointer;
+	}
+
 	.my-slideshow{
 		.slides-container{
 			padding: 0 6em;
