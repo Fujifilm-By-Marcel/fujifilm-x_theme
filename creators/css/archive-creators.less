@@ -457,7 +457,6 @@
 		display: none;
 		position: fixed;
 		z-index: 35;
-		padding-top: 50px;
 		left: 0;
 		top: 0;
 		width: 100%;
@@ -473,6 +472,8 @@
 			display: inline-block;
 			max-width:80%;
 			margin: 0 30px;
+			top:50%;
+			transform: translateY(-50%);
 
 			.modal-prev{
 				position: absolute;
@@ -507,10 +508,10 @@
 
 			@media (max-width:600px){
 				.modal-prev{
-					left: -22px;
+					display:none;
 				}
 				.modal-next{
-					right: -22px;
+					display:none;
 				}
 			}
 			
@@ -538,10 +539,8 @@
 		            text-decoration: none;
 		            cursor: pointer;
 		        }
-		    }
-			.resp-container.youtube {
-			    position: relative;
-			    overflow: hidden;
+		    }		    
+			.resp-container.youtube {			    
 			    padding-top: 56.25%;
 			    width: 70vw;
 
@@ -554,17 +553,14 @@
 			        border: 0;
 			    }
 			}
-			.resp-container.image {
-			    position: relative;
+			.resp-container{
+		    	position: relative;
 			    overflow: hidden;
-
-			    .resp-inner{
-			        position: absolute;
-			        top: 0;
-			        left: 0;
-			        border: 0;
+			    .resp-inner, img{
+			    	max-height: 80vh;
+			    	width: auto;
 			    }
-			}
+		    }
 
 	    }
 	    &#tagModal .modal-content{
