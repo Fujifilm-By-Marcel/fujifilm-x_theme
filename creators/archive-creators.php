@@ -277,7 +277,7 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 					<p class="creator-name"><?php the_title(); ?></p>
 					<h3>BIO</h3>
 					<p class="creator-desc"><?php the_field("short_bio"); ?></p>
-					<a class="creator-btn" href="<?php the_permalink() ?>">view profile</a>
+					<a class="creator-btn" href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>">view profile</a>
 				</div>
 			</div>
 			<?php endwhile;	?>
