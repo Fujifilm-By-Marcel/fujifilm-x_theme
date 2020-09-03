@@ -4,7 +4,7 @@ Template Name: Page-creators-gallery
 */
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', false, NULL, 'all');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.21');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.29');
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/js/common.js', array(), '1.0.0', true);
 	wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/js/lazyload.js', array(), '1.22',true); 
 } 
@@ -295,10 +295,10 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 						        	<?php if( get_sub_field('youtube_id') ){ ?>		
 						        	<iframe class="resp-inner" src="https://www.youtube.com/embed/<?php the_sub_field('youtube_id') ?>" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 						        	<?php } else { 
-						        	$imgsrc = wp_get_attachment_image_src( get_sub_field('fullsize_image'), 'large' ); 
+						        	$imgsrc = wp_get_attachment_image_src( get_sub_field('fullsize_image'), 'full' ); 
 						        	$isVertical = false;
 						        	$verticalStyle = "style='max-height: 80vh;width: auto;'";
-						        	$horizontalStyle = "style='max-width: 70vw;height: auto;'";
+						        	$horizontalStyle = "style='max-height: 80vh;width: auto;'";
 						        	
 						        	if( $imgsrc[1]/$imgsrc[2] <= 1 ){
 						        		$isVertical = true;
