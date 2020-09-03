@@ -4,7 +4,7 @@ Template Name: Page-creators-gallery
 */
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', false, NULL, 'all');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.29');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.31');
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/js/common.js', array(), '1.0.0', true);
 	wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/js/lazyload.js', array(), '1.22',true); 
 } 
@@ -242,9 +242,9 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 						$i++;
 						$array[$i-1]['portrait'] = $portrait;
 						$array[$i-1]['index'] = $i;
-						if( get_sub_field('youtube_id') ){ 
-							$array[$i-1]['imgsrc']['isyoutube'] = 1;
-						} else { $array[$i-1]['imgsrc']['isyoutube'] = 0; }
+						if( get_sub_field('video_src') ){ 
+							$array[$i-1]['imgsrc']['isvideo'] = 1;
+						} else { $array[$i-1]['imgsrc']['isvideo'] = 0; }
 						$imgsrc = wp_get_attachment_image_src( get_sub_field('thumbnail_image'), 'full' ); 									
 						$array[$i-1]['imgsrc'][0] = $imgsrc[0];
 						$array[$i-1]['imgsrc'][1] = $imgsrc[1];
@@ -264,7 +264,7 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 						<div class="gallery-pane">
 							<?php foreach ($array as $key => $value) { //echo "<pre>";print_r($value);echo "</pre>"; ?>
 							<a href="#" class="modal-opener" data-modal="modal-<?php echo $value['index'] ?>">
-								<?php if( $value['imgsrc']['isyoutube'] ){ ?>
+								<?php if( $value['imgsrc']['isvideo'] ){ ?>
 								<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
 								<?php } ?>
 								<img class="lazyload" data-src="<?php echo $value['imgsrc'][0] ?>" width="<?php echo $value['imgsrc'][1] ?>" height="<?php echo $value['imgsrc'][2] ?>">
@@ -284,16 +284,16 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 						while( have_rows('gallery') ) : the_row(); 
 						$i++;
 						?>
-						<div id="modal-<?php echo $i ?>" class="modal" onclick="closeModal(<?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>, event)" >
+						<div id="modal-<?php echo $i ?>" class="modal" onclick="closeModal(<?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>, event)" >
 						    <div class="modal-content" style="background: transparent;">
-						    	<div class="modal-prev" onclick="iterateModals(-1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>)"><span></span></div>
-		    					<div class="modal-next" onclick="iterateModals(1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>)"><span></span></div>
-						        <div class="close" onclick="closeModal(<?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>, event)">
+						    	<div class="modal-prev" onclick="iterateModals(-1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>)"><span></span></div>
+		    					<div class="modal-next" onclick="iterateModals(1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>)"><span></span></div>
+						        <div class="close" onclick="closeModal(<?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>, event)">
 						            <span class="cursor">&times;</span>
 						        </div>		        
-						        <div class="resp-container <?php echo ( get_sub_field('youtube_id') ? "youtube" : "image" ) ?>">
-						        	<?php if( get_sub_field('youtube_id') ){ ?>		
-						        	<iframe class="resp-inner" src="https://www.youtube.com/embed/<?php the_sub_field('youtube_id') ?>" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						        <div class="resp-container <?php echo ( get_sub_field('video_src') ? "youtube" : "image" ) ?>">
+						        	<?php if( get_sub_field('video_src') ){ ?>		
+						        	<iframe class="resp-inner" src="<?php the_sub_field('video_src') ?>" width="<?php the_sub_field('video_width') ?>" height="<?php the_sub_field('videoyoutube_height') ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen;" allowfullscreen></iframe>
 						        	<?php } else { 
 						        	$imgsrc = wp_get_attachment_image_src( get_sub_field('fullsize_image'), 'full' ); 
 						        	$isVertical = false;
