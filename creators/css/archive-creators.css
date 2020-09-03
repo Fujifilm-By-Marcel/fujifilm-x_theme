@@ -385,22 +385,6 @@
   margin: auto;
   margin-bottom: 2rem;
 }
-.main section.gallery-container .gallery .gallery-pane .play-icon {
-  position: absolute;
-  width: 80px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-.main section.gallery-container .gallery .gallery-pane .modal-opener {
-  position: relative;
-  display: block;
-}
-.main section.gallery-container .gallery .gallery-pane .modal-opener:hover .play-icon {
-  cursor: pointer;
-  transform: translate(-50%, -50%) scale(1.2);
-  transition: transform 0.25s;
-}
 .main section.gallery-container .gallery .gallery-pane .gallery-portrait {
   position: absolute;
   width: 55px;
@@ -544,7 +528,22 @@
   background-color: #fefefe;
 }
 .main .modal-opener {
+  position: relative;
+  display: block;
   cursor: pointer;
+}
+.main .modal-opener .play-icon {
+  position: absolute;
+  width: 80px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+.main .modal-opener:hover .play-icon {
+  cursor: pointer;
+  transform: translate(-50%, -50%) scale(1.2);
+  transition: transform 0.25s;
 }
 .main .my-slideshow .slides-container {
   padding: 0 6em;

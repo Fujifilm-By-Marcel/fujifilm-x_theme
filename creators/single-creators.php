@@ -1,7 +1,7 @@
 <?php 
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', array(),'1.0.0');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.29');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.31');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/css/jquery-slideshow.css', array(),'1.0.4');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
 	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
@@ -150,7 +150,7 @@ if( $term_name == "X‑Photographer" ){
 							$i++;
 							?>						
 							<a class="modal-opener" data-modal="modal-<?php echo $i; ?>">
-								<?php if( get_sub_field('youtube_id') ){ ?>
+								<?php if( get_sub_field('video_src') ){ ?>
 								<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
 								<?php } 
 								$imgsrc = wp_get_attachment_image_src( get_sub_field('thumbnail_image'), 'full' ); ?>
@@ -174,7 +174,7 @@ if( $term_name == "X‑Photographer" ){
 			$i++;
 			?>						
 			<a class="modal-opener" data-modal="modal-<?php echo $i; ?>">
-				<?php if( get_sub_field('youtube_id') ){ ?>
+				<?php if( get_sub_field('video_src') ){ ?>
 				<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
 				<?php } 
 				$imgsrc = wp_get_attachment_image_src( get_sub_field('thumbnail_image'), 'full' ); ?>
@@ -191,18 +191,18 @@ if( $term_name == "X‑Photographer" ){
 		while( have_rows('gallery') ) : the_row(); 
 		$i++;
 		?>
-		<div id="modal-<?php echo $i ?>" class="modal" onclick="closeModal(<?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>, event)">
+		<div id="modal-<?php echo $i ?>" class="modal" onclick="closeModal(<?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>, event)">
 		    <div class="modal-content">
-		    	<div class="modal-prev" onclick="iterateModals(-1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>)"><span></span></div>
-		    	<div class="modal-next" onclick="iterateModals(1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>)"><span></span></div>
-		        <div class="close" onclick="closeModal(<?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>, event)">
+		    	<div class="modal-prev" onclick="iterateModals(-1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>)"><span></span></div>
+		    	<div class="modal-next" onclick="iterateModals(1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>)"><span></span></div>
+		        <div class="close" onclick="closeModal(<?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>, event)">
 		            <span class="cursor">&times;</span>
 		        </div>		        
-		        <div class="resp-container <?php echo ( get_sub_field('youtube_id') ? "youtube" : "image" ) ?>">
-		        	<?php if( get_sub_field('youtube_id') ){ ?>		
-		        	<iframe class="resp-inner" src="https://www.youtube.com/embed/<?php the_sub_field('youtube_id') ?>" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		        <div class="resp-container <?php echo ( get_sub_field('video_src') ? "youtube" : "image" ) ?>">
+		        	<?php if( get_sub_field('video_src') ){ ?>		
+		        	<iframe class="resp-inner" src="<?php the_sub_field('video_src') ?>" width="<?php the_sub_field('video_width') ?>" height="<?php the_sub_field('videoyoutube_height') ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen;" allowfullscreen></iframe>
 		        	<?php } else { 
-		        	$imgsrc = wp_get_attachment_image_src( get_sub_field('fullsize_image'), 'large' ); 
+		        	$imgsrc = wp_get_attachment_image_src( get_sub_field('fullsize_image'), 'full' ); 
 		        	$isVertical = false;
 		        	$verticalStyle = "style='max-height: 80vh;width: auto;'";
 		        	$horizontalStyle = "style='max-height: 80vh;width: auto;'";

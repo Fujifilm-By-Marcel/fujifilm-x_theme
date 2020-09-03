@@ -417,23 +417,6 @@
 				    margin: auto;	
 				    margin-bottom:2rem;
 				}
-				.play-icon{
-					position:absolute;
-					width:80px;
-					left:50%;
-					top:50%;
-					transform: translate(-50%, -50%);
-				}
-				.modal-opener{
-					position: relative;
-	    			display: block;
-
-	    			&:hover .play-icon{
-	    				cursor:pointer;
-						transform: translate(-50%, -50%) scale(1.2);
-						transition: transform .25s;	
-	    			}
-				}
 				.gallery-portrait{
 					position: absolute;
 					width: 55px;
@@ -582,14 +565,33 @@
 			        border: 0;
 			    }
 			}
+
 	    }
 	    &#tagModal .modal-content{
 			background-color: #fefefe;
 		}
 	}
 
+
 	.modal-opener{
+		position: relative;
+		display: block;
 		cursor:pointer;
+
+		.play-icon{
+			position:absolute;
+			width:80px;
+			left:50%;
+			top:50%;
+			transform: translate(-50%, -50%);
+			cursor:pointer;
+		}
+
+		&:hover .play-icon{
+			cursor:pointer;
+			transform: translate(-50%, -50%) scale(1.2);
+			transition: transform .25s;	
+		}
 	}
 
 	.my-slideshow{
