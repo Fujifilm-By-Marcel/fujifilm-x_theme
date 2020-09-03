@@ -1,7 +1,7 @@
 <?php 
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', array(),'1.0.0');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.21');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.27');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/css/jquery-slideshow.css', array(),'1.0.4');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
 	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
@@ -149,7 +149,7 @@ if( $term_name == "X‑Photographer" ){
 							while( have_rows('gallery') ) : the_row(); 
 							$i++;
 							?>						
-							<a href="#" class="modal-opener" data-modal="modal-<?php echo $i; ?>">
+							<a class="modal-opener" data-modal="modal-<?php echo $i; ?>">
 								<?php if( get_sub_field('youtube_id') ){ ?>
 								<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
 								<?php } 
@@ -173,7 +173,7 @@ if( $term_name == "X‑Photographer" ){
 			while( have_rows('gallery') ) : the_row(); 
 			$i++;
 			?>						
-			<a href="#" class="modal-opener" data-modal="modal-<?php echo $i; ?>">
+			<a class="modal-opener" data-modal="modal-<?php echo $i; ?>">
 				<?php if( get_sub_field('youtube_id') ){ ?>
 				<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
 				<?php } 
@@ -191,9 +191,11 @@ if( $term_name == "X‑Photographer" ){
 		while( have_rows('gallery') ) : the_row(); 
 		$i++;
 		?>
-		<div id="modal-<?php echo $i ?>" class="modal" onclick="closeModal(<?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>)">
+		<div id="modal-<?php echo $i ?>" class="modal" onclick="closeModal(<?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>, event)">
 		    <div class="modal-content">
-		        <div class="close" onclick="closeModal(<?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>)">
+		    	<div class="modal-prev" onclick="iterateModals(-1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>)"><span></span></div>
+		    	<div class="modal-next" onclick="iterateModals(1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>)"><span></span></div>
+		        <div class="close" onclick="closeModal(<?php echo ( get_sub_field('youtube_id') ? "true" : "false" ) ?>, event)">
 		            <span class="cursor">&times;</span>
 		        </div>		        
 		        <div class="resp-container <?php echo ( get_sub_field('youtube_id') ? "youtube" : "image" ) ?>">
@@ -356,16 +358,56 @@ if( $term_name == "X‑Photographer" ){
         jQuery("#"+myElement).css("display","block");
     }
     // Close the Modal
-    function closeModal(isVideo) {
+    function closeModal(isVideo, e) {
         (function($) {
-            $(".modal").css("display","none");
-            if(isVideo){  
-                $('.resp-inner').each(function(){
-                    this.src = this.src;
-                });       
+        	if ( $(e.target).hasClass("close") || $(e.target).hasClass("modal") || $(e.target).hasClass("cursor") || e == "iterate" ){	           
+        		$(".modal").css("display","none");
+	            if(isVideo){  
+	                $('.resp-inner').each(function(){
+	                    this.src = this.src;
+	                });       
+	            }
             }
         })( jQuery );
     }
+    function iterateModals(direction, dataModal, isVideo){
+    	var myModal = $( ".modal-opener[data-modal='"+dataModal+"']" );
+    	closeModal(isVideo, "iterate");
+    	var myOwl = myModal.closest(".owl-item");    	
+    	if(direction == 1){
+    		if( myOwl.length ){
+    			if( myOwl.next().length ){
+    				openModal(myOwl.next().find(".modal-opener").data('modal'));	    			
+    			} else {
+    				openModal($(".owl-item").first().find(".modal-opener").data('modal'));
+    			}
+    		}
+    		else{
+    			if( myModal.next().length ){
+    				openModal(myModal.next().data('modal'));    			
+    			} else {
+    				openModal($(".modal-opener").first().data('modal'));    			
+    			}
+    		}
+    	} else if (direction == -1){
+    		if( myOwl.length ){
+    			if( myOwl.prev().length ){
+    				openModal(myOwl.prev().find(".modal-opener").data('modal'));    			
+    			} else {
+					openModal($(".owl-item").last().find(".modal-opener").data('modal'));
+    			}
+    		}
+    		else{
+    			if( myModal.prev().length ){
+    				openModal(myModal.prev().data('modal'));    			
+    			} else {
+    				openModal($(".modal-opener").last().data('modal'));    			
+    			}
+    		}
+    	}
+    }
+
+
     //onclick for video opener
     (function ($, document) {
         $(document).ready(function () {

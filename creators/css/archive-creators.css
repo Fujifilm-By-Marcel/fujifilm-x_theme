@@ -447,13 +447,43 @@
 }
 .main .modal .modal-content {
   position: relative;
-  background-color: #fefefe;
+  background-color: #aaa;
   padding: 0;
   display: inline-block;
   max-width: 80%;
   /*margin: auto;
 			width: 90%;
 			max-width: 1200px;*/
+}
+.main .modal .modal-content .modal-prev {
+  position: absolute;
+  left: -30px;
+  top: 50%;
+  cursor: pointer;
+}
+.main .modal .modal-content .modal-prev span {
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-right: 10px solid #eb022f;
+  float: left;
+  transform: scale(1.6, 1);
+}
+.main .modal .modal-content .modal-next {
+  position: absolute;
+  right: -30px;
+  top: 50%;
+  cursor: pointer;
+}
+.main .modal .modal-content .modal-next span {
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 10px solid #eb022f;
+  float: left;
+  transform: scale(1.6, 1);
 }
 .main .modal .modal-content .close {
   color: white;
@@ -503,6 +533,9 @@
   top: 0;
   left: 0;
   border: 0;
+}
+.main .modal-opener {
+  cursor: pointer;
 }
 .main .my-slideshow .slides-container {
   padding: 0 6em;
