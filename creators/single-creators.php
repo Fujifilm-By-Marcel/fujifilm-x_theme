@@ -1,7 +1,7 @@
 <?php 
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', array(),'1.0.0');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.27');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.29');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/css/jquery-slideshow.css', array(),'1.0.4');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
 	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
@@ -205,7 +205,7 @@ if( $term_name == "X‑Photographer" ){
 		        	$imgsrc = wp_get_attachment_image_src( get_sub_field('fullsize_image'), 'large' ); 
 		        	$isVertical = false;
 		        	$verticalStyle = "style='max-height: 80vh;width: auto;'";
-		        	$horizontalStyle = "style='max-width: 70vw;height: auto;'";
+		        	$horizontalStyle = "style='max-height: 80vh;width: auto;'";
 		        	if( $imgsrc[1]/$imgsrc[2] <= 1 ){
 		        		$isVertical = true;
 		        	}

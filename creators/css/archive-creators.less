@@ -482,15 +482,14 @@
 		overflow: auto;
 		background: rgba(0,0,0,.8);
 		text-align:center;
+		
   	    .modal-content {
 			position: relative;
 			background-color: #aaa;
 			padding: 0;
 			display: inline-block;
 			max-width:80%;
-			/*margin: auto;
-			width: 90%;
-			max-width: 1200px;*/
+			margin: 0 30px;
 
 			.modal-prev{
 				position: absolute;
@@ -520,6 +519,15 @@
 					border-left:10px solid @red; 
 					float:left;
 					transform: scale(1.6, 1);
+				}
+			}
+
+			@media (max-width:600px){
+				.modal-prev{
+					left: -22px;
+				}
+				.modal-next{
+					right: -22px;
 				}
 			}
 			
@@ -575,6 +583,9 @@
 			    }
 			}
 	    }
+	    &#tagModal .modal-content{
+			background-color: #fefefe;
+		}
 	}
 
 	.modal-opener{
