@@ -4,7 +4,7 @@ Template Name: Page-creators-gallery
 */
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', false, NULL, 'all');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.33');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.42');
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/js/common.js', array(), '1.0.0', true);
 	wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/js/lazyload.js', array(), '1.22',true); 
 } 
@@ -336,7 +336,7 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 									echo "</p>";*/
 						        	?>
 						        	<?php } ?>
-						    	</div>		    	
+						    	</div>	    	
 						    </div>
 						</div>
 						<?php endwhile; ?>
@@ -350,7 +350,12 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 		    </div>
 			<?php endif; ?>			
 		</div>
+		<div class="expand-gallery-button mobile-only" onclick="toggleGalleryExpand(this, event);">
+			<i class="arrow up"></i>
+		</div>
 	</section>
+
+
 	<div class="row">
 		<div class="col s12">
 			<div class="pagenation">
@@ -377,6 +382,20 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 	</div>
 </section>
 <script>
+	function toggleGalleryExpand(obj, e){
+		(function($, obj, e) {
+			myArrow = $(obj).find(".arrow");
+			if(myArrow.hasClass("down")){
+				$(".gallery").prop("style","");
+				myArrow.removeClass("down").addClass("up");
+			}
+			else if(myArrow.hasClass("up")){
+				$(".gallery").css("max-height","30vh");
+				myArrow.removeClass("up").addClass("down");
+			}		
+		})( jQuery, obj, e);
+	}
+
 	function filterCat(obj){
 		toggleTag(obj);	  
 		registerCat(obj); 

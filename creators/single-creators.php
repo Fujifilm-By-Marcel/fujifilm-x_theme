@@ -1,7 +1,7 @@
 <?php 
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', array(),'1.0.0');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.33');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.42');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/css/jquery-slideshow.css', array(),'1.0.4');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
 	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
@@ -161,6 +161,9 @@ if( $term_name == "X‑Photographer" ){
 					</div> 
 				</div>
 			</div>
+		</div>
+		<div class="expand-gallery-button mobile-only" onclick="toggleGalleryExpand(this, event);">
+			<i class="arrow up"></i>
 		</div>
 	</section>
 	<?php endif; ?>
@@ -353,6 +356,20 @@ if( $term_name == "X‑Photographer" ){
 	<?php endif; ?>
 </section>
 <script>
+	function toggleGalleryExpand(obj, e){
+		(function($, obj, e) {
+			myArrow = $(obj).find(".arrow");
+			if(myArrow.hasClass("down")){
+				$(".gallery").prop("style","");
+				myArrow.removeClass("down").addClass("up");
+			}
+			else if(myArrow.hasClass("up")){
+				$(".gallery").css("max-height","30vh");
+				myArrow.removeClass("up").addClass("down");
+			}		
+		})( jQuery, obj, e);
+	}
+
     // Open the Modal
     function openModal(myElement) {
         jQuery("#"+myElement).css("display","block");
