@@ -4,7 +4,7 @@ Template Name: Page-creators-home
 */
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', false, NULL, 'all');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.32');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.48');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/css/jquery-slideshow.css',array(),'1.0.4');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
 	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
@@ -20,7 +20,7 @@ add_action( 'wp_enqueue_scripts', 'load_usa_js_css' );
 //ini_set('display_startup_errors', 1);
 //error_reporting(E_ALL);
 
-get_header(); 
+get_header();
 get_sidebar();
  
 $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
@@ -43,13 +43,17 @@ while ( $the_query->have_posts() ) : $the_query->the_post();
 	shuffle( $randomized_gallery );
 	$myNode['name'] = get_the_title();
 	$myNode['image'] = wp_get_attachment_image_src( $randomized_gallery[0]['fullsize_image'], 'large' );
-	while ( $myNode['image'][2] >= 600 || !isset($myNode['image']) )
+	//echo "<script>console.log('height: ".$myNode['image'][2]." Con1: ".($myNode['image'][2] <= 550)." Con2: ".($myNode['image'][2] >= 650)."')</script>";
+	while ( isset($myNode['image'][2]) && ($myNode['image'][2] <= 372 || $myNode['image'][2] >= 660) )
 	{
+		//echo "<script>console.log('shifting, height: ".$myNode['image'][2]." Con1: ".($myNode['image'][2] <= 550)." Con2: ".($myNode['image'][2] >= 650)."')</script>";		
 		array_shift ( $randomized_gallery );
 		$myNode['image'] = wp_get_attachment_image_src( $randomized_gallery[0]['fullsize_image'], 'large' );			
 	}
 
-	array_push( $randomized_images, $myNode );
+	if( isset($myNode['image'][2]) ){
+		array_push( $randomized_images, $myNode );
+	}
 
 endwhile;
 endif; 
@@ -76,11 +80,13 @@ wp_reset_postdata();
 					<h2 class="page-tagline"><?php the_field("tagline") ?></h2>
 				</div>
 				<div class="col s12 m12 l8">
-					<div class="my-slideshow">
+					<div class="my-slideshow" style="width: 100%;">
 						<div class="slides-container">
 							<?php foreach ($randomized_images as $randomized_image ) { ?>
 							<div class="mySlide">
-								<img src="<?php echo $randomized_image['image'][0] ?>" width="<?php echo $randomized_image['image'][1] ?>" height="<?php echo $randomized_image['image'][2] ?>" />									
+								<div class="frame-square">
+									<img src="<?php echo $randomized_image['image'][0] ?>" width="<?php echo $randomized_image['image'][1] ?>" height="<?php echo $randomized_image['image'][2] ?>" />									
+								</div>
 								<p class="photo-credit"><?php echo $randomized_image["name"] ?></p> 
 							</div>							
 							<?php } ?>
