@@ -357,6 +357,7 @@
   max-height: 75vh;
   overflow: normal;
   overflow-x: hidden;
+  transition: max-height 0.25s linear;
   /* width */
   /* Track */
   /* Handle */
@@ -391,6 +392,11 @@
   height: 55px;
   bottom: -15px;
   margin: 0;
+}
+@media (min-width: 601px) {
+  .main section.gallery-container .gallery {
+    max-height: 75vh !important;
+  }
 }
 @media (max-width: 992px) {
   .main section.gallery-container .gallery .gallery-pane {
@@ -1019,5 +1025,50 @@
 }
 .footer {
   margin-top: 0 !important;
+}
+.mobile-only {
+  display: none;
+}
+@media (max-width: 600px) {
+  .mobile-only {
+    display: block;
+  }
+}
+.expand-gallery-button {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  border-radius: 50px;
+  background-color: #333;
+  width: 30px;
+  height: 30px;
+  top: -35px;
+  cursor: pointer;
+}
+.expand-gallery-button i.arrow {
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  margin-left: 2px;
+}
+.expand-gallery-button i.arrow.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+.expand-gallery-button i.arrow.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+.expand-gallery-button i.arrow.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  margin-top: 12px;
+}
+.expand-gallery-button i.arrow.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  margin-top: 9px;
 }
 /*# sourceMappingURL=archive-creators.css.map */
