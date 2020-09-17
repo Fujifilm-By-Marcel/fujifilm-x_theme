@@ -1,0 +1,61 @@
+@media (min-width: 601px) {
+  section.main section.header-image .hero-banner.desktop {
+    display: block;
+  }
+  section.main section.header-image .hero-banner.mobile {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  section.main section.header-image .hero-banner.desktop {
+    display: none;
+  }
+  section.main section.header-image .hero-banner.mobile {
+    display: block;
+  }
+}
+section.main section.header-image .row,
+section.main section.header-image h1 {
+  margin: 0;
+  padding: 0;
+}
+section.main section.red-strip {
+  background: #e4032f;
+  text-align: center;
+  overflow: hidden;
+}
+section.main section.red-strip .row {
+  margin: 1.25rem 0;
+}
+section.main section.red-strip .text {
+  color: white;
+}
+section.main section.red-strip .text.line-1 {
+  font-size: 2.5rem;
+}
+section.main section.red-strip .text.line-2 {
+  font-size: 1.5rem;
+}
+section.main section.section-3 h3 {
+  font-family: "Fjalla One", sans-serif;
+  color: #e4032f;
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+section.main section.section-3 section.section-3-2 {
+  background: #e4032f;
+  color: white;
+}
+section.main section.faq h2 {
+  color: #e4032f;
+}
+section.main section.faq div.faq {
+  background: #dad7d7;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+}
+section.main section.faq div.faq h3 {
+  font-size: 1.25rem;
+  font-family: "Fjalla One", sans-serif;
+}
+/*# sourceMappingURL=event-registration.css.map */

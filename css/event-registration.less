@@ -1,0 +1,72 @@
+@red: #e4032f;
+@grey: #dad7d7;
+
+section.main{
+
+	section.header-image{
+		@media (min-width:601px){ 
+			.hero-banner.desktop{ display:block; }
+			.hero-banner.mobile{ display:none; }
+		}
+		@media (max-width:600px){
+			.hero-banner.desktop{ display:none; }
+			.hero-banner.mobile{ display:block; }
+		}
+		.row, h1{
+			margin:0;
+			padding:0;
+		}
+	}
+
+
+	section.red-strip{
+		background:@red;
+		text-align:center;
+		overflow: hidden;
+		.row{
+			margin:1.25rem 0;
+		}
+		.text{				
+			color:white;	
+			&.line-1{
+				font-size:2.5rem; //40px
+			}
+			&.line-2{
+				font-size:1.5rem; //24px								
+			}
+		}
+	}
+
+	section.section-3{
+		h3{
+			font-family: "Fjalla One", sans-serif;
+			color:@red;
+			font-size:1.5rem; //24px	
+			font-weight:normal;	
+		}
+		section.section-3-2{
+			background:@red;
+			color:white;
+		}
+	}
+
+	section.faq{
+		h2{
+			color:@red;
+		}
+		div.faq{
+			background:@grey;
+			margin-bottom:1.5rem;			
+			padding:1.5rem;
+			h3{
+				font-size:1.25rem; //20px
+				font-family: "Fjalla One", sans-serif;
+			}	
+			p{
+				
+			}
+		}
+	}
+
+
+}
