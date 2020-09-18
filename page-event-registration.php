@@ -148,13 +148,19 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 	.marker{position:relative;}
 
  	/* responsive banner */
+	@media (min-width:1501px){
+		.instruction-repeater h3 span{
+			margin-left: -100%;
+    		margin-right: -100%;
+    		text-align: center;
+		}
+	}
 	@media (min-width:601px){
 		.main{font-size:16px;}
 		.marker{z-index:3;}
 		.expander-button .svg-container{display:none;}
 		.expander-button h2 {margin:0;}
 		.expander-button {cursor:default;}
-
 	}
 	@media (max-width:600px){
 		.main{font-size:14px;}
@@ -212,7 +218,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 						<div class="image-container">			
 							<img src="<?php the_sub_field('image') ?>">
 						</div>
-						<h3 style="text-align:center;margin-left: -100%;margin-right: -100%;"><?php the_sub_field('header') ?></h3>
+						<h3 style="text-align:center;"><span><?php the_sub_field('header') ?></span></h3>
 						<p class="instruction"><?php the_sub_field('instructions') ?></p>	
 						<p class="instruction-2"><?php the_sub_field('instructions_2') ?></p>	
 					</div>
@@ -304,7 +310,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 							<div class="calendar-widget" >
 								<p><?php the_sub_field('text') ?></p>
 								<!-- Calendly inline widget begin -->
-								<div class="calendly-inline-widget" data-url="<?php the_sub_field('calendly') ?>" style="min-width:320px;height:630px;margin-bottom:20px;"></div>
+								<div class="calendly-inline-widget" data-url="<?php the_sub_field('calendly') ?>" style="height:630px;margin-bottom:20px;"></div>
 								<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js"></script>
 								<!-- Calendly inline widget end -->
 								<h2><?php the_sub_field('header_2') ?></h2>

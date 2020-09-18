@@ -275,7 +275,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 						<div class="expander-area" data-expanded="true" data-expander="call">
 							<div class="calendar-widget">
 								<!-- Calendly inline widget begin -->
-								<div class="calendly-inline-widget" data-url="<?php the_sub_field('calendly') ?>" style="min-width:320px;height:630px;"></div>
+								<div class="calendly-inline-widget" data-url="<?php the_sub_field('calendly') ?>" style="height:630px;"></div>
 								<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js"></script>
 								<!-- Calendly inline widget end -->
 							</div>
