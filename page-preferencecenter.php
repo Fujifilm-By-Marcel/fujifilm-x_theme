@@ -9,6 +9,11 @@ function nofollownoindexhead(){
 
 add_action('wp_head', 'nofollownoindexhead');
 
+
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
+
 ?>
 	
 <?php get_header(); ?>
@@ -54,8 +59,8 @@ add_action('wp_head', 'nofollownoindexhead');
 	<section class="xstoriespost__first lower__first">
 		<div class="inner">
 			<div class="xstoriespost__mainvisual" style="z-index:1;">
-				<div class="xstoriespost__mainvisual_bg" style="background-image:url(https://250jtjcw4ft1z4tcc2rpahl1-wpengine.netdna-ssl.com/wp-content/uploads/sites/11/2018/09/KH-SellaSunrise-DOLOMITES.jpg);"></div>
-				<img src="https://250jtjcw4ft1z4tcc2rpahl1-wpengine.netdna-ssl.com/wp-content/uploads/sites/11/2018/09/KH-SellaSunrise-DOLOMITES.jpg">
+				<div class="xstoriespost__mainvisual_bg" style="background-image:url(/wp-content/uploads/sites/11/2018/09/KH-SellaSunrise-DOLOMITES.jpg);"></div>
+				<img src="/wp-content/uploads/sites/11/2018/09/KH-SellaSunrise-DOLOMITES.jpg">
 				<p class="credits">&copy; 2019 Karen Hutton</p>
 			</div>
 		</div>
@@ -63,8 +68,24 @@ add_action('wp_head', 'nofollownoindexhead');
 	<section class="xstories__contents lower__contents">
 		<div class="inner">
 			<div class="wp_content">
-				<?php remove_filter ('acf_the_content', 'wpautop'); ?>
-				<iframe class="preference-center-iframe" src="https://fujifilm.msgfocus.com/k/1qS9NHDFkwr"></iframe>
+				<?php 
+				remove_filter ('acf_the_content', 'wpautop');	
+				if( isset($_GET['email']) ){
+					require_once('adestra-api/adestra-api.php');
+					$xmlrpc = authenticate();
+					$contactID = getContactID($xmlrpc, $_GET['email']);
+					
+					if( $contactID != false ){
+						$form_url = getForm($xmlrpc, 7, $contactID, 5294 ); //(form_id, contact_id, launch_id)
+						echo '<iframe class="preference-center-iframe" src="'.$form_url.'"></iframe>';
+					} else {
+						echo '<iframe class="preference-center-iframe" src="https://fujifilm.msgfocus.com/k/1qS9NHDFkwr"></iframe>';	
+					}
+				} else {
+					echo '<iframe class="preference-center-iframe" src="https://fujifilm.msgfocus.com/k/1qS9NHDFkwr"></iframe>';
+				}
+
+				?> 
 			</div>
 		</div>
 	</section>
