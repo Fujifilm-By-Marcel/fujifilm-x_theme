@@ -33,7 +33,7 @@ add_action( 'wp_enqueue_scripts', 'page_myfujifilmlegacy_scripts' );
 <style>
 
 .main{
-	background-image:url('https://250jtjcw4ft1z4tcc2rpahl1-wpengine.netdna-ssl.com/wp-content/uploads/sites/11/2018/09/page-background.jpg');
+	background-image:url('/wp-content/uploads/sites/11/2018/09/page-background.jpg');
 	background-size:cover;
 	background-repeat:no-repeat;
 	background-position:center;
@@ -113,7 +113,7 @@ add_action( 'wp_enqueue_scripts', 'page_myfujifilmlegacy_scripts' );
 		margin: 270px auto 0;
 	}
 	.main{
-		background-image:url('https://250jtjcw4ft1z4tcc2rpahl1-wpengine.netdna-ssl.com/wp-content/uploads/sites/11/2018/09/page-background-mobile.jpg');
+		background-image:url('/wp-content/uploads/sites/11/2018/09/page-background-mobile.jpg');
 		background-color: #141213;
 		background-size: contain;
 		background-position: top center;

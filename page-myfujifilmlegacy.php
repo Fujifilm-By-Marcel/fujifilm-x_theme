@@ -28,8 +28,8 @@ get_header();
 	<section class="xstoriespost__first lower__first">
 		<div class="inner">
 			<div class="xstoriespost__mainvisual" style="z-index:1;">
-				<div class="xstoriespost__mainvisual_bg" style="background-image:url(https://250jtjcw4ft1z4tcc2rpahl1-wpengine.netdna-ssl.com/wp-content/uploads/sites/11/2018/09/Russel-Ord-DSCF0104-screen.jpg);"></div>
-				<img src="https://250jtjcw4ft1z4tcc2rpahl1-wpengine.netdna-ssl.com/wp-content/uploads/sites/11/2018/09/Russel-Ord-DSCF0104-screen.jpg">
+				<div class="xstoriespost__mainvisual_bg" style="background-image:url(/wp-content/uploads/sites/11/2018/09/Russel-Ord-DSCF0104-screen.jpg);"></div>
+				<img src="/wp-content/uploads/sites/11/2018/09/Russel-Ord-DSCF0104-screen.jpg">
 			</div>
 		</div>
 	</section>
