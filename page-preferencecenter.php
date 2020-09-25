@@ -76,7 +76,12 @@ add_action('wp_head', 'nofollownoindexhead');
 					$contactID = getContactID($xmlrpc, $_GET['email']);
 					
 					if( $contactID != false ){
-						$form_url = getForm($xmlrpc, 7, $contactID, 5294 ); //(form_id, contact_id, launch_id)
+						if(  isset($_GET['launchid']) && ($_GET['launchid'] != '') ){
+							$launchid = $_GET['launchid'];
+						} else {
+							$launchid = 94407;
+						}
+						$form_url = getForm($xmlrpc, 7, $contactID, $launchid ); //(form_id, contact_id, launch_id)
 						echo '<iframe class="preference-center-iframe" src="'.$form_url.'"></iframe>';
 					} else {
 						echo '<iframe class="preference-center-iframe" src="https://fujifilm.msgfocus.com/k/1qS9NHDFkwr"></iframe>';	
