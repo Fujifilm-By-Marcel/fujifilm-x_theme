@@ -1,0 +1,210 @@
+section.main {
+  /* add container padding */
+  /* remove container padding on mobile */
+  /* Navigation styles (shared desktop and mobile) */
+}
+section.main h1 {
+  font-family: "Fjalla One", sans-serif;
+  font-size: 2.25rem;
+  line-height: normal;
+  margin-bottom: 1.25rem;
+}
+section.main h2 {
+  font-family: "Fjalla One", sans-serif;
+  font-size: 2rem;
+  line-height: normal;
+  margin-bottom: 1.25rem;
+}
+section.main h3 {
+  font-family: "Fjalla One", sans-serif;
+  font-size: 1.875rem;
+  line-height: normal;
+  margin-bottom: 1.25rem;
+}
+section.main p {
+  font-size: 1rem;
+  line-height: normal;
+  margin-bottom: 1.25rem;
+}
+section.main p.tagline {
+  font-family: "Fjalla One", sans-serif;
+  font-size: 0.75rem;
+  line-height: normal;
+  color: #eb022f;
+  margin-bottom: 1rem;
+}
+@media (min-width: 601px) {
+  section.main .mobile-only {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  section.main .desktop-only {
+    display: none;
+  }
+}
+@media screen and (max-width: 767px), print {
+  section.main img {
+    width: auto;
+  }
+}
+section.main .tiles {
+  display: flex;
+  flex-wrap: wrap;
+}
+section.main .tiles .tile {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+section.main .tiles .tile a.tile-link {
+  text-decoration: none;
+}
+section.main .tiles .tile a.tile-link .tile-inner {
+  background: #ececec;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  box-shadow: 3px 3px 8px 0 rgba(0, 0, 0, 0.3);
+  height: 100%;
+}
+section.main .tiles .tile a.tile-link .tile-inner:hover {
+  box-shadow: 3px 3px 8px 0 rgba(0, 0, 0, 0.5);
+  position: relative;
+  left: -1px;
+  top: -1px;
+}
+section.main .tiles .tile a.tile-link .tile-inner .icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+section.main .tiles .tile a.tile-link .tile-inner .title,
+section.main .tiles .tile a.tile-link .tile-inner .cta {
+  text-transform: uppercase;
+}
+section.main .tiles .tile a.tile-link .tile-inner .title {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+section.main .tiles .tile a.tile-link .tile-inner .cta {
+  margin-bottom: 0;
+  font-size: 0.75rem;
+  line-height: normal;
+  color: #eb022f;
+}
+section.main .container-fluid {
+  padding: 0 3rem;
+}
+@media (max-width: 767px) {
+  section.main .container-fluid {
+    padding: 0;
+  }
+}
+section.main .creators-navigation {
+  margin-bottom: 2rem;
+  background-color: black;
+  /* Nav styles (desktop Only) */
+  /* Nav styles (mobile Only) */
+  /* hide mobile nav by default */
+  /* force hide monile nav on desktop */
+  /* show mobile nav on mobile */
+}
+section.main .creators-navigation .row {
+  margin-bottom: 0;
+}
+section.main .creators-navigation .creators-logo {
+  margin: 1.875rem 0;
+  max-width: none;
+  width: auto;
+}
+@media (max-width: 400px) {
+  section.main .creators-navigation .creators-logo {
+    width: 180px;
+    margin: 2.375rem 0;
+  }
+}
+section.main .creators-navigation .creators-navigation-list {
+  margin: 1.875rem 0;
+  text-align: right;
+}
+section.main .creators-navigation .creators-navigation-list ul li {
+  display: inline-block;
+}
+section.main .creators-navigation .creators-navigation-list ul li a {
+  color: white;
+  font-size: 1.125rem;
+  padding: 0.625rem;
+  display: block;
+  text-decoration: none;
+  font-family: "Fjalla One", sans-serif;
+}
+section.main .creators-navigation .hamburger-menu-icon {
+  font-size: 1.75rem;
+  color: white;
+}
+section.main .creators-navigation .creators-desktop-nav ul li a.active:after,
+section.main .creators-navigation .creators-desktop-nav ul li a:hover:after {
+  content: "";
+  display: block;
+  margin: 0 auto;
+  width: 92%;
+  border-bottom: 3px solid white;
+  top: -5px;
+  position: relative;
+}
+section.main .creators-navigation .creators-mobile-nav {
+  background-color: #111;
+}
+section.main .creators-navigation .creators-mobile-nav .col {
+  padding: 0;
+}
+section.main .creators-navigation .creators-mobile-nav .creators-navigation-list {
+  margin: 0;
+}
+section.main .creators-navigation .creators-mobile-nav .creators-navigation-list ul li {
+  display: block;
+  width: 100%;
+}
+section.main .creators-navigation .creators-mobile-nav .creators-navigation-list ul li a {
+  text-align: left;
+  width: 100%;
+}
+section.main .creators-navigation .creators-mobile-nav .creators-navigation-list ul li a.active,
+section.main .creators-navigation .creators-mobile-nav .creators-navigation-list ul li a:hover {
+  background-color: #ddd;
+  color: black;
+}
+section.main .creators-navigation .creators-mobile-nav,
+section.main .creators-navigation .hamburger-menu-icon {
+  display: none;
+}
+@media (min-width: 768px) {
+  section.main .creators-navigation .creators-mobile-nav,
+  section.main .creators-navigation .hamburger-menu-icon {
+    display: none !important;
+  }
+}
+@media (max-width: 767px) {
+  section.main .creators-navigation .creators-desktop-nav .hamburger-menu-icon {
+    display: block;
+  }
+  section.main .creators-navigation .creators-desktop-nav .creators-navigation-list ul {
+    display: none;
+  }
+}
+#pagetop {
+  display: none;
+}
+.footer {
+  margin-top: 0;
+}
+@media (max-width: 600px) {
+  html {
+    font-size: 14px;
+  }
+}
+/*# sourceMappingURL=creator-resources.css.map */
