@@ -4,7 +4,7 @@ Template Name: Page-fujifilm-flickr
 */
 function page_usa_styles(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css',array(),'1.0.9');
-	wp_enqueue_style('fps-css', get_stylesheet_directory_uri().'/en-us/css/fujifilm-flickr.css',array(),'1.0.44');
+	wp_enqueue_style('fps-css', get_stylesheet_directory_uri().'/en-us/css/fujifilm-flickr.css',array(),'1.0.47');
 }
 function page_usa_scripts(){
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/js/common.js', array(), '1.0.0', true); 	
@@ -34,14 +34,12 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 	while( have_rows('header-section') ): the_row(); 
 		$logo = wp_get_attachment_image_src( get_sub_field("logo"), 'full' );
 		?>
-		<style>
-			
+		<style>			
 			section.main section.background-header{
 				background:url('<?php the_sub_field("background_image"); ?>');
 				background-position: center;
 				background-size:cover
 			}
-
 		</style>
 		<section class="background-header" style="display:flex;position:relative;padding:50px 0;color:white;text-align:center;">		
 			
@@ -100,13 +98,13 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 					if( get_sub_field("mobile_background_color") ){ ?>
 						background-color:<?php the_sub_field("mobile_background_color"); ?>;					
 					<?php }
-					if( get_sub_field("mobile_padding") ){
-						the_sub_field("mobile_padding");
+					if( get_sub_field("mobile-only_section_style") ){
+						the_sub_field("mobile-only_section_style");
 					} ?>
 				}
 			}
 		</style>
-		<section class="background-<?php echo $i; ?>" style="display:flex;position:relative;padding:50px 0;<?php the_sub_field('section_inline_style'); ?>">
+		<section id="<?php the_sub_field("section_id") ?>" class="background-<?php echo $i; ?>" style="display:flex;position:relative;padding:50px 0;<?php the_sub_field('section_inline_style'); ?>">
 			
 			<!--body-->
 			<div class="container"  style="align-self:center;">
@@ -114,13 +112,19 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 					<div class="col <?php the_sub_field("row_class"); ?>" >
 						<h2><?php the_sub_field("header"); ?></h2>
 						<p><?php the_sub_field("text"); ?></p>
+
+						<!--iframe-->
+						<?php if(get_sub_field("form_embed")){ ?>
+							<div id="myform"><?php the_sub_field("form_embed"); ?></div>
+						<?php } ?>
 					</div>
+
+					<!--bottom right image desktop-->					
 					<?php 
 					$imgsrc = wp_get_attachment_image_src( get_sub_field('image'), 'full' ); 
 					if($imgsrc){
 					?>
-					<div class="col s12" >	
-						
+					<div class="col s12" >						
 						<img src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>">
 					</div>					
 					<?php } ?>
@@ -137,12 +141,13 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 
 				</div>
 
+				
+				<!--Repeater-->
 				<?php 
 				$repeaterrowclass = get_sub_field("repeater_row_class");
 				$repeaterclass = get_sub_field("repeater_class");						
 				if( have_rows('repeater') ):
-				?>
-				<!--Repeater-->
+				?>				
 				<div class="row">
 					<div class="col <?php echo $repeaterrowclass; ?>" >						
 						<div class="row" style="display: flex;flex-wrap: wrap;margin-bottom: 0;">
@@ -164,23 +169,21 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 						</div>
 					</div>
 				</div>
-				<?php endif; ?>
+				<?php endif; ?>				
 				
+				<!--button-->
 				<?php 			
 				$button = get_sub_field('button');
 				if( $button["href"] != "" && $button["href"] ){
-				?>
-				<!--button-->
+				?>				
 				<div class="row">
 					<div class="col s12" >						
 						<?php my_button( strval ( $button["href"] ), strval ( $button["target"] ), strval ( $button["text"] ) ); ?>
 					</div>
 				</div>
-				<?php } ?>
+				<?php } ?>				
 
 			</div>
-
-
 
 			<!--photocredit-->
 			<span class="photo-credit"><?php the_sub_field("photocredit"); ?></span>
@@ -202,5 +205,16 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 
 </section>
 <script>
+	var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+	var eventer = window[eventMethod];
+	var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+
+	// Listen to message from child window
+	eventer(messageEvent,function(e) {
+	    var key = e.message ? "message" : "data";
+	    var data = e[key];
+	    console.log(data);
+	    jQuery("#myform").height(data);
+	},false);
 </script>
 <?php get_footer(); ?>

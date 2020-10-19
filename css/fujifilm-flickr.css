@@ -77,6 +77,10 @@ section.main img.bottom-right-image {
     width: auto;
   }
 }
+section.main #myform iframe {
+  width: 100%;
+  height: 100%;
+}
 #pagetop {
   display: none;
 }
