@@ -38,6 +38,11 @@ section.main p.tagline {
     display: none;
   }
 }
+@media (max-width: 1200px) {
+  section.main .xl-desktop-only {
+    display: none;
+  }
+}
 @media (max-width: 600px) {
   section.main .desktop-only {
     display: none;
@@ -55,6 +60,9 @@ section.main .tiles {
 section.main .tiles .tile {
   text-align: center;
   margin-bottom: 2rem;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 section.main .tiles .tile a.tile-link {
   text-decoration: none;
@@ -96,6 +104,40 @@ section.main .tiles .tile a.tile-link .tile-inner .cta {
   line-height: normal;
   color: #eb022f;
 }
+section.main .creator-resources-menu.mobile li a {
+  color: white;
+}
+section.main .creator-resources-menu li {
+  margin-bottom: 20px;
+}
+section.main .creator-resources-menu li.active a {
+  color: #eb022f;
+}
+section.main .creator-resources-menu li a p {
+  font-size: 1rem;
+  line-height: normal;
+  margin-left: 50px;
+  margin-bottom: 0;
+}
+section.main .creator-resources-menu li.has-icon i {
+  font-size: 2rem;
+  position: absolute;
+}
+section.main .creator-resources-menu li.has-icon a:hover {
+  text-decoration: none;
+}
+section.main .creator-resources-menu li.has-icon a p {
+  font-family: "Fjalla One", sans-serif;
+  font-size: 1.625rem;
+}
+@media (max-width: 1200px) {
+  section.main .creator-resources-menu {
+    display: none;
+  }
+  section.main .creator-resources-menu.mobile {
+    display: block;
+  }
+}
 section.main .container-fluid {
   padding: 0 3rem;
 }
@@ -107,10 +149,9 @@ section.main .container-fluid {
 section.main .creators-navigation {
   margin-bottom: 2rem;
   background-color: black;
-  /* Nav styles (desktop Only) */
   /* Nav styles (mobile Only) */
   /* hide mobile nav by default */
-  /* force hide monile nav on desktop */
+  /* force hide mobile nav on desktop */
   /* show mobile nav on mobile */
 }
 section.main .creators-navigation .row {
@@ -135,7 +176,6 @@ section.main .creators-navigation .creators-navigation-list ul li {
   display: inline-block;
 }
 section.main .creators-navigation .creators-navigation-list ul li a {
-  color: white;
   font-size: 1.125rem;
   padding: 0.625rem;
   display: block;
@@ -145,16 +185,6 @@ section.main .creators-navigation .creators-navigation-list ul li a {
 section.main .creators-navigation .hamburger-menu-icon {
   font-size: 1.75rem;
   color: white;
-}
-section.main .creators-navigation .creators-desktop-nav ul li a.active:after,
-section.main .creators-navigation .creators-desktop-nav ul li a:hover:after {
-  content: "";
-  display: block;
-  margin: 0 auto;
-  width: 92%;
-  border-bottom: 3px solid white;
-  top: -5px;
-  position: relative;
 }
 section.main .creators-navigation .creators-mobile-nav {
   background-color: #111;
@@ -173,7 +203,6 @@ section.main .creators-navigation .creators-mobile-nav .creators-navigation-list
   text-align: left;
   width: 100%;
 }
-section.main .creators-navigation .creators-mobile-nav .creators-navigation-list ul li a.active,
 section.main .creators-navigation .creators-mobile-nav .creators-navigation-list ul li a:hover {
   background-color: #ddd;
   color: black;
@@ -182,19 +211,19 @@ section.main .creators-navigation .creators-mobile-nav,
 section.main .creators-navigation .hamburger-menu-icon {
   display: none;
 }
-@media (min-width: 768px) {
+@media (min-width: 1201px) {
   section.main .creators-navigation .creators-mobile-nav,
   section.main .creators-navigation .hamburger-menu-icon {
     display: none !important;
   }
 }
-@media (max-width: 767px) {
+@media (max-width: 1200px) {
   section.main .creators-navigation .creators-desktop-nav .hamburger-menu-icon {
     display: block;
   }
-  section.main .creators-navigation .creators-desktop-nav .creators-navigation-list ul {
-    display: none;
-  }
+}
+section.main .tab {
+  display: none;
 }
 #pagetop {
   display: none;
