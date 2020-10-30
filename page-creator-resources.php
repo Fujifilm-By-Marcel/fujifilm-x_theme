@@ -4,7 +4,7 @@ Template Name: Page-creator-resources
 */
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', false, NULL, 'all');
-	wp_enqueue_style('creator-resources', get_stylesheet_directory_uri().'/en-us/css/creator-resources.css', array(), '1.0.52');	
+	wp_enqueue_style('creator-resources', get_stylesheet_directory_uri().'/en-us/fnac-assets/creators/css/creator-resources.css', array(), '1.0.52');	
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/js/common.js', array(), '1.0.0', true);
 	//wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/js/lazyload.js', array(), '1.22',true); 
 } 
