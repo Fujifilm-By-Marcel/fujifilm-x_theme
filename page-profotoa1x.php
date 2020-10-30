@@ -3,14 +3,14 @@
 Template Name: Page-profotoa1x
 */
 function page_styles(){
-	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css',array(),'1.0.0');	
-	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/css/jquery-slideshow.css',array(),'1.0.4'); 
-	wp_enqueue_style('profoto-css', get_stylesheet_directory_uri().'/en-us/css/profoto.css',array(),'1.0.40');	
+	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css',array(),'1.0.0');	
+	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css',array(),'1.0.4'); 
+	wp_enqueue_style('profoto-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/profoto.css',array(),'1.0.40');	
 }
 function page_scripts(){
-	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/js/common.js', array(), '1.0.0', true); 	
-	wp_enqueue_script('jquery-slideshow-profoto', get_stylesheet_directory_uri().'/en-us/js/jquery-slideshow-profoto.js', array(), '1.0.28',true); 
-	wp_enqueue_script('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/js/jquery-slideshow.js', array(), '1.0.0',true); 
+	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true); 	
+	wp_enqueue_script('jquery-slideshow-profoto', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/jquery-slideshow-profoto.js', array(), '1.0.28',true); 
+	wp_enqueue_script('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/jquery-slideshow.js', array(), '1.0.0',true); 
 }
 add_action( 'wp_enqueue_scripts', 'page_styles' );
 add_action( 'wp_enqueue_scripts', 'page_scripts' );
@@ -149,7 +149,7 @@ get_sidebar();
 				<div class="col s12 m6">
 					<div class="text-container">
 						<div class="video-opener" data-id="myModal-<?php echo $i ?>">
-							<img class="play-icon" src="<?php echo get_stylesheet_directory_uri() ?>/en-us/img/profoto/play.svg" >
+							<img class="play-icon" src="<?php echo get_stylesheet_directory_uri() ?>/en-us/fnac-assets/img/profoto/play.svg" >
 							<img class="video-preview" src="<?php echo wp_get_attachment_image_url( get_sub_field('image'), 'full' ) ?>" >
 						</div>
 						<h3><?php the_sub_field('title') ?></h3>

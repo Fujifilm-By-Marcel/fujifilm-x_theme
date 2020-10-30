@@ -5,13 +5,13 @@
 
 
 function page_myfujifilmlegacy_styles(){
-	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css',array(),'1');
-	//wp_enqueue_style('tabs', get_stylesheet_directory_uri().'/en-us/css/tabs.css',array(),'1.0.1'); 
+	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css',array(),'1');
+	//wp_enqueue_style('tabs', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/tabs.css',array(),'1.0.1'); 
 	
 }
 function page_myfujifilmlegacy_scripts(){
-	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/js/common.js', array(), '1.0.0', true); 
-	//wp_enqueue_script('tabs', get_stylesheet_directory_uri().'/en-us/js/tabs.js', array(), '1.0.0',true); 
+	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true); 
+	//wp_enqueue_script('tabs', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/tabs.js', array(), '1.0.0',true); 
 }
 
 add_action( 'wp_enqueue_scripts', 'page_myfujifilmlegacy_styles' );

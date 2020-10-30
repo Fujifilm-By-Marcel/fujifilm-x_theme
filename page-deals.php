@@ -3,16 +3,16 @@
 Template Name: Page-deals
 */
 function page_myfujifilmlegacy_styles(){
-	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css',array(),'1.0.0');	
-	wp_enqueue_style('tabs', get_stylesheet_directory_uri().'/en-us/css/tabs.css',array(),'1.0.1'); 
-	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/css/jquery-slideshow.css',array(),'1.0.1');
-	wp_enqueue_style('deals-css', get_stylesheet_directory_uri().'/en-us/css/deals.css',array(),'1.0.22'); 
+	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css',array(),'1.0.0');	
+	wp_enqueue_style('tabs', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/tabs.css',array(),'1.0.1'); 
+	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css',array(),'1.0.1');
+	wp_enqueue_style('deals-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/deals.css',array(),'1.0.22'); 
 }
 function page_myfujifilmlegacy_scripts(){
-	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/js/common.js', array(), '1.0.0', true); 
-	wp_enqueue_script('tabs', get_stylesheet_directory_uri().'/en-us/js/tabs.js', array(), '1.0.12',true); 
-	wp_enqueue_script('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/js/jquery-slideshow.js', array(), '1.0.2',true);
-	wp_enqueue_script('deals-js', get_stylesheet_directory_uri().'/en-us/js/deals.js', array(), '1.0.7',true);
+	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true); 
+	wp_enqueue_script('tabs', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/tabs.js', array(), '1.0.12',true); 
+	wp_enqueue_script('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/jquery-slideshow.js', array(), '1.0.2',true);
+	wp_enqueue_script('deals-js', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/deals.js', array(), '1.0.7',true);
 }
 add_action( 'wp_enqueue_scripts', 'page_myfujifilmlegacy_styles' );
 add_action( 'wp_enqueue_scripts', 'page_myfujifilmlegacy_scripts' );

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="87" height="59" viewBox="0 0 87 59">
+    <g fill="none" fill-rule="evenodd">
+        <text fill="#000" font-family="FjallaOne" font-size="31.5">
+            <tspan x="33" y="48.641">HSS</tspan>
+        </text>
+        <rect width="84" height="56" x="1.5" y="1.5" stroke="#000" stroke-width="3" rx="12"/>
+        <path fill="#000" d="M13.73 9.077h7.52l-4.366 13.81h11.892l-3.7 12.05H31.5L17.734 48.41 11.26 34.936h6.474l2.678-7.506H7.5z"/>
+    </g>
+</svg>

@@ -4,16 +4,16 @@ Template Name: Page-OnTheRoadXT30
 */
 
 function ontheroadwiththext30_styles(){
-	wp_enqueue_style('on-the-road-with-the-x-t30', get_stylesheet_directory_uri().'/en-us/css/on-the-road-with-the-x-t30.css',array(),'1.0.4'); 
-	wp_enqueue_style('slideshow', get_stylesheet_directory_uri().'/en-us/css/slideshow.css',array(),'1'); 
-	wp_enqueue_style('x-t30-road-map', get_stylesheet_directory_uri().'/en-us/css/x-t30-road-map.css',array(),'1.1'); 
-	wp_enqueue_style('tabs', get_stylesheet_directory_uri().'/en-us/css/tabs.css',array(),'1'); 
+	wp_enqueue_style('on-the-road-with-the-x-t30', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/on-the-road-with-the-x-t30.css',array(),'1.0.4'); 
+	wp_enqueue_style('slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/slideshow.css',array(),'1'); 
+	wp_enqueue_style('x-t30-road-map', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/x-t30-road-map.css',array(),'1.1'); 
+	wp_enqueue_style('tabs', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/tabs.css',array(),'1'); 
 }
 function ontheroadwiththext30_scripts(){
-	wp_enqueue_script('tabs', get_stylesheet_directory_uri().'/en-us/js/tabs.js', array(), '1',true); 
-	wp_enqueue_script('slideshow', get_stylesheet_directory_uri().'/en-us/js/slideshow.js', array(), '1',true); 
-	wp_enqueue_script('x-t30-road-map', get_stylesheet_directory_uri().'/en-us/js/x-t30-road-map.js', array(), '1.22',true); 
-	wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/js/lazyload.js', array(), '1.22',true); 
+	wp_enqueue_script('tabs', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/tabs.js', array(), '1',true); 
+	wp_enqueue_script('slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/slideshow.js', array(), '1',true); 
+	wp_enqueue_script('x-t30-road-map', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/x-t30-road-map.js', array(), '1.22',true); 
+	wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/lazyload.js', array(), '1.22',true); 
 }
 add_action( 'wp_enqueue_scripts', 'ontheroadwiththext30_scripts' );
 add_action( 'wp_enqueue_scripts', 'ontheroadwiththext30_styles' );

@@ -41,7 +41,7 @@
               ?>
               <li>
                 <a href="<?php echo get_permalink(); ?>">
-                  <div class="eventlist__image" style="background-image:url(<?php the_field('archive_page_image') ?>)"><img src="/en-us/wp-content/themes/fujifilm-x_jp/assets/img/common/cover.png"></div>
+                  <div class="eventlist__image" style="background-image:url(<?php the_field('archive_page_image') ?>)"><img src="//fujifilm-x.com/en-us/wp-content/themes/fujifilm-x_jp/assets/img/common/cover.png"></div>
                   <div class="eventlist__texts">
                     <p class="eventlist__texts_tag"></p>
                     <b class="eventlist__texts_title">

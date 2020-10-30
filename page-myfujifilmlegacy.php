@@ -5,13 +5,13 @@
 
 
 function page_myfujifilmlegacy_styles(){
-	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css',array(),'1');
-	wp_enqueue_style('myfujifilmlegacy', get_stylesheet_directory_uri().'/en-us/css/page-myfujifilmlegacy/myfujifilmlegacy.css',array(),'1.0.0');
+	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css',array(),'1');
+	//wp_enqueue_style('myfujifilmlegacy', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/myfujifilmlegacy.css',array(),'1.0.0');
 	
 }
 function page_myfujifilmlegacy_scripts(){
-	//wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/js/common.js', array(), '1.0.0', true); 
-	//wp_enqueue_script('myfujifilmlegacy', get_stylesheet_directory_uri().'/en-us/js/page-myfujifilmlegacy/script.js', array(), '1.0.0', true); 
+	//wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true); 
+	//wp_enqueue_script('myfujifilmlegacy', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/page-myfujifilmlegacy/script.js', array(), '1.0.0', true); 
 }
 
 add_action( 'wp_enqueue_scripts', 'page_myfujifilmlegacy_styles' );
@@ -22,6 +22,15 @@ get_header();
 
 ?>
 <style>
+	.jotform-container{
+	    width: 100%;
+	    max-width: 500px;
+	    position: relative;
+	    display: block;
+	    margin: 0 auto;
+	    background-color: rgba(255,255,255,0.00);
+		max-width:800px;
+	}
 	.box_related{display:none;}
 </style>
 <div class="main">

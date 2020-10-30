@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="83" height="59" viewBox="0 0 83 59">
+    <g fill="none" fill-rule="evenodd">
+        <text fill="#000" font-family="FjallaOne" font-size="31.5">
+            <tspan x="34.709" y="48.641">TTL</tspan>
+        </text>
+        <rect width="80" height="56" x="1.5" y="1.5" stroke="#000" stroke-width="3" rx="12"/>
+        <path fill="#000" d="M15.321 9.077h7.567l-4.393 13.81H30.46l-3.723 12.05H33.2L19.35 48.41l-6.513-13.474h6.513l2.695-7.506H9.055z"/>
+    </g>
+</svg>

@@ -3,11 +3,11 @@
 Template Name: Page-fujifilm-flickr
 */
 function page_usa_styles(){
-	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css',array(),'1.0.9');
-	wp_enqueue_style('fps-css', get_stylesheet_directory_uri().'/en-us/css/fujifilm-flickr.css',array(),'1.0.47');
+	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css',array(),'1.0.9');
+	wp_enqueue_style('fps-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/fujifilm-flickr.css',array(),'1.0.47');
 }
 function page_usa_scripts(){
-	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/js/common.js', array(), '1.0.0', true); 	
+	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true); 	
 }
 add_action( 'wp_enqueue_scripts', 'page_usa_styles' );
 add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
