@@ -1,6 +1,6 @@
 <?php 
 /*
-Template Name: Page-creators-about
+Template Name: Page-creators-join-us
 */
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', false, NULL, 'all');

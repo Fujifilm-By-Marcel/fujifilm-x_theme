@@ -17,7 +17,7 @@ add_action( 'wp_enqueue_scripts', 'load_usa_js_css' );
 get_header(); 
 get_sidebar();
 
-$imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
+$imgDirectory = get_stylesheet_directory_uri()."/en-us/fnac-assets/creators/img/";
 $tallest_px = get_field("tallest_button_image");
 
 

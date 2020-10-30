@@ -1,7 +1,7 @@
 <?php 
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', array(),'1.0.0');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.42');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/fnac-assets/creators/css/archive-creators.css', array(),'1.1.42');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/css/jquery-slideshow.css', array(),'1.0.4');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
 	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
@@ -21,7 +21,7 @@ add_action( 'wp_enqueue_scripts', 'load_usa_js_css' );
 get_header(); 
 get_sidebar();
  
-$imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
+$imgDirectory = get_stylesheet_directory_uri()."/en-us/fnac-assets/creators/img/";
 
 $terms = get_the_terms(get_the_ID(), 'creator_category');
 $term_name = trim ( $terms[0]->name );
@@ -40,7 +40,7 @@ if( $term_name == "X‑Photographer" ){
 </style>
 <section class="main creators-single"> 
 	<?php 
-	require get_stylesheet_directory().'/en-us/creators/navigation.php';
+	require get_stylesheet_directory().'/en-us/fnac-assets/creators/navigation.php';
 	?>
 
 	<div class="container"> 

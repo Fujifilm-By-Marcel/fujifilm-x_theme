@@ -4,7 +4,7 @@ Template Name: Page-creators-home
 */
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/css/materialize-gridonly.css', false, NULL, 'all');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.48');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/fnac-assets/creators/css/archive-creators.css', array(),'1.1.48');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/css/jquery-slideshow.css',array(),'1.0.4');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
 	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
@@ -23,7 +23,7 @@ add_action( 'wp_enqueue_scripts', 'load_usa_js_css' );
 get_header();
 get_sidebar();
  
-$imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
+$imgDirectory = get_stylesheet_directory_uri()."/en-us/fnac-assets/creators/img/";
 
 //get 5 random images from creator galleries
 $args = array(
@@ -68,7 +68,7 @@ wp_reset_postdata();
 
 <section class="main creators-home" style="margin-top: 71px;"> 
 	<?php 
-	require get_stylesheet_directory().'/en-us/creators/navigation.php';
+	require get_stylesheet_directory().'/en-us/fnac-assets/creators/navigation.php';
 	?>
 
 	<section class="top-section">
