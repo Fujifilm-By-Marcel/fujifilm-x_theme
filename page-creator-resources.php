@@ -5,7 +5,7 @@ Template Name: Page-creator-resources
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css', false, NULL, 'all');
 	wp_enqueue_style('creator-resources', get_stylesheet_directory_uri().'/en-us/fnac-assets/creators/css/creator-resources.css', array(), '1.0.52');	
-	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true);
+	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.3', true);
 	//wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/lazyload.js', array(), '1.22',true); 
 } 
 add_action( 'wp_enqueue_scripts', 'load_usa_js_css' );
@@ -25,7 +25,7 @@ function printTile($tile, $tallest_px){
 	$imgsrc = wp_get_attachment_image_src( $tile->image, 'full' );
     ?>
 	<div class="col s12 m6 l4 xl4 tile">
-		<a class="tile-link" href="<?php echo $tile->href; ?>" target="<?php echo $tile->target; ?>">
+		<a class="tile-link" href="<?php echo $tile->href; ?>" target="<?php echo $tile->target; ?>" onclick="changeTab(event, this);">
 			<div class="tile-inner">
 				<div class="icon-wrapper" style="min-height:<?php echo $tallest_px; ?>;">
 					<img style="display:inline;" class="icon" src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>" >
