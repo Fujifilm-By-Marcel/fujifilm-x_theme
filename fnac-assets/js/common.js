@@ -1,14 +1,4 @@
-$( document ).ready(function() {
-	
-	if( $('#cookieLaw').length ){	
-		$('.cookieLawCloseBtn').click(
-			function(){
-				$('.main').css("margin-top", $(".header").height());
-			}			
-		);
-	}
-	
-	
+$( document ).ready(function() {	
 	fixPageMargin();	
 	$(window).resize(function() {
 		fixPageMargin();
@@ -16,12 +6,5 @@ $( document ).ready(function() {
 });
 
 function fixPageMargin(){
-	if( $('#cookieLaw').length ){		
-		$('.main').css("margin-top", $(".header").height()-$('#cookieLaw').height());
-		
-		
-	} else {
 		$('.main').css("margin-top", $(".header").height());
-	}
 }
-
