@@ -5,7 +5,7 @@ Template Name: Page-creators-join-us
 function page_usa_styles(){
 	wp_enqueue_style('materialize-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css',array(),'1.0.9');
 	wp_enqueue_style('creators-nav-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/creators/css/creators-nav.css',array(),'1.0.0');
-	wp_enqueue_style('us-page-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/creators/css/creators-join-us.css',array(),'1.0.28');
+	wp_enqueue_style('us-page-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/creators/css/creators-join-us.css',array(),'1.0.30');
 }
 function page_usa_scripts(){
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true); 	
@@ -139,16 +139,21 @@ function my_transition(){
 				
 				<div class="row">
 					<div class="col s12" >
-						<h2><?php the_sub_field("header"); ?></h2>
-						<p style='font-family: "Fjalla One", sans-serif;font-size:1.25rem;color:#505050;line-height:normal;'><?php the_sub_field("subheader"); ?></p>
-						<p><?php the_sub_field("text"); ?></p>
+
+						<div style="max-width:500px;display:block;margin:auto;">
+							<h2><?php the_sub_field("header"); ?></h2>
+							<p style='font-family: "Fjalla One", sans-serif;font-size:1.25rem;color:#505050;line-height:normal;'><?php the_sub_field("subheader"); ?></p>
+							<p><?php the_sub_field("text"); ?></p>
+						</div>
 
 						<!-- image -->					
 						<?php 
 						$imgsrc = wp_get_attachment_image_src( get_sub_field('image'), 'full' ); 
 						if($imgsrc){
 						?>
-						<img style="width:69px;margin-bottom:2rem;display:inline" src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>">						
+						<div style="text-align:center;">
+							<img style="width:69px;margin-bottom:2rem;display:inline" src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>">	
+						</div>			
 						<?php } ?>
 
 						<!-- Bullets -->
@@ -193,7 +198,7 @@ function my_transition(){
 
 						<!--iframe-->
 						<?php if(get_sub_field("form_embed")){ ?>
-							<div id="myform"><iframe src="<?php the_sub_field("form_embed"); ?>" style="width:100%;min-height:500px;"></iframe></div>
+							<div id="myform"><iframe src="<?php the_sub_field("form_embed"); ?>" style="<?php the_sub_field("form_style"); ?>"></iframe></div>
 						<?php } ?>
 					</div>
 

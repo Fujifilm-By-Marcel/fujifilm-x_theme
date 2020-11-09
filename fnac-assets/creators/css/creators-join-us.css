@@ -113,6 +113,12 @@ section.main .bullets-group ul {
   list-style: disc;
   padding-left: 12px;
 }
+section.main .bullets-group ul li a {
+  text-decoration: underline;
+}
+section.main .bullets-group ul li a:hover {
+  font-weight: bold;
+}
 section.main .bullets-group ul li::marker {
   content: "\25B6";
   color: red;

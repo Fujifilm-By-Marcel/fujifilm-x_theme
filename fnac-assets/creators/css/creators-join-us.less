@@ -126,6 +126,12 @@ section.main{
 			list-style: disc;
     		padding-left: 12px;
 			li{
+				a{
+					text-decoration:underline;
+					&:hover{
+						font-weight:bold;
+					}
+				}
 				&::marker{
 					content: "\25B6";
 					color:red;
