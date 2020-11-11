@@ -87,7 +87,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 		background:#dad7d7;	
 		overflow: hidden;
 		padding:20px 30px;
-		margin-bottom:60px;
+		margin-bottom:20px;
 	}
 
 
@@ -284,6 +284,11 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 					<?php endwhile; ?>
 					<?php endif; ?>
 				</div>				
+			</div>
+			<div class="row">
+				<div class="col s12">
+					<p><?php the_field("terms"); ?></p>
+				</div>
 			</div>
 		</div>
 	</section>
