@@ -132,8 +132,10 @@
 				if (n < 1) {slideIndex = slides.length}
 				for (i = 0; i < slides.length; i++) {
 					slides[i].style.display = "none"; 
+					slides[i].className = slides[i].className.replace(" active", "");
 				}
 				slides[slideIndex-1].style.display = "block"; 
+				slides[slideIndex-1].className += " active";
 				
 				if ( dots.length>1 ){
 					for (i = 0; i < dots.length; i++) {

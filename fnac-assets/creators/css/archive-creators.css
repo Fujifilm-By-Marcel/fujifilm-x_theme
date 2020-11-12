@@ -551,9 +551,31 @@
 }
 .main .my-slideshow .slides-container {
   padding: 0 6em;
+  overflow: hidden;
 }
 .main .my-slideshow .mySlide {
   margin: auto;
+}
+.main .my-slideshow .mySlide.flex-when-active.active {
+  display: flex !important;
+}
+@media (min-width: 1201px) {
+  .main .my-slideshow .mySlide.flex-when-active.active.reverse-desktop {
+    flex-direction: row-reverse;
+  }
+}
+@media (max-width: 1200px) {
+  .main .my-slideshow .mySlide.flex-when-active.active {
+    flex-direction: column;
+  }
+  .main .my-slideshow .mySlide.flex-when-active.active .col {
+    margin-bottom: 20px;
+  }
+  .main .my-slideshow .mySlide.flex-when-active.active .col h2,
+  .main .my-slideshow .mySlide.flex-when-active.active .col h3,
+  .main .my-slideshow .mySlide.flex-when-active.active .col .creator-btn-container {
+    text-align: left;
+  }
 }
 .main .my-slideshow .myprev:hover,
 .main .my-slideshow .mynext:hover {
@@ -675,12 +697,19 @@
 }
 .main .information-block .text {
   margin: 1rem 0 2rem 0;
+}
+.main .information-block .text p {
   text-align: justify;
 }
 .main .information-block.left h2,
 .main .information-block.left h3,
 .main .information-block.left .creator-btn-container {
   text-align: right;
+}
+.main .information-block.right h2,
+.main .information-block.right h3,
+.main .information-block.right .creator-btn-container {
+  text-align: left;
 }
 .main .information-block.center h2 {
   font-size: 1.5rem;

@@ -70,7 +70,7 @@
   cursor: pointer;
 }
 
-.slides-container .active, .mydot.hover:hover, .mydot.active {
+.mydot.hover:hover, .mydot.active {
   background-color: #717171;
 }
 

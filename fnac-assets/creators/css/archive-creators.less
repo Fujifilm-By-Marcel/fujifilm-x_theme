@@ -597,9 +597,29 @@
 	.my-slideshow{
 		.slides-container{
 			padding: 0 6em;
+			overflow:hidden;
 		}
 		.mySlide{
 		    margin: auto;
+		    &.flex-when-active.active{
+		    	display:flex !important;
+		    }
+		    @media(min-width:1201px){
+		    	&.flex-when-active.active.reverse-desktop{
+		    		flex-direction:row-reverse;	
+		    	}
+		    }
+		    @media(max-width:1200px){
+		    	&.flex-when-active.active{
+		    		flex-direction:column;	
+		    		.col{
+		    			margin-bottom:20px;  
+		    			h2, h3, .creator-btn-container{
+		    				text-align:left;
+		    			}	
+		    		}
+		    	}
+		    }
 		}
 		.myprev:hover, .mynext:hover {
 		    background: transparent;
@@ -731,11 +751,18 @@
 	.information-block{
 		.text{
 			margin:1rem 0 2rem 0;
-			text-align:justify;			
+			p{
+				text-align:justify;			
+			}
 		}
 		&.left{
 			h2, h3, .creator-btn-container{
 				text-align:right;
+			}
+		}
+		&.right{
+			h2, h3, .creator-btn-container{
+				text-align:left;
 			}
 		}
 		&.center{

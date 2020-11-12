@@ -1,14 +1,14 @@
 <?php 
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css', array(),'1.0.0');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/fnac-assets/creators/css/archive-creators.css', array(),'1.1.42');
-	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css', array(),'1.0.4');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/fnac-assets/creators/css/archive-creators.css', array(),'1.1.54');
+	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css', array(),'1.0.6');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
 	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
 
 
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true);
-	wp_enqueue_script('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/jquery-slideshow.js', array(), '1.0.0',true); 
+	wp_enqueue_script('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/jquery-slideshow.js', array(), '1.0.4',true); 
 	wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/lazyload.js', array(), '1.22',true); 
 	wp_enqueue_script('owl-carousel', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/owl.carousel.min.js', array(), '1.0.1',true); 
 } 
@@ -223,18 +223,26 @@ if( $term_name == "X‑Photographer" ){
 	<?php endif; ?>
 
 	
-	<?php if( have_rows('projects') ): ?>
-    <?php while( have_rows('projects') ): the_row(); ?>
-    <?php if( get_sub_field('header') ): ?>
-	<div class="container">
-		<div class="row flex-row">
-			<div class="col s12 m6 flex-col">					
-				<?php if( have_rows('projects_slider') ): ?>
+	<?php if( have_rows('projects_slider') ): ?>    
+	<div class="container" style="padding:3.25rem 0 2rem;">
+		<div class="row">
+			<div class="col s12">							
 				<div class="my-slideshow">
 					<div class="slides-container">
 						<?php while ( have_rows('projects_slider') ) : the_row(); ?>
-						<div class="mySlide">
-							<img src="<?php the_sub_field("image") ?>" />									
+						<div class="mySlide flex-when-active reverse-desktop">
+
+							<div class="col s12 xl6 information-block right" style="display: flex;flex-direction:column;">
+								<h2><?php the_sub_field("header") ?></h2>
+								<h3><?php the_sub_field("subheader") ?></h3>
+								<div class="text"><?php the_sub_field("text") ?></div>
+								<div class="creator-btn-container">
+									<a class="creator-btn" href="<?php the_sub_field("button_link") ?>" target="<?php the_sub_field("button_target") ?>"><?php the_sub_field("button_text") ?></a>
+								</div>
+							</div>
+							<div class="col s12 xl6" style="display: flex;align-items: center;justify-content: center;flex-direction:column;">
+								<img src="<?php the_sub_field("image") ?>" />			
+							</div>						
 						</div>
 						<?php endwhile; ?>
 						<a class="myprev">
@@ -243,7 +251,9 @@ if( $term_name == "X‑Photographer" ){
 						<a class="mynext">
 							<div class="arrow-right"></div>
 						</a>
-					</div>						
+
+					</div>			
+
 					<div class="slideshow-nav">
 						<br>
 						<?php while ( have_rows('projects_slider') ) : the_row(); ?>
@@ -251,42 +261,33 @@ if( $term_name == "X‑Photographer" ){
 						<?php endwhile;	?>
 					</div>
 				</div>
-				<?php endif; ?>
+				
 			</div>
-			<div class="col s12 m6 flex-col information-block right">
-				<h2><?php the_sub_field("header") ?></h2>
-				<h3><?php the_sub_field("subheader") ?></h3>
-				<div class="text"><?php the_sub_field("text") ?></div>
-				<div class="creator-btn-container">
-					<a class="creator-btn" href="<?php the_sub_field("button_link") ?>" target="_blank"><?php the_sub_field("button_text") ?></a>
-				</div>
-			</div>
+			
 		</div>
-	</div>
-	<?php endif; ?>
-	<?php endwhile; ?>
+	</div>	
 	<?php endif; ?>
 
-	<?php if( have_rows('gear') ): ?>
-    <?php while( have_rows('gear') ): the_row(); ?>
-    <?php if( get_sub_field('header') ): ?>
-	<div class="container">
-		<div class="row flex-row">
-			<div class="col s12 m6 flex-col information-block left">
-				<h2><?php the_sub_field("header") ?></h2>
-				<h3><?php the_sub_field("subheader") ?></h3>
-				<div class="text"><?php the_sub_field("text") ?></div>
-				<div class="creator-btn-container">
-					<a class="creator-btn" href="<?php the_sub_field("button_link") ?>" target="_blank"><?php the_sub_field("button_text") ?></a>
-				</div>
-			</div>
-			<div class="col s12 m6 flex-col">					
-				<?php if( have_rows('projects_slider') ): ?>
+	<?php if( have_rows('gear_slider') ): ?>    
+	<div class="container" style="padding:3.25rem 0;">
+		<div class="row">
+			<div class="col s12">							
 				<div class="my-slideshow">
 					<div class="slides-container">
-						<?php while ( have_rows('projects_slider') ) : the_row(); ?>
-						<div class="mySlide">
-							<img src="<?php the_sub_field("image") ?>" />									
+						<?php while ( have_rows('gear_slider') ) : the_row(); ?>
+						<div class="mySlide flex-when-active">
+
+							<div class="col s12 xl6 information-block left" style="display: flex;flex-direction:column;">
+								<h2><?php the_sub_field("header") ?></h2>
+								<h3><?php the_sub_field("subheader") ?></h3>
+								<div class="text"><?php the_sub_field("text") ?></div>
+								<div class="creator-btn-container">
+									<a class="creator-btn" href="<?php the_sub_field("button_link") ?>" target="<?php the_sub_field("button_target") ?>"><?php the_sub_field("button_text") ?></a>
+								</div>
+							</div>
+							<div class="col s12 xl6" style="display: flex;align-items: center;justify-content: center;flex-direction:column;">
+								<img src="<?php the_sub_field("image") ?>" />			
+							</div>						
 						</div>
 						<?php endwhile; ?>
 						<a class="myprev">
@@ -295,7 +296,9 @@ if( $term_name == "X‑Photographer" ){
 						<a class="mynext">
 							<div class="arrow-right"></div>
 						</a>
-					</div>						
+
+					</div>			
+
 					<div class="slideshow-nav">
 						<br>
 						<?php while ( have_rows('projects_slider') ) : the_row(); ?>
@@ -303,12 +306,11 @@ if( $term_name == "X‑Photographer" ){
 						<?php endwhile;	?>
 					</div>
 				</div>
-				<?php endif; ?>
-			</div>			
+				
+			</div>
+			
 		</div>
-	</div>
-	<?php endif; ?>
-	<?php endwhile; ?>
+	</div>	
 	<?php endif; ?>
 
 	<?php $post_id = get_page_by_path( 'creators' ); ?>
