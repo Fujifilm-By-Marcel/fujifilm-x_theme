@@ -268,8 +268,8 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/fnac-assets/creators/img/
 					}
 					?>
 					<div class="creator-portrait-container">
-						<img class="portrait" width="160" height="160" src="<?php the_field("archive_portrait"); ?>" <?php echo $srcset; ?> >
-						<?php if($term_name == "X‑Photographer") { ?>
+						<a href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>"><img class="portrait" width="160" height="160" src="<?php the_field("archive_portrait"); ?>" <?php echo $srcset; ?> >
+						<?php if($term_name == "X‑Photographer") { ?></a>
 						<img class="badge" width="34" height="34" src="<?php echo $imgDirectory ?>x-photographer-badge-small.png" srcset="<?php echo $imgDirectory ?>x-photographer-badge-small.png 1x, <?php echo $imgDirectory ?>x-photographer-badge-small@2x.png 2x, <?php echo $imgDirectory ?>x-photographer-badge-small@3x.png 3x">
 						<?php } ?>
 					</div>
