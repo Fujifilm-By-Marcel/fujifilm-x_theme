@@ -136,93 +136,8 @@ if( $term_name == "X‑Photographer" ){
 			</div>
 		</div>
 	</div> 
-	<?php if(!$isCreator): ?>
-	<?php if( have_rows('gallery') ): ?>
-	<section class="gallery-container">
-		<div class="container">
-			<div class="row">
-				<div class="col s12">
-					<div class="gallery">
-						<div class="gallery-pane">
-							<?php 
-							$i = 0;
-							while( have_rows('gallery') ) : the_row(); 
-							$i++;
-							?>						
-							<a class="modal-opener" data-modal="modal-<?php echo $i; ?>">
-								<?php if( get_sub_field('video_src') ){ ?>
-								<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
-								<?php } 
-								$imgsrc = wp_get_attachment_image_src( get_sub_field('thumbnail_image'), 'full' ); ?>
-								<img class="lazyload" data-src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>">
-							</a>							
-						 	<?php endwhile; ?> 
-						</div>
-					</div> 
-				</div>
-			</div>
-		</div>
-		<div class="expand-gallery-button mobile-only" onclick="toggleGalleryExpand(this, event);">
-			<i class="arrow up"></i>
-		</div>
-	</section>
-	<?php endif; ?>
-	<?php else: ?>
-	<?php if( have_rows('gallery') ): ?>
-	<section class="creators-owl-container">
-		<div class="owl-carousel">
-		 	<?php 
-			$i = 0;
-			while( have_rows('gallery') ) : the_row(); 
-			$i++;
-			?>						
-			<a class="modal-opener" data-modal="modal-<?php echo $i; ?>">
-				<?php if( get_sub_field('video_src') ){ ?>
-				<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
-				<?php } 
-				$imgsrc = wp_get_attachment_image_src( get_sub_field('thumbnail_image'), 'full' ); ?>
-				<img src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>">
-			</a>							
-		 	<?php endwhile; ?> 
-		</div>
-	</section>
-	<?php endif; ?>
-	<?php endif; ?>
-	<?php if( have_rows('gallery') ): ?>
-		<?php 
-		$i = 0;
-		while( have_rows('gallery') ) : the_row(); 
-		$i++;
-		?>
-		<div id="modal-<?php echo $i ?>" class="modal" onclick="closeModal(<?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>, event)">
-		    <div class="modal-content">
-		    	<div class="modal-prev" onclick="iterateModals(-1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>)"><span></span></div>
-		    	<div class="modal-next" onclick="iterateModals(1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>)"><span></span></div>
-		        <div class="close" onclick="closeModal(<?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>, event)">
-		            <span class="cursor">&times;</span>
-		        </div>		        
-		        <div class="resp-container <?php echo ( get_sub_field('video_src') ? "youtube" : "image" ) ?>">
-		        	<?php if( get_sub_field('video_src') ){ ?>		
-		        	<iframe class="resp-inner" src="<?php the_sub_field('video_src') ?>" width="<?php the_sub_field('video_width') ?>" height="<?php the_sub_field('videoyoutube_height') ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen;" allowfullscreen></iframe>
-		        	<?php } else { 
-		        	$imgsrc = wp_get_attachment_image_src( get_sub_field('fullsize_image'), 'full' ); 
-		        	/*$isVertical = false;
-		        	$verticalStyle = "style='max-height: 80vh;width: auto;'";
-		        	$horizontalStyle = "style='max-height: 80vh;width: auto;'";
-		        	if( $imgsrc[1]/$imgsrc[2] <= 1 ){
-		        		$isVertical = true;
-		        	}*/
-		        	?>
-		        	<img <?php //if($isVertical){echo $verticalStyle;}else{echo $horizontalStyle;} ?> class="normal-inner lazyload" data-src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>" >
-		        	<?php } ?>
-		    	</div>		    	
-		    </div>
-		</div>
 
-		<?php endwhile; ?>
-	<?php endif; ?>
-
-	
+	<?php if( get_field('enable_projects') ): ?>    
 	<?php if( have_rows('projects_slider') ): ?>    
 	<div class="container" style="padding:3.25rem 0 2rem;">
 		<div class="row">
@@ -267,7 +182,9 @@ if( $term_name == "X‑Photographer" ){
 		</div>
 	</div>	
 	<?php endif; ?>
+	<?php endif; ?>
 
+	<?php if( get_field('enable_gear') ): ?>
 	<?php if( have_rows('gear_slider') ): ?>    
 	<div class="container" style="padding:3.25rem 0;">
 		<div class="row">
@@ -312,6 +229,100 @@ if( $term_name == "X‑Photographer" ){
 		</div>
 	</div>	
 	<?php endif; ?>
+	<?php endif; ?>
+
+	
+	<?php if(!$isCreator): ?>
+	<?php if( have_rows('gallery') ): ?>
+	<section class="gallery-container">
+		<div class="container">
+			<div class="row">
+				<div class="col s12">
+					<div class="gallery">
+						<div class="gallery-pane">
+							<?php 
+							$i = 0;
+							while( have_rows('gallery') ) : the_row(); 
+							$i++;
+							?>						
+							<a class="modal-opener" data-modal="modal-<?php echo $i; ?>">
+								<?php if( get_sub_field('video_src') ){ ?>
+								<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
+								<?php } 
+								$imgsrc = wp_get_attachment_image_src( get_sub_field('thumbnail_image'), 'full' ); ?>
+								<img class="lazyload" data-src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>">
+							</a>							
+						 	<?php endwhile; ?> 
+						</div>
+					</div> 
+				</div>
+			</div>
+		</div>
+		<div class="expand-gallery-button mobile-only" onclick="toggleGalleryExpand(this, event);">
+			<i class="arrow up"></i>
+		</div>
+	</section>
+	<?php endif; ?>
+	<?php else: ?>
+	<?php if( have_rows('gallery') ): ?>
+		<style>
+			.owl-item{background:black;}
+		</style>
+	<section class="creators-owl-container">
+		<div class="owl-carousel">
+		 	<?php 
+			$i = 0;
+			while( have_rows('gallery') ) : the_row(); 
+			$i++;
+			?>						
+			<a class="modal-opener" data-modal="modal-<?php echo $i; ?>">
+				<?php if( get_sub_field('video_src') ){ ?>
+				<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
+				<?php } 
+				$imgsrc = wp_get_attachment_image_src( get_sub_field('thumbnail_image'), 'full' ); ?>
+				<img style="height:230px;width:auto;margin:auto;" src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>">
+			</a>							
+		 	<?php endwhile; ?> 
+		</div>
+	</section>
+	<?php endif; ?>
+	<?php endif; ?>
+	<?php if( have_rows('gallery') ): ?>
+		<?php 
+		$i = 0;
+		while( have_rows('gallery') ) : the_row(); 
+		$i++;
+		?>
+		<div id="modal-<?php echo $i ?>" class="modal" onclick="closeModal(<?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>, event)">
+		    <div class="modal-content">
+		    	<div class="modal-prev" onclick="iterateModals(-1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>)"><span></span></div>
+		    	<div class="modal-next" onclick="iterateModals(1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>)"><span></span></div>
+		        <div class="close" onclick="closeModal(<?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>, event)">
+		            <span class="cursor">&times;</span>
+		        </div>		        
+		        <div class="resp-container <?php echo ( get_sub_field('video_src') ? "youtube" : "image" ) ?>">
+		        	<?php if( get_sub_field('video_src') ){ ?>		
+		        	<iframe class="resp-inner" src="<?php the_sub_field('video_src') ?>" width="<?php the_sub_field('video_width') ?>" height="<?php the_sub_field('videoyoutube_height') ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen;" allowfullscreen></iframe>
+		        	<?php } else { 
+		        	$imgsrc = wp_get_attachment_image_src( get_sub_field('fullsize_image'), 'full' ); 
+		        	/*$isVertical = false;
+		        	$verticalStyle = "style='max-height: 80vh;width: auto;'";
+		        	$horizontalStyle = "style='max-height: 80vh;width: auto;'";
+		        	if( $imgsrc[1]/$imgsrc[2] <= 1 ){
+		        		$isVertical = true;
+		        	}*/
+		        	?>
+		        	<img <?php //if($isVertical){echo $verticalStyle;}else{echo $horizontalStyle;} ?> class="normal-inner lazyload" data-src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>" >
+		        	<?php } ?>
+		    	</div>		    	
+		    </div>
+		</div>
+
+		<?php endwhile; ?>
+	<?php endif; ?>
+
+	
+
 
 	<?php $post_id = get_page_by_path( 'creators' ); ?>
 	<?php if( have_rows('about', $post_id)  ): ?>
