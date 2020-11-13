@@ -242,6 +242,8 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/fnac-assets/creators/img/
 						$i++;
 						$array[$i-1]['portrait'] = $portrait;
 						$array[$i-1]['index'] = $i;
+						$array[$i-1]['alt'] = get_the_title();
+						$array[$i-1]['photographer_link'] = get_the_permalink();
 						if( get_sub_field('video_src') ){ 
 							$array[$i-1]['imgsrc']['isvideo'] = 1;
 						} else { $array[$i-1]['imgsrc']['isvideo'] = 0; }
@@ -268,7 +270,10 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/fnac-assets/creators/img/
 								<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
 								<?php } ?>
 								<img class="lazyload" data-src="<?php echo $value['imgsrc'][0] ?>" width="<?php echo $value['imgsrc'][1] ?>" height="<?php echo $value['imgsrc'][2] ?>">
-								<img class="gallery-portrait lazyload" src="<?php echo $value['portrait'] ?>" width="55" height="55" >
+								<!--<a href="<?php echo $value['photographer_link'] ?>">-->
+									<img title="<?php echo $value['alt'] ?>" alt="<?php echo $value['alt'] ?>" class="gallery-portrait lazyload" src="<?php echo $value['portrait'] ?>" width="55" height="55" >
+								<!--</a>-->
+
 							</a>
 							<?php } ?>
 						</div>
