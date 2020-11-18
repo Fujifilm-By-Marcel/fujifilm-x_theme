@@ -156,7 +156,7 @@ if( $term_name == "X‑Photographer" ){
 								</div>
 							</div>
 							<div class="col s12 xl6" style="display: flex;align-items: center;justify-content: center;flex-direction:column;">
-								<img src="<?php the_sub_field("image") ?>" />			
+								<img style="border: 27px solid;border-bottom: 102px;border-style: solid;border-image-source: url(/en-us/wp-content/themes/fujifilm-x_jp/en-us/creators/img/computer-mockup.png?V2);border-image-slice: 38 32 282 38;" src="<?php the_sub_field("image") ?>" />			
 							</div>						
 						</div>
 						<?php endwhile; ?>
@@ -203,7 +203,7 @@ if( $term_name == "X‑Photographer" ){
 								</div>
 							</div>
 							<div class="col s12 xl6" style="display: flex;align-items: center;justify-content: center;flex-direction:column;">
-								<img src="<?php the_sub_field("image") ?>" />			
+								<img style="border: 27px solid;border-bottom: 102px;border-style: solid;border-image-source: url(/en-us/wp-content/themes/fujifilm-x_jp/en-us/creators/img/computer-mockup.png?V2);border-image-slice: 38 32 282 38;" src="<?php the_sub_field("image") ?>" />			
 							</div>						
 						</div>
 						<?php endwhile; ?>
