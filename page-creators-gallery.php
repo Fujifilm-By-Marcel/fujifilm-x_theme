@@ -271,7 +271,7 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 								<?php } ?>
 								<img class="lazyload" data-src="<?php echo $value['imgsrc'][0] ?>" width="<?php echo $value['imgsrc'][1] ?>" height="<?php echo $value['imgsrc'][2] ?>">
 								<!--<a href="<?php echo $value['photographer_link'] ?>">-->
-									<img title="<?php echo $value['alt'] ?>" alt="<?php echo $value['alt'] ?>" class="gallery-portrait lazyload" src="<?php echo $value['portrait'] ?>" width="55" height="55" >
+								<img title="<?php echo $value['alt'] ?>" alt="<?php echo $value['alt'] ?>" class="gallery-portrait lazyload" data-src="<?php echo $value['portrait'] ?>" width="55" height="55" >
 								<!--</a>-->
 
 							</a>

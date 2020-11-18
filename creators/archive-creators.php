@@ -3,6 +3,7 @@ function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css', false, NULL, 'all');
 	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.32');
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true);
+	wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/lazyload.js', array(), '1.22',true); 
 } 
 add_action( 'wp_enqueue_scripts', 'load_usa_js_css' );
 
@@ -258,7 +259,7 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 				<div class="creator-content"> 
 					<?php 
 					if( get_field("archive_portrait_2x") && get_field("archive_portrait_3x") ){
-						$srcset = "srcset='";
+						$srcset = "data-srcset='";
 						$srcset .= get_field("archive_portrait")." 1x, ";
 						$srcset .= get_field("archive_portrait_2x")." 2x, ";
 						$srcset .= get_field("archive_portrait_3x")." 3x, ";
@@ -268,7 +269,7 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 					}
 					?>
 					<div class="creator-portrait-container">
-						<a href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>"><img class="portrait" width="160" height="160" src="<?php the_field("archive_portrait"); ?>" <?php echo $srcset; ?> >
+						<a href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>"><img class="portrait lazyload" width="160" height="160" data-src="<?php the_field("archive_portrait"); ?>" <?php echo $srcset; ?> >
 						<?php if($term_name == "X‑Photographer") { ?></a>
 						<img class="badge" width="34" height="34" src="<?php echo $imgDirectory ?>x-photographer-badge-small.png" srcset="<?php echo $imgDirectory ?>x-photographer-badge-small.png 1x, <?php echo $imgDirectory ?>x-photographer-badge-small@2x.png 2x, <?php echo $imgDirectory ?>x-photographer-badge-small@3x.png 3x">
 						<?php } ?>
@@ -393,6 +394,7 @@ function loadMore(){
 	$(document).ready(function () {
 		loadMore();
 		console.log("clicked");
+		lazyload();
 	});
 }(jQuery, document));
 

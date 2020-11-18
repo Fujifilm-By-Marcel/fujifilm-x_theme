@@ -10,6 +10,7 @@ function load_usa_js_css(){
 	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
 
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true);
+	wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/lazyload.js', array(), '1.22',true); 
 	wp_enqueue_script('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/jquery-slideshow.js', array(), '1.0.3',true); 
 	wp_enqueue_script('owl-carousel', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/owl.carousel.min.js', array(), '1.0.1',true); 
 
@@ -135,7 +136,7 @@ wp_reset_postdata();
 					<div class="creator-portrait-container">
 						<?php 
 						if( get_field("archive_portrait_2x") && get_field("archive_portrait_3x") ){
-							$srcset = "srcset='";
+							$srcset = "data-srcset='";
 							$srcset .= get_field("archive_portrait")." 1x, ";
 							$srcset .= get_field("archive_portrait_2x")." 2x, ";
 							$srcset .= get_field("archive_portrait_3x")." 3x, ";
@@ -144,7 +145,7 @@ wp_reset_postdata();
 							$srcset = "";
 						}
 						?>
-						<img class="portrait" width="160" height="160" src="<?php the_field("archive_portrait"); ?>" <?php echo $srcset; ?> >
+						<img class="portrait lazyload" width="160" height="160" data-src="<?php the_field("archive_portrait"); ?>" <?php echo $srcset; ?> >
 						<?php if($term_name == "X‑Photographer") { ?>
 						<img class="badge" width="34" height="34" src="<?php echo $imgDirectory ?>x-photographer-badge-small.png" srcset="<?php echo $imgDirectory ?>x-photographer-badge-small.png 1x, <?php echo $imgDirectory ?>x-photographer-badge-small@2x.png 2x, <?php echo $imgDirectory ?>x-photographer-badge-small@3x.png 3x">
 						<?php } ?>
@@ -249,6 +250,8 @@ wp_reset_postdata();
 			jQuery(".winslow-right").show();
 			jQuery(".page-tagline").show();
 			//$(".myplaybutton").click();
+
+			lazyload();
         });
 
     }(jQuery, document));
