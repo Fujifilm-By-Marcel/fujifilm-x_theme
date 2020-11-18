@@ -4,7 +4,7 @@ Template Name: Page-creator-resources
 */
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css', false, NULL, 'all');
-	wp_enqueue_style('creator-resources', get_stylesheet_directory_uri().'/en-us/fnac-assets/creators/css/creator-resources.css', array(), '1.0.52');	
+	wp_enqueue_style('creator-resources', get_stylesheet_directory_uri().'/en-us/creators/css/creator-resources.css', array(), '1.0.52');	
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.3', true);
 	//wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/lazyload.js', array(), '1.22',true); 
 } 
@@ -17,7 +17,7 @@ add_action( 'wp_enqueue_scripts', 'load_usa_js_css' );
 get_header(); 
 get_sidebar();
 
-$imgDirectory = get_stylesheet_directory_uri()."/en-us/fnac-assets/creators/img/";
+$imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 $tallest_px = get_field("tallest_button_image");
 
 

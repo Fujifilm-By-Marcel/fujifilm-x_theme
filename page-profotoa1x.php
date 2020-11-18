@@ -4,7 +4,7 @@ Template Name: Page-profotoa1x
 */
 function page_styles(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css',array(),'1.0.0');	
-	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css',array(),'1.0.4'); 
+	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css',array(),'1.0.5'); 
 	wp_enqueue_style('profoto-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/profoto.css',array(),'1.0.40');	
 }
 function page_scripts(){

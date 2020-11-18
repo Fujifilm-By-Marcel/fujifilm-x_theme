@@ -4,8 +4,8 @@ Template Name: Page-creators-join-us
 */
 function page_usa_styles(){
 	wp_enqueue_style('materialize-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css',array(),'1.0.9');
-	wp_enqueue_style('creators-nav-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/creators/css/creators-nav.css',array(),'1.0.0');
-	wp_enqueue_style('us-page-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/creators/css/creators-join-us.css',array(),'1.0.30');
+	wp_enqueue_style('creators-nav-css', get_stylesheet_directory_uri().'/en-us/creators/css/creators-nav.css',array(),'1.0.0');
+	wp_enqueue_style('us-page-css', get_stylesheet_directory_uri().'/en-us/creators/css/creators-join-us.css',array(),'1.0.30');
 }
 function page_usa_scripts(){
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true); 	
@@ -40,13 +40,13 @@ function my_transition(){
 
 
 
- $imgDirectory = get_stylesheet_directory_uri()."/en-us/fnac-assets/creators/img/";
+ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 
  ?>
 <section class="main">	
 
 	<?php 
-	require get_stylesheet_directory().'/en-us/fnac-assets/creators/navigation.php';
+	require get_stylesheet_directory().'/en-us/creators/navigation.php';
 	?>
 	
 	<!-- HEADER SECTION -->
