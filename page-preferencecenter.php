@@ -71,7 +71,7 @@ add_action('wp_head', 'nofollownoindexhead');
 				<?php 
 				remove_filter ('acf_the_content', 'wpautop');	
 				if( isset($_GET['email']) ){
-					require_once('adestra-api/adestra-api.php');
+					require_once('fnac-assets/adestra-api/adestra-api.php');
 					$xmlrpc = authenticate();
 					$contactID = getContactID($xmlrpc, $_GET['email']);
 					
