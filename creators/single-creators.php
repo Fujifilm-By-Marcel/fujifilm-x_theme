@@ -1,7 +1,7 @@
 <?php 
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css', array(),'1.0.0');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/fnac-assets/creators/css/archive-creators.css', array(),'1.1.54');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/fnac-assets/creators/css/archive-creators.css', array(),'1.1.55');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css', array(),'1.0.6');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
 	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
@@ -184,14 +184,14 @@ if( $term_name == "X‑Photographer" ){
 	<?php endif; ?>
 	<?php endif; ?>
 
-	<?php if( get_field('enable_gear') ): ?>
-	<?php if( have_rows('gear_slider') ): ?>    
+	<?php if( get_field('enable_projects_2') ): ?>
+	<?php if( have_rows('projects_slider_2') ): ?>    
 	<div class="container" style="padding:3.25rem 0;">
 		<div class="row">
 			<div class="col s12">							
 				<div class="my-slideshow">
 					<div class="slides-container">
-						<?php while ( have_rows('gear_slider') ) : the_row(); ?>
+						<?php while ( have_rows('projects_slider_2') ) : the_row(); ?>
 						<div class="mySlide flex-when-active">
 
 							<div class="col s12 xl6 information-block left" style="display: flex;flex-direction:column;">
@@ -324,9 +324,9 @@ if( $term_name == "X‑Photographer" ){
 	
 
 
-	<?php $post_id = get_page_by_path( 'creators' ); ?>
-	<?php if( have_rows('about', $post_id)  ): ?>
-    <?php while( have_rows('about', $post_id) ): the_row(); ?>
+	<?php //$post_id = get_page_by_path( 'creators' ); ?>
+	<?php //if( have_rows('about', $post_id)  ): ?>
+    <?php //while( have_rows('about', $post_id) ): the_row(); ?>
 	<!--<section class="grey-background">
 		<div class="container ">
 			<div class="row">
@@ -344,10 +344,10 @@ if( $term_name == "X‑Photographer" ){
 			</div>
 		</div>
 	</section>-->
-	<?php endwhile; ?>
-	<?php endif;  ?>
-	<?php if( have_rows('collaborate', $post_id) ): ?>
-    <?php while( have_rows('collaborate', $post_id) ): the_row(); ?>
+	<?php //endwhile; ?>
+	<?php //endif;  ?>
+	<?php //if( have_rows('collaborate', $post_id) ): ?>
+    <?php //while( have_rows('collaborate', $post_id) ): the_row(); ?>
 	<!--<section class="black-background">
 		<div class="container">
 			<div class="row">
@@ -365,8 +365,8 @@ if( $term_name == "X‑Photographer" ){
 			</div>
 		</div>
 	</section>-->
-	<?php endwhile; ?>
-	<?php endif; ?>
+	<?php //endwhile; ?>
+	<?php //endif; ?>
 </section>
 <script>
 	function toggleGalleryExpand(obj, e){
