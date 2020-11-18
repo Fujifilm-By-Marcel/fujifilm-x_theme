@@ -137,6 +137,11 @@ if( $term_name == "X‑Photographer" ){
 		</div>
 	</div> 
 
+	<style>
+		.add-monitor{position:relative;}
+		.add-monitor .overlayed-image{position: absolute;left: 50%;top: 36%;transform: translate(-50%,-50%);width: 94.8%;}
+	</style>
+
 	<?php if( get_field('enable_projects') ): ?>    
 	<?php if( have_rows('projects_slider') ): ?>    
 	<div class="container" style="padding:3.25rem 0 2rem;">
@@ -156,7 +161,10 @@ if( $term_name == "X‑Photographer" ){
 								</div>
 							</div>
 							<div class="col s12 xl6" style="display: flex;align-items: center;justify-content: center;flex-direction:column;">
-								<img class="monitor-border" src="<?php the_sub_field("image") ?>" />			
+								<div <?php if( get_sub_field("enable_monitor") ){ ?>class="add-monitor"<?php } ?>>
+									<?php if( get_sub_field("enable_monitor") ){ ?><img src="http://fujifilm-x.com/en-us/wp-content/themes/fujifilm-x_jp/en-us/creators/img/computer-mockup.png?v=2" /><?php } ?>
+									<img <?php if( get_sub_field("enable_monitor") ){ ?>class="overlayed-image"<?php } ?> src="<?php the_sub_field("image") ?>" />
+								</div>
 							</div>						
 						</div>
 						<?php endwhile; ?>
@@ -203,7 +211,10 @@ if( $term_name == "X‑Photographer" ){
 								</div>
 							</div>
 							<div class="col s12 xl6" style="display: flex;align-items: center;justify-content: center;flex-direction:column;">
-								<img class="monitor-border" src="<?php the_sub_field("image") ?>" />			
+								<div <?php if( get_sub_field("enable_monitor") ){ ?>class="add-monitor"<?php } ?>>
+									<?php if( get_sub_field("enable_monitor") ){ ?><img src="http://fujifilm-x.com/en-us/wp-content/themes/fujifilm-x_jp/en-us/creators/img/computer-mockup.png?v=2" /><?php } ?>
+									<img <?php if( get_sub_field("enable_monitor") ){ ?>class="overlayed-image"<?php } ?> src="<?php the_sub_field("image") ?>" />
+								</div>
 							</div>						
 						</div>
 						<?php endwhile; ?>
