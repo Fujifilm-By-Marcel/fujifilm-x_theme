@@ -52,9 +52,10 @@ function printGearCarousel(){
 		    	echo '<div class="item">';
 		        
 		        
-		        echo '<img src="'.get_field("image_url", $post_id).'" width="300" height="300" >';
+		        echo '<a href="'.get_field("button_href", $post_id).'" target="'.get_field("button_target", $post_id).'"><img src="'.get_field("image_url", $post_id).'" width="300" height="300" ></a>';
 		        echo '<h3>'.get_field("header", $post_id).'</h3>';
 		        echo '<p class="subheader">'.get_field("subheader", $post_id).'</p>';
+		        echo '<p class="subheader">'.get_field("text", $post_id).'</p>';
 
 				echo '<div class="creator-btn-container">';
 				echo '<a style="display:inline;" class="creator-btn" href="'.get_field("button_href", $post_id).'" target="'.get_field("button_target", $post_id).'">'.get_field("button_text", $post_id).'</a>';
@@ -281,7 +282,7 @@ function printGearCarousel(){
 	<?php endif; ?>
 
 	
-	<?php printGearCarousel(); ?>
+	
 	
 	
 	
@@ -374,7 +375,7 @@ function printGearCarousel(){
 		<?php endwhile; ?>
 	<?php endif; ?>
 
-	
+	<?php printGearCarousel(); ?>
 
 
 	<?php //$post_id = get_page_by_path( 'creators' ); ?>
