@@ -1,7 +1,7 @@
 <?php 
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css', array(),'1.0.0');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.55');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.64');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css', array(),'1.0.6');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
 	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
@@ -34,10 +34,48 @@ if( $term_name == "X‑Photographer" ){
 	$badgecolClass = "s12";
 	$badgecolHide = 'style="display:none;"';
 }
-?>
-<style>
 
-</style>
+
+
+
+function printGearCarousel(){
+	if(get_field(enable_gear_v2)){
+		echo '<div class="gear-carousel-container">';
+		if( have_rows('gear') ):
+		    //open carousel
+		    echo '<div class="owl-carousel gear-carousel">';
+		    while( have_rows('gear') ) : the_row();
+
+		    	$post_id = get_sub_field('gear');
+
+		    	//open carousel item
+		    	echo '<div class="item">';
+		        
+		        
+		        echo '<img src="'.get_field("image_url", $post_id).'" width="300" height="300" >';
+		        echo '<h3>'.get_field("header", $post_id).'</h3>';
+		        echo '<p class="subheader">'.get_field("subheader", $post_id).'</p>';
+
+				echo '<div class="creator-btn-container">';
+				echo '<a style="display:inline;" class="creator-btn" href="'.get_field("button_href", $post_id).'" target="'.get_field("button_target", $post_id).'">'.get_field("button_text", $post_id).'</a>';
+				echo '</div>';
+		        
+		        //close carousel item
+		        echo '</div>';
+
+
+		    endwhile;
+
+		    //close carousel
+		    echo '</div>';
+
+	    endif;
+	    echo '</div>';
+	}
+}
+
+?>
+
 <section class="main creators-single"> 
 	<?php 
 	require get_stylesheet_directory().'/en-us/creators/navigation.php';
@@ -144,7 +182,7 @@ if( $term_name == "X‑Photographer" ){
 
 	<?php if( get_field('enable_projects') ): ?>    
 	<?php if( have_rows('projects_slider') ): ?>    
-	<div class="container" style="padding:3.25rem 0 2rem;">
+	<div class="container" style="padding:2rem 0 2rem;">
 		<div class="row">
 			<div class="col s12">							
 				<div class="my-slideshow">
@@ -194,7 +232,7 @@ if( $term_name == "X‑Photographer" ){
 
 	<?php if( get_field('enable_projects_2') ): ?>
 	<?php if( have_rows('projects_slider_2') ): ?>    
-	<div class="container" style="padding:3.25rem 0;">
+	<div class="container" style="padding:2rem 0;">
 		<div class="row">
 			<div class="col s12">							
 				<div class="my-slideshow">
@@ -242,6 +280,10 @@ if( $term_name == "X‑Photographer" ){
 	<?php endif; ?>
 	<?php endif; ?>
 
+	
+	<?php printGearCarousel(); ?>
+	
+	
 	
 	<?php if(!$isCreator): ?>
 	<?php if( have_rows('gallery') ): ?>

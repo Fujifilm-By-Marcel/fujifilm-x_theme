@@ -977,9 +977,39 @@
   display: block;
   overflow: hidden;
 }
+.creators-single .gear-carousel-container {
+  padding: 2rem 2rem;
+}
+.creators-single .gear-carousel-container .owl-carousel.gear-carousel {
+  padding: 0 50px;
+}
+.creators-single .gear-carousel-container .owl-carousel.gear-carousel .owl-stage {
+  display: block;
+}
+.creators-single .gear-carousel-container .owl-carousel.gear-carousel .owl-stage .owl-item {
+  text-align: center;
+  background: none;
+  flex-grow: 1;
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+.creators-single .gear-carousel-container .owl-carousel.gear-carousel .owl-stage .owl-item .creator-btn-container {
+  padding: 20px 0 10px;
+}
+.creators-single .gear-carousel-container .owl-carousel.gear-carousel .owl-stage .owl-item a {
+  display: block;
+  overflow: hidden;
+}
+.creators-single .gear-carousel-container .owl-carousel.gear-carousel .owl-dots {
+  display: none;
+}
 @media (max-width: 600px) {
   .creators-single section.creators-owl-container {
     padding: 4rem 1rem;
+  }
+  .creators-single .gear-carousel-container {
+    margin: 2rem 1rem;
   }
 }
 .owl-prev {
