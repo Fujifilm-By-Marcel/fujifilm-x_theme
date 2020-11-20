@@ -1,7 +1,7 @@
 <?php 
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css', array(),'1.0.0');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.64');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.76');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css', array(),'1.0.6');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
 	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
@@ -54,7 +54,7 @@ function printGearCarousel(){
 		        
 		        echo '<a href="'.get_field("button_href", $post_id).'" target="'.get_field("button_target", $post_id).'"><img src="'.get_field("image_url", $post_id).'" width="300" height="300" ></a>';
 		        echo '<h3>'.get_field("header", $post_id).'</h3>';
-		        echo '<p class="subheader">'.get_field("subheader", $post_id).'</p>';
+		        //echo '<p class="subheader">'.get_field("subheader", $post_id).'</p>';
 		        echo '<p class="subheader">'.get_field("text", $post_id).'</p>';
 
 				echo '<div class="creator-btn-container">';
@@ -183,7 +183,7 @@ function printGearCarousel(){
 
 	<?php if( get_field('enable_projects') ): ?>    
 	<?php if( have_rows('projects_slider') ): ?>    
-	<div class="container" style="padding:2rem 0 2rem;">
+	<div class="container full-width-mobile" style="padding:2rem 0 2rem;">
 		<div class="row">
 			<div class="col s12">							
 				<div class="my-slideshow">
@@ -233,7 +233,7 @@ function printGearCarousel(){
 
 	<?php if( get_field('enable_projects_2') ): ?>
 	<?php if( have_rows('projects_slider_2') ): ?>    
-	<div class="container" style="padding:2rem 0;">
+	<div class="container full-width-mobile" style="padding:2rem 0;">
 		<div class="row">
 			<div class="col s12">							
 				<div class="my-slideshow">

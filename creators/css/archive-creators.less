@@ -596,7 +596,7 @@
 
 	.my-slideshow{
 		.slides-container{
-			padding: 0 6em;
+			padding: 0 50px;
 			overflow:hidden;
 		}
 		.mySlide{
@@ -1066,6 +1066,14 @@
 					display: inline-block;
 					vertical-align: middle;
 					float:none;
+					.item{
+					    max-width: 300px;
+					    margin: auto;
+					}
+					img{
+						max-width: 200px !important;
+					    margin: auto;	
+					}
 					.creator-btn-container{
 						padding:20px 0 10px;
 					}
@@ -1085,7 +1093,7 @@
 			padding: 4rem 1rem;
 		}
 		.gear-carousel-container{
-			margin:2rem 1rem;
+			padding:2rem 1rem;
 		}
 	}
 }
@@ -1243,5 +1251,12 @@
 		right: -100%;
 		bottom: -100%;
 		left: -100%;
+	}
+}
+
+@media(max-width:600px){
+	.container.full-width-mobile{
+		max-width: none;
+	    width: auto;
 	}
 }
