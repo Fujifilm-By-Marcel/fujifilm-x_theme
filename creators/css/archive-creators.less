@@ -1041,6 +1041,7 @@
 					flex-grow: 1;
 					display: inline-block;
 					vertical-align: middle;
+					background:black;
 					float:none;
 					a{
 						display:block;
@@ -1053,9 +1054,9 @@
 
 	}
 
-	.gear-carousel-container{
-		padding:2rem 2rem;
-		.owl-carousel.gear-carousel{
+	.gear-carousel-container, .ec-carousel-container{
+		//padding:2rem 2rem;
+		.owl-carousel.gear-carousel, .owl-carousel.ec-carousel{
 			padding: 0 50px;
 			.owl-stage{
 				display:block;
@@ -1090,10 +1091,10 @@
 
 	@media (max-width:600px){
 		section.creators-owl-container{
-			padding: 4rem 1rem;
+			//padding: 4rem 1rem;
 		}
-		.gear-carousel-container{
-			padding:2rem 1rem;
+		.gear-carousel-container, .ec-carousel-container{
+			//padding:2rem 1rem;
 		}
 	}
 }

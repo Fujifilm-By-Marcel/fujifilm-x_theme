@@ -971,22 +971,29 @@
   flex-grow: 1;
   display: inline-block;
   vertical-align: middle;
+  background: black;
   float: none;
 }
 .creators-single section.creators-owl-container .owl-carousel .owl-stage .owl-item a {
   display: block;
   overflow: hidden;
 }
-.creators-single .gear-carousel-container {
-  padding: 2rem 2rem;
-}
-.creators-single .gear-carousel-container .owl-carousel.gear-carousel {
+.creators-single .gear-carousel-container .owl-carousel.gear-carousel,
+.creators-single .ec-carousel-container .owl-carousel.gear-carousel,
+.creators-single .gear-carousel-container .owl-carousel.ec-carousel,
+.creators-single .ec-carousel-container .owl-carousel.ec-carousel {
   padding: 0 50px;
 }
-.creators-single .gear-carousel-container .owl-carousel.gear-carousel .owl-stage {
+.creators-single .gear-carousel-container .owl-carousel.gear-carousel .owl-stage,
+.creators-single .ec-carousel-container .owl-carousel.gear-carousel .owl-stage,
+.creators-single .gear-carousel-container .owl-carousel.ec-carousel .owl-stage,
+.creators-single .ec-carousel-container .owl-carousel.ec-carousel .owl-stage {
   display: block;
 }
-.creators-single .gear-carousel-container .owl-carousel.gear-carousel .owl-stage .owl-item {
+.creators-single .gear-carousel-container .owl-carousel.gear-carousel .owl-stage .owl-item,
+.creators-single .ec-carousel-container .owl-carousel.gear-carousel .owl-stage .owl-item,
+.creators-single .gear-carousel-container .owl-carousel.ec-carousel .owl-stage .owl-item,
+.creators-single .ec-carousel-container .owl-carousel.ec-carousel .owl-stage .owl-item {
   text-align: center;
   background: none;
   flex-grow: 1;
@@ -994,31 +1001,38 @@
   vertical-align: middle;
   float: none;
 }
-.creators-single .gear-carousel-container .owl-carousel.gear-carousel .owl-stage .owl-item .item {
+.creators-single .gear-carousel-container .owl-carousel.gear-carousel .owl-stage .owl-item .item,
+.creators-single .ec-carousel-container .owl-carousel.gear-carousel .owl-stage .owl-item .item,
+.creators-single .gear-carousel-container .owl-carousel.ec-carousel .owl-stage .owl-item .item,
+.creators-single .ec-carousel-container .owl-carousel.ec-carousel .owl-stage .owl-item .item {
   max-width: 300px;
   margin: auto;
 }
-.creators-single .gear-carousel-container .owl-carousel.gear-carousel .owl-stage .owl-item img {
+.creators-single .gear-carousel-container .owl-carousel.gear-carousel .owl-stage .owl-item img,
+.creators-single .ec-carousel-container .owl-carousel.gear-carousel .owl-stage .owl-item img,
+.creators-single .gear-carousel-container .owl-carousel.ec-carousel .owl-stage .owl-item img,
+.creators-single .ec-carousel-container .owl-carousel.ec-carousel .owl-stage .owl-item img {
   max-width: 200px !important;
   margin: auto;
 }
-.creators-single .gear-carousel-container .owl-carousel.gear-carousel .owl-stage .owl-item .creator-btn-container {
+.creators-single .gear-carousel-container .owl-carousel.gear-carousel .owl-stage .owl-item .creator-btn-container,
+.creators-single .ec-carousel-container .owl-carousel.gear-carousel .owl-stage .owl-item .creator-btn-container,
+.creators-single .gear-carousel-container .owl-carousel.ec-carousel .owl-stage .owl-item .creator-btn-container,
+.creators-single .ec-carousel-container .owl-carousel.ec-carousel .owl-stage .owl-item .creator-btn-container {
   padding: 20px 0 10px;
 }
-.creators-single .gear-carousel-container .owl-carousel.gear-carousel .owl-stage .owl-item a {
+.creators-single .gear-carousel-container .owl-carousel.gear-carousel .owl-stage .owl-item a,
+.creators-single .ec-carousel-container .owl-carousel.gear-carousel .owl-stage .owl-item a,
+.creators-single .gear-carousel-container .owl-carousel.ec-carousel .owl-stage .owl-item a,
+.creators-single .ec-carousel-container .owl-carousel.ec-carousel .owl-stage .owl-item a {
   display: block;
   overflow: hidden;
 }
-.creators-single .gear-carousel-container .owl-carousel.gear-carousel .owl-dots {
+.creators-single .gear-carousel-container .owl-carousel.gear-carousel .owl-dots,
+.creators-single .ec-carousel-container .owl-carousel.gear-carousel .owl-dots,
+.creators-single .gear-carousel-container .owl-carousel.ec-carousel .owl-dots,
+.creators-single .ec-carousel-container .owl-carousel.ec-carousel .owl-dots {
   display: none;
-}
-@media (max-width: 600px) {
-  .creators-single section.creators-owl-container {
-    padding: 4rem 1rem;
-  }
-  .creators-single .gear-carousel-container {
-    padding: 2rem 1rem;
-  }
 }
 .owl-prev {
   position: absolute;

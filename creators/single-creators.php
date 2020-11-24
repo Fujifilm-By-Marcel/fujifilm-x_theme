@@ -1,7 +1,7 @@
 <?php 
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css', array(),'1.0.0');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.76');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.81');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css', array(),'1.0.6');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
 	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
@@ -40,7 +40,7 @@ if( $term_name == "X‑Photographer" ){
 
 function printGearCarousel(){
 	if(get_field(enable_gear_v2)){
-		echo '<div class="gear-carousel-container">';
+		echo '<div style="margin:0 0 4rem;" class="gear-carousel-container">';
 		if( have_rows('gear') ):
 		    //open carousel
 		    echo '<div class="owl-carousel gear-carousel">';
@@ -55,7 +55,7 @@ function printGearCarousel(){
 		        echo '<a href="'.get_field("button_href", $post_id).'" target="'.get_field("button_target", $post_id).'"><img src="'.get_field("image_url", $post_id).'" width="300" height="300" ></a>';
 		        echo '<h3>'.get_field("header", $post_id).'</h3>';
 		        //echo '<p class="subheader">'.get_field("subheader", $post_id).'</p>';
-		        echo '<p class="subheader">'.get_field("text", $post_id).'</p>';
+		        echo '<p style="min-height:66px;" class="subheader">'.get_field("text", $post_id).'</p>';
 
 				echo '<div class="creator-btn-container">';
 				echo '<a style="display:inline;" class="creator-btn" href="'.get_field("button_href", $post_id).'" target="'.get_field("button_target", $post_id).'">'.get_field("button_text", $post_id).'</a>';
@@ -75,6 +75,70 @@ function printGearCarousel(){
 	}
 }
 
+
+
+function printExposureCenterArticles(){
+	if ( is_user_logged_in() ) {
+
+	
+ 	$posts = get_posts(array(
+		'numberposts'	=> -1,
+		'post_type'		=> 'exposure_center',
+		'meta_key'		=> 'featured_biography_v2',
+		'meta_value'	=> get_the_ID(),
+	));
+ 	
+    if( $posts ):
+
+	    //open container
+		echo '<div style="margin:0 0 4rem;" class="ec-carousel-container">';
+		//open carousel
+		echo '<div class="owl-carousel ec-carousel">';
+		foreach( $posts as $post ):
+			for ($i = 1; $i <= 10; $i++) {
+
+		    //echo "<pre>";
+		    //print_r($post);
+			//echo "</pre>";
+			//echo "<br>";
+
+			//link
+			echo '<a href="'.get_permalink($post->ID).'">';
+			
+			//open background div
+			echo '<div style="background:url('.get_the_post_thumbnail_url($post->ID, 'medium').') center/cover no-repeat #000;color:white;overflow: hidden;padding-top: 66%;height: 0;position:relative;border-radius:5px;">';
+			
+			//open inner div
+			echo '<div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.3);border-radius:5px;text-align:left;padding: 1.25rem 1.875rem;display: flex;
+    flex-direction: column;">';
+
+			echo '<div><span style="line-height:normal;border-bottom:1px solid #eb022f;">Articles</span></div>';
+			echo '<h3 style="line-height:normal;color:white;font-size:1.5rem;font-family: \'Fjalla One\', sans-serif;margin-bottom: .625rem;margin-top:auto;">'.$post->post_title.'</h3>';
+			echo '<p style="line-height:normal;font-size:.75rem;">'.$post->post_excerpt.'</p>';
+			echo '<div><div style="float:right;"><span style="line-height:normal;font-family: \'Fjalla One\', sans-serif;font-size:.625rem;border-bottom:1px solid #eb022f;">READ ARTICLE</span><span style="width: 0;height: 0;border-top: 9px solid transparent;border-bottom: 9px solid transparent;border-left:10px solid #eb022f;transform: scale(1, .75);margin-left:10px;position:relative;top:4px;display: block;float: right;"></span></div></div>';
+
+			//close inner div
+			echo '</div>';
+			
+			//close background div
+			echo '</div>';			
+
+			//close link
+			echo '</a>';
+
+		    
+			}
+		endforeach;
+		//close carousel
+		echo '</div>';
+		//close container
+	    echo '</div>';
+	    //wp_reset_postdata();
+	endif;
+	
+	}
+}
+
 ?>
 
 <section class="main creators-single"> 
@@ -90,7 +154,7 @@ function printGearCarousel(){
 		</div>
 	</div>
 
-	<div class="container single-bio">
+	<div class="container single-bio" style="margin:0 auto 3rem;">
 		<div class="row">
 			<div class="col s12 m4 l4 xl3">
 				<div class="portrait-badge-section">
@@ -183,7 +247,7 @@ function printGearCarousel(){
 
 	<?php if( get_field('enable_projects') ): ?>    
 	<?php if( have_rows('projects_slider') ): ?>    
-	<div class="container full-width-mobile" style="padding:2rem 0 2rem;">
+	<div class="container full-width-mobile" style="padding:0 0 3rem;">
 		<div class="row">
 			<div class="col s12">							
 				<div class="my-slideshow">
@@ -233,7 +297,7 @@ function printGearCarousel(){
 
 	<?php if( get_field('enable_projects_2') ): ?>
 	<?php if( have_rows('projects_slider_2') ): ?>    
-	<div class="container full-width-mobile" style="padding:2rem 0;">
+	<div class="container full-width-mobile" style="padding:0 0 3rem;">
 		<div class="row">
 			<div class="col s12">							
 				<div class="my-slideshow">
@@ -288,7 +352,7 @@ function printGearCarousel(){
 	
 	<?php if(!$isCreator): ?>
 	<?php if( have_rows('gallery') ): ?>
-	<section class="gallery-container">
+	<section class="gallery-container" style="margin: 0 0 3rem;">
 		<div class="container">
 			<div class="row">
 				<div class="col s12">
@@ -319,10 +383,7 @@ function printGearCarousel(){
 	<?php endif; ?>
 	<?php else: ?>
 	<?php if( have_rows('gallery') ): ?>
-		<style>
-			.owl-item{background:black;}
-		</style>
-	<section class="creators-owl-container">
+	<section class="creators-owl-container" style="margin: 0 0 3rem;">
 		<div class="owl-carousel">
 		 	<?php 
 			$i = 0;
@@ -377,6 +438,7 @@ function printGearCarousel(){
 
 	<?php printGearCarousel(); ?>
 
+	<?php printExposureCenterArticles(); ?>
 
 	<?php //$post_id = get_page_by_path( 'creators' ); ?>
 	<?php //if( have_rows('about', $post_id)  ): ?>
