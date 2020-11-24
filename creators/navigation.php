@@ -19,6 +19,11 @@
 	} else {
 		$gallery_active = "";
 	}
+	if ( is_page( "join-us-creators" ) ){
+		$joinus_active = "class='active'";
+	} else {
+		$joinus_active = "";
+	}
 
 ?>
 <section class="creators-navigation">
@@ -35,6 +40,7 @@
 							<!--<li><a <?php echo $about_active ?> href="<?php echo get_permalink( get_page_by_path( 'about-creators' ) ) ?>">about</a></li>-->
 							<li><a <?php echo $creators_active ?> href="<?php echo get_post_type_archive_link( 'creators' ) ?>">creators</a></li>
 							<li><a <?php echo $gallery_active ?> href="<?php echo get_permalink( get_page_by_path( 'gallery-creators' ) ) ?>">gallery</a></li>
+							<li><a <?php echo $joinus_active ?> href="<?php echo get_permalink( get_page_by_path( 'join-us-creators' ) ) ?>">join us</a></li>
 						</ul>
 						<a href="javascript:void(0);" class="hamburger-menu-icon" onclick="openMenu()">
 					    	<i class="fa fa-bars"></i>
@@ -54,6 +60,7 @@
 							<!--<li><a <?php echo $about_active ?> href="<?php echo get_permalink( get_page_by_path( 'about-creators' ) ) ?>">about</a></li>-->
 							<li><a <?php echo $creators_active ?> href="<?php echo get_post_type_archive_link( 'creators' ) ?>">creators</a></li>
 							<li><a <?php echo $gallery_active ?> href="<?php echo get_permalink( get_page_by_path( 'gallery-creators' ) ) ?>">gallery</a></li>
+							<li><a <?php echo $joinus_active ?> href="<?php echo get_permalink( get_page_by_path( 'join-us-creators' ) ) ?>">join us</a></li>
 						</ul>
 					</div>
 				</div>
