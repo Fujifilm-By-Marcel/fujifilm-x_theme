@@ -38,7 +38,7 @@
 						<ul>
 							<li><a <?php echo $home_active ?> href="<?php echo get_permalink( get_page_by_path( 'home-creators' ) ) ?>">home</a></li>
 							<!--<li><a <?php echo $about_active ?> href="<?php echo get_permalink( get_page_by_path( 'about-creators' ) ) ?>">about</a></li>-->
-							<li><a <?php echo $creators_active ?> href="<?php echo get_post_type_archive_link( 'creators' ) ?>">creators</a></li>
+							<li><a <?php echo $creators_active ?> href="<?php echo get_post_type_archive_link( 'creators' ) ?>">our creators</a></li>
 							<li><a <?php echo $gallery_active ?> href="<?php echo get_permalink( get_page_by_path( 'gallery-creators' ) ) ?>">gallery</a></li>
 							<li><a <?php echo $joinus_active ?> href="<?php echo get_permalink( get_page_by_path( 'join-us-creators' ) ) ?>">join us</a></li>
 						</ul>

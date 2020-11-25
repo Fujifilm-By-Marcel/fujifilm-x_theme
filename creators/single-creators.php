@@ -1,7 +1,8 @@
 <?php 
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css', array(),'1.0.0');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.81');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.90');
+	wp_enqueue_style('single-creators', get_stylesheet_directory_uri().'/en-us/creators/css/single-creators.css', array(),'1.0.6');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css', array(),'1.0.6');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
 	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
@@ -78,13 +79,13 @@ function printGearCarousel(){
 
 
 function printExposureCenterArticles(){
-	if ( is_user_logged_in() ) {
+	//if ( is_user_logged_in() ) {
 
 	
  	$posts = get_posts(array(
 		'numberposts'	=> -1,
 		'post_type'		=> 'exposure_center',
-		'meta_key'		=> 'featured_biography_v2',
+		'meta_key'		=> 'featured_creator',
 		'meta_value'	=> get_the_ID(),
 	));
  	
@@ -95,7 +96,7 @@ function printExposureCenterArticles(){
 		//open carousel
 		echo '<div class="owl-carousel ec-carousel">';
 		foreach( $posts as $post ):
-			for ($i = 1; $i <= 10; $i++) {
+			
 
 		    //echo "<pre>";
 		    //print_r($post);
@@ -103,19 +104,18 @@ function printExposureCenterArticles(){
 			//echo "<br>";
 
 			//link
-			echo '<a href="'.get_permalink($post->ID).'">';
+			echo '<a href="'.get_permalink($post->ID).'" target="_blank">';
 			
 			//open background div
-			echo '<div style="background:url('.get_the_post_thumbnail_url($post->ID, 'medium').') center/cover no-repeat #000;color:white;overflow: hidden;padding-top: 66%;height: 0;position:relative;border-radius:5px;">';
+			echo '<div class="ec-carousel-bg" style="background:url('.get_the_post_thumbnail_url($post->ID, 'large').') center/cover no-repeat #000;">';
 			
 			//open inner div
-			echo '<div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.3);border-radius:5px;text-align:left;padding: 1.25rem 1.875rem;display: flex;
-    flex-direction: column;">';
+			echo '<div class="ec-carousel-inner">';
 
-			echo '<div><span style="line-height:normal;border-bottom:1px solid #eb022f;">Articles</span></div>';
-			echo '<h3 style="line-height:normal;color:white;font-size:1.5rem;font-family: \'Fjalla One\', sans-serif;margin-bottom: .625rem;margin-top:auto;">'.$post->post_title.'</h3>';
-			echo '<p style="line-height:normal;font-size:.75rem;">'.$post->post_excerpt.'</p>';
-			echo '<div><div style="float:right;"><span style="line-height:normal;font-family: \'Fjalla One\', sans-serif;font-size:.625rem;border-bottom:1px solid #eb022f;">READ ARTICLE</span><span style="width: 0;height: 0;border-top: 9px solid transparent;border-bottom: 9px solid transparent;border-left:10px solid #eb022f;transform: scale(1, .75);margin-left:10px;position:relative;top:4px;display: block;float: right;"></span></div></div>';
+			echo '<div class="article-label"><span>Articles</span></div>';
+			echo '<h3>'.$post->post_title.'</h3>';
+			echo '<p>'.$post->post_excerpt.'</p>';
+			echo '<div class="ec-cta"><div class="ec-cta-inner"><span class="cta-label">READ ARTICLE</span><span class="cta-right-arrow"></span></div></div>';
 
 			//close inner div
 			echo '</div>';
@@ -127,7 +127,7 @@ function printExposureCenterArticles(){
 			echo '</a>';
 
 		    
-			}
+			
 		endforeach;
 		//close carousel
 		echo '</div>';
@@ -136,7 +136,7 @@ function printExposureCenterArticles(){
 	    //wp_reset_postdata();
 	endif;
 	
-	}
+	//}
 }
 
 ?>
@@ -384,18 +384,20 @@ function printExposureCenterArticles(){
 	<?php else: ?>
 	<?php if( have_rows('gallery') ): ?>
 	<section class="creators-owl-container" style="margin: 0 0 3rem;">
-		<div class="owl-carousel">
+		<div class="owl-carousel main-carousel">
 		 	<?php 
 			$i = 0;
 			while( have_rows('gallery') ) : the_row(); 
 			$i++;
 			?>						
 			<a class="modal-opener" data-modal="modal-<?php echo $i; ?>">
-				<?php if( get_sub_field('video_src') ){ ?>
-				<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
-				<?php } 
-				$imgsrc = wp_get_attachment_image_src( get_sub_field('thumbnail_image'), 'full' ); ?>
-				<img style="height:230px;width:auto;margin:auto;" src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>">
+				<div class="modal-opener-inner">
+					<?php if( get_sub_field('video_src') ){ ?>
+					<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
+					<?php } 
+					$imgsrc = wp_get_attachment_image_src( get_sub_field('thumbnail_image'), 'full' ); ?>
+					<img src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>">
+				</div>
 			</a>							
 		 	<?php endwhile; ?> 
 		</div>
@@ -567,7 +569,7 @@ function printExposureCenterArticles(){
             jQuery(".my-slideshow").slideshow({				
 
 			});
-			jQuery('.owl-carousel').owlCarousel({
+			jQuery('.owl-carousel.main-carousel, .owl-carousel.gear-carousel').owlCarousel({
 			    margin:10,
 			    nav:true,
 			    responsive:{
@@ -585,6 +587,27 @@ function printExposureCenterArticles(){
 			        },
 			        1800:{
 			        	items:5
+			        }
+			    }
+			});
+			jQuery('.owl-carousel.main-carousel, .owl-carousel.ec-carousel').owlCarousel({
+			    margin:10,
+			    nav:true,
+			    responsive:{
+			        0:{
+			            items:1
+			        },
+			        600:{
+			            items:1
+			        },
+			        800:{
+  						items:2
+			        },
+			        1120:{
+			            items:3
+			        },
+			        1800:{
+			        	items:4
 			        }
 			    }
 			});			
