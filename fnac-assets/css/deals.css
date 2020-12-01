@@ -34,7 +34,8 @@
 }
 
 /* Tab Header */
-.tab-header{
+
+.page-header, .tab-header{
 	font-family: "Fjalla One", sans-serif;
 	text-align: center;
 	margin-bottom:.8em;
@@ -93,7 +94,7 @@
 
 /* Responsive font sizes */
 @media (min-width:768px) { 
-	.tab-header{
+	.page-header, .tab-header{
 		font-size:48px;
 		line-height:52px;
 	}
@@ -119,7 +120,7 @@
 	}
 }
 @media (max-width:767px) { 
-	.tab-header{
+	.page-header, .tab-header{
 		font-size:40px;
 		line-height:44px;
 	}

@@ -6,7 +6,7 @@ function page_myfujifilmlegacy_styles(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css',array(),'1.0.0');	
 	wp_enqueue_style('tabs', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/tabs.css',array(),'1.0.1'); 
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css',array(),'1.0.5');
-	wp_enqueue_style('deals-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/deals.css',array(),'1.0.22'); 
+	wp_enqueue_style('deals-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/deals.css',array(),'1.0.24'); 
 }
 function page_myfujifilmlegacy_scripts(){
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true); 
@@ -189,7 +189,9 @@ if($dateRangeIndex == -1){
 			$countRange = 0;
 			if( have_rows('date_range') ):
 				while ( have_rows('date_range') ) : the_row();
-					if( $countRange == $dateRangeIndex ) : 
+					if( $countRange == $dateRangeIndex ) : ?>
+						<h2 class="page-header"><?php the_sub_field('page_header') ?></h2>
+						<?php
 						if( have_rows('tabs') ):
 							$count = 0;
 							while ( have_rows('tabs') ) : the_row();
@@ -197,10 +199,11 @@ if($dateRangeIndex == -1){
 								$tabid = "tabid-".$count;
 							?>
 								
+
 								<div id="<?php echo $tabid; ?>" class="tabcontent tab" >
-									<div class="row">
+									<div class="row" <?php if( get_sub_field('hide_title') ){ echo 'style="display:none"'; } ?>>
 										<div class="col s12">
-											<h3 class="tab-header"><?php the_sub_field('title'); ?></h3>
+											<h3 class="tab-header" ><?php the_sub_field('title'); ?></h3>
 										</div>
 									</div>
 
@@ -298,10 +301,22 @@ if($dateRangeIndex == -1){
 															if(get_sub_field("save_text_override")) { 															
 																$savetext = get_sub_field("save_text_override");
 															}
+															$wastext .= ": $".strval ($regularPriceFormatted);
+															$nowtext .= ": $".strval ($salePriceFormatted);
+															$savetext .= " $".strval ($savingsFormatted)." ".get_sub_field("post_savings_text");
+															if(get_sub_field("price_line_1_override")) {
+																$wastext = get_sub_field("price_line_1_override");
+															}
+															if(get_sub_field("price_line_2_override")) {
+																$nowtext = get_sub_field("price_line_2_override");
+															}
+															if(get_sub_field("price_line_3_override")) {
+																$savetext = get_sub_field("price_line_3_override");
+															}
 														?>
-														<p class="regular-price"><?php echo $wastext ?>: $<?php echo $regularPriceFormatted ?></p>
-														<p class="sale-price"><?php echo $nowtext ?>: $<?php echo $salePriceFormatted ?></p>
-														<p class="savings"><?php echo $savetext ?> $<?php echo $savingsFormatted ?> <?php the_sub_field("post_savings_text") ?></p>
+														<p class="regular-price"><?php echo $wastext ?></p>
+														<p class="sale-price"><?php echo $nowtext ?></p>
+														<p class="savings"><?php echo $savetext ?></p>
 
 														<?php if(get_sub_field("additional_incentive")) { ?>
 														<p class="additional-incentive"><?php the_sub_field("additional_incentive") ?></p>
