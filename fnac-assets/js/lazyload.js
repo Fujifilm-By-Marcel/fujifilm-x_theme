@@ -33,6 +33,7 @@
         src: "data-src",
         srcset: "data-srcset",
         selector: ".lazyload",
+        after: null,
         root: null,
         rootMargin: "0px",
         threshold: 0
@@ -97,6 +98,7 @@
                 return;
             }
 
+            let after = this.settings.after;
             let self = this;
             let observerConfig = {
                 root: this.settings.root,
@@ -116,6 +118,9 @@
                             }
                             if (srcset) {
                                 entry.target.srcset = srcset;
+                            }
+                            if (after) {
+                                after(entry.target);
                             }
                         } else {
                             entry.target.style.backgroundImage = "url(" + src + ")";
@@ -137,7 +142,7 @@
 
         loadImages: function () {
             if (!this.settings) { return; }
-
+            
             let self = this;
             Array.prototype.forEach.call(this.images, function (image) {
                 let src = image.getAttribute(self.settings.src);
@@ -148,7 +153,7 @@
                     }
                     if (srcset) {
                         image.srcset = srcset;
-                    }
+                    }                    
                 } else {
                     image.style.backgroundImage = "url('" + src + "')";
                 }

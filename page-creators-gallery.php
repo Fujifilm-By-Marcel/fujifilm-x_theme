@@ -4,9 +4,9 @@ Template Name: Page-creators-gallery
 */
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css', false, NULL, 'all');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.42');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.100');
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true);
-	wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/lazyload.js', array(), '1.22',true); 
+	wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/lazyload.js', array(), '1.31',true); 
 } 
 add_action( 'wp_enqueue_scripts', 'load_usa_js_css' );
 
@@ -265,7 +265,8 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 					<div class="gallery" >
 						<div class="gallery-pane">
 							<?php foreach ($array as $key => $value) { //echo "<pre>";print_r($value);echo "</pre>"; ?>
-							<a href="#" class="modal-opener" data-modal="modal-<?php echo $value['index'] ?>">
+							<a href="#" class="modal-opener" data-modal="modal-<?php echo $value['index'] ?>">								
+								<div class="loader"></div>
 								<?php if( $value['imgsrc']['isvideo'] ){ ?>
 								<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
 								<?php } ?>
@@ -291,9 +292,10 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
 						?>
 						<div id="modal-<?php echo $i ?>" class="modal" onclick="closeModal(<?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>, event)" >
 						    <div class="modal-content" style="background: transparent;">
-						    	<div class="modal-prev" onclick="iterateModals(-1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>)"><span></span></div>
-		    					<div class="modal-next" onclick="iterateModals(1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>)"><span></span></div>
-						        <div class="close" onclick="closeModal(<?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>, event)">
+						    	<div class="loader"></div>
+						    	<div class="controls modal-prev" onclick="iterateModals(-1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>)"><span></span></div>
+		    					<div class="controls modal-next" onclick="iterateModals(1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>)"><span></span></div>
+						        <div class="controls close" onclick="closeModal(<?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>, event)">
 						            <span class="cursor">&times;</span>
 						        </div>		        
 						        <div class="resp-container <?php echo ( get_sub_field('video_src') ? "youtube" : "image" ) ?>">
@@ -546,7 +548,24 @@ $imgDirectory = get_stylesheet_directory_uri()."/en-us/creators/img/";
             });
         });
         $( window ).ready(function() {
-			lazyload();
+			var images = document.querySelectorAll(".lazyload");
+			lazyload(images, {
+				after: function(image){
+					var modalContent = $(image).closest('.modal-content');						
+					
+					$(image).load(function() {  						
+						modalContent.find('.loader').hide();
+						modalContent.find('.controls').show();
+					});
+
+					var modalLoader = $(image).closest('.modal-opener');						
+					
+					$(image).load(function() {  						
+						modalLoader.find('.loader').hide();
+						//modalContent.find('.controls').show();
+					});
+				}
+			});
 		});
 		$(document).on('contextmenu', 'img', function() {
 		    return false;

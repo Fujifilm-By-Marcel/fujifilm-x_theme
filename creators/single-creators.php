@@ -1,7 +1,7 @@
 <?php 
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css', array(),'1.0.0');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.90');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.100');
 	wp_enqueue_style('single-creators', get_stylesheet_directory_uri().'/en-us/creators/css/single-creators.css', array(),'1.0.6');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css', array(),'1.0.6');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
@@ -10,7 +10,7 @@ function load_usa_js_css(){
 
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true);
 	wp_enqueue_script('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/jquery-slideshow.js', array(), '1.0.4',true); 
-	wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/lazyload.js', array(), '1.22',true); 
+	wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/lazyload.js', array(), '1.31',true); 
 	wp_enqueue_script('owl-carousel', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/owl.carousel.min.js', array(), '1.0.1',true); 
 } 
 add_action( 'wp_enqueue_scripts', 'load_usa_js_css' );
@@ -364,6 +364,7 @@ function printExposureCenterArticles(){
 							$i++;
 							?>						
 							<a class="modal-opener" data-modal="modal-<?php echo $i; ?>">
+								<div class="loader"></div>
 								<?php if( get_sub_field('video_src') ){ ?>
 								<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
 								<?php } 
@@ -392,11 +393,12 @@ function printExposureCenterArticles(){
 			?>						
 			<a class="modal-opener" data-modal="modal-<?php echo $i; ?>">
 				<div class="modal-opener-inner">
+					<div class="loader"></div>
 					<?php if( get_sub_field('video_src') ){ ?>
 					<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
 					<?php } 
 					$imgsrc = wp_get_attachment_image_src( get_sub_field('thumbnail_image'), 'full' ); ?>
-					<img src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>">
+					<img class="lazyload" data-src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>">
 				</div>
 			</a>							
 		 	<?php endwhile; ?> 
@@ -412,9 +414,10 @@ function printExposureCenterArticles(){
 		?>
 		<div id="modal-<?php echo $i ?>" class="modal" onclick="closeModal(<?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>, event)">
 		    <div class="modal-content">
-		    	<div class="modal-prev" onclick="iterateModals(-1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>)"><span></span></div>
-		    	<div class="modal-next" onclick="iterateModals(1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>)"><span></span></div>
-		        <div class="close" onclick="closeModal(<?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>, event)">
+		    	<div class="loader"></div>
+		    	<div class="controls modal-prev" onclick="iterateModals(-1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>)"><span></span></div>
+		    	<div class="controls modal-next" onclick="iterateModals(1, 'modal-<?php echo $i ?>', <?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>)"><span></span></div>
+		        <div class="controls close" onclick="closeModal(<?php echo ( get_sub_field('video_src') ? "true" : "false" ) ?>, event)">
 		            <span class="cursor">&times;</span>
 		        </div>		        
 		        <div class="resp-container <?php echo ( get_sub_field('video_src') ? "youtube" : "image" ) ?>">
@@ -619,7 +622,21 @@ function printExposureCenterArticles(){
 
         });
         $( window ).ready(function() {
-			lazyload();
+        	images = document.querySelectorAll(".lazyload");
+			lazyload(images, {
+				after: function(image){
+					var modalContent = $(image).closest('.modal-content');					
+					$(image).load(function() {  						
+						modalContent.find('.loader').hide();
+						modalContent.find('.controls').show();
+					});
+
+					var modalLoader = $(image).closest('.modal-opener');					
+					$(image).load(function() {  						
+						modalLoader.find('.loader').hide();						
+					});
+				}
+			});
 		});
     }(jQuery, document));
 
