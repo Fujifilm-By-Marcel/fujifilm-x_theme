@@ -97,7 +97,7 @@ function printFilters(){
 							foreach ( $terms as $term ) { 
 								if( !$activeCat || tagHasPosts($activeCat, $term->slug) ){
 								?>
-					            <span class="filter-option <?php echo getTagActiveClass($term->slug); ?>"><a href="#" onclick="filterTag(this);return false;"><span class="term" data-slug="<?php echo $term->slug; ?>"><?php echo $term->name; ?></span>&nbsp;<span class="cancel-filter">X</span></a></span>
+					            <span class="filter-option <?php echo getTagActiveClass($term->slug); ?>"><a href="#" onclick="filterTag(this);return false;"><span class="term" data-slug="<?php echo $term->slug; ?>"><?php echo str_replace(" ", "&nbsp;", $term->name); ?></span>&nbsp;<span class="cancel-filter">X</span></a></span>
 					        <?php } 
 					    	} ?>  								    
 							<?php endif;  ?>
