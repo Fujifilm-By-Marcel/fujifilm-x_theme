@@ -988,26 +988,15 @@
 .owl-next.disabled {
   display: none;
 }
-@media (min-width: 601px) {
-  /*hide button on desktop*/
-  .filter-option.select-style {
-    display: none;
-  }
+.mobile-only {
+  display: none;
 }
 @media (max-width: 600px) {
-  .filter-option {
-    /* show button on mobile */
-    /* hide desltop buttons on mobile */
-  }
-  .filter-option.select-style {
-    display: inline;
-  }
-  .filter-option.desktop-only {
+  .desktop-only {
     display: none;
-    /* show only if active */
   }
-  .filter-option.desktop-only.active {
-    display: inline;
+  .mobile-only {
+    display: block;
   }
 }
 .load-more-button {
@@ -1038,14 +1027,6 @@
 }
 .footer {
   margin-top: 0 !important;
-}
-.mobile-only {
-  display: none;
-}
-@media (max-width: 600px) {
-  .mobile-only {
-    display: block;
-  }
 }
 .expand-gallery-button {
   position: relative;
