@@ -1,5 +1,4 @@
-function filterCat(obj){
-	toggleTag(obj);	  
+function filterCat(obj){  
 	registerCat(obj); 
 }
 function registerCat(obj){
@@ -21,12 +20,8 @@ function clearCat(obj){
 
 
 function filterTag(obj){
-	toggleTag(obj);	  
-	var zone = "";
-	if( obj.closest(".modal") !== null ){
-		zone = "modal";
-	}
-	registerTags(zone); 
+	toggleActive(obj);	  
+	registerTags(); 
 }
 function clearTags(obj){
 	(function($) {
@@ -38,14 +33,9 @@ function clearTags(obj){
 	})( jQuery );
 	
 }
-function registerTags(zone){
+function registerTags(){
 	(function($) {
-		if(zone == "modal"){
-			var tags = $(".creator-tags.is-modal .filter-option.active a .term");
-		} else{
-			console.log("zone is not modal");
-			var tags = $(".creator-tags.is-not-modal .filter-option.active a .term");
-		}
+		var tags = $(".creator-tags .filter-option.active a .term");
 		var inputVal = "";
 		var length = tags.length;
 		tags.each(function(i,e){
@@ -58,7 +48,7 @@ function registerTags(zone){
 		$("form#search-form").submit();
 	})( jQuery );
 }
-function toggleTag(obj){
+function toggleActive(obj){
 	(function($, obj) {
 		jQueryObj = $(obj.closest(".filter-option"));
 		if(!jQueryObj.hasClass("active")){
@@ -69,6 +59,27 @@ function toggleTag(obj){
 	})( jQuery, obj );
 }
 function clearSearch(){
-	$("input#search").val("");
+	$("input.search-input").val("");
 	$("form#search-form").submit();
 }
+
+function searchInputChange(e){
+	if(e.value == ""){
+		text = "SEARCH";
+	} else {
+		text = e.value;
+	}
+	e.parentNode.dataset.value = text;	
+}
+
+(function ($, document) {
+	$(document).ready(function () {
+		$(".input-sizer").each(function(){
+			let dataValue = $(this).find("input").attr("placeholder");
+			if($(this).find("input").attr("value")){
+				dataValue = $(this).find("input").val();;
+			}
+			$(this).attr("data-value", dataValue);
+		});
+	});
+}(jQuery, document));

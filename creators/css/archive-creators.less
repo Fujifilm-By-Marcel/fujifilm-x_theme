@@ -138,100 +138,7 @@
 			}
 		}
 	}
-	.creator-filters{
-		border-radius: 8px;
-		background-color: #d8d8d8;
-		margin:0 1rem;
-		&.creator-tags{
-			background:none;
-			margin-bottom:20px;
-			.cancel-filter{
-				display:none;
-			}
-			.active .cancel-filter, .clear-all .cancel-filter{
-				display:inline;
-			}
-		}
-		.row{
-			margin-bottom:0;
-		}
-		.filters{
-			.filter-instructions{
-				font-size:.625rem;
-				margin:0 1rem;
-			}
-			.filter-option{
-				font-family: "Fjalla One", sans-serif;
-  				font-size: .75rem;
-  				margin:0 .875rem;
-  				a{
-	    			text-decoration:none;
-	    			color:@greytext;
-	    			&:hover{
-	    				color:black;
-	    			}
-	    		}
-  		 		&.active a{
-	    			color:white;
-	    			background:@red;
-	    			border-radius: 4px;
-	    			padding: 1px 10px;
-	    			&:hover{
-	    				color:white;
-	    			}
-	    		}
-	    		.cancel-filter{
-					font-size: .7em;
-					position: relative;
-				    left: 5px; 
-				    vertical-align: middle;
-	    		}
-			}
-			@media  (max-width: 767px) {
-				p {
-			    	margin-top: 5px;
-				}
-			}
-			.search-box{
-				float:right;
-	    		margin: 0 0 .3125rem 0;
-	    		color:@red;
-	    		font-size: .75rem;
-	    		form#search-form{
-	    			display:inline-block;
-					input#search{				
-						background: transparent;
-					    text-align: center;
-					    font-size: .75rem;
-					    font-weight:bold;
-					    &::placeholder {
-					    	color:@red;
-					    }
-					}
-				}
-				i{
-	    			position: relative;
-	    			top: 1px;
-	    		}
-	    		&:after{
-					content: "";
-				    display: block;
-				    margin: 0 auto;
-				    width: 92%;
-				    border-bottom: 1px solid @red;
-				    position: relative;
-	    			left: 4px;			    
-				}
-			}
-			.search-box-container{
-				@media  (max-width: 599px) {
-					.search-box{
-						float:left;
-					}
-				}
-			}
-		}
-	}
+
 
 	.creators{
 		display:flex;
@@ -1088,22 +995,11 @@
 	}
 }
 
-/* stack modal options vertically */
-.modal .filter-option{
-	display:block;
-}
-
 /* footer */
 #pagetop{
-	margin: auto !important;
-    position: absolute !important;
-    left: 50% !important;
-    transform: translate(-50%, -30px) !important;
-    top: unset !important;
+	display:none;
 }
 .footer{margin-top: 0 !important;}
-
-
 
 
 .expand-gallery-button{

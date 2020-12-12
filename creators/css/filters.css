@@ -1,0 +1,103 @@
+.creator-filters {
+  border-radius: 8px;
+  background-color: #d8d8d8;
+  margin: 0 1rem;
+}
+.creator-filters.creator-tags {
+  background: none;
+  margin-bottom: 20px;
+}
+.creator-filters.creator-tags .cancel-filter {
+  display: none;
+}
+.creator-filters.creator-tags .active .cancel-filter,
+.creator-filters.creator-tags .clear-all .cancel-filter {
+  display: inline;
+}
+.creator-filters .row {
+  margin-bottom: 0;
+}
+.creator-filters .filters .filter-container {
+  float: left;
+}
+.creator-filters .filters .filter-container .filter-instructions {
+  font-size: 0.625rem;
+  margin: 0 1rem;
+}
+.creator-filters .filters .filter-container .filter-option {
+  font-family: "Fjalla One", sans-serif;
+  font-size: 0.75rem;
+  margin: 0 0.875rem;
+}
+.creator-filters .filters .filter-container .filter-option a {
+  text-decoration: none;
+  color: #505050;
+}
+.creator-filters .filters .filter-container .filter-option a:hover {
+  color: black;
+}
+.creator-filters .filters .filter-container .filter-option.active a {
+  color: white;
+  background: #eb022f;
+  border-radius: 4px;
+  padding: 1px 10px;
+}
+.creator-filters .filters .filter-container .filter-option.active a:hover {
+  color: white;
+}
+.creator-filters .filters .filter-container .filter-option .cancel-filter {
+  font-size: 0.7em;
+  position: relative;
+  left: 5px;
+  vertical-align: middle;
+}
+@media (max-width: 767px) {
+  .creator-filters .filters .filter-container p {
+    margin-top: 5px;
+  }
+}
+.creator-filters .filters .search-box {
+  position: relative;
+  float: right;
+  margin: 0 1rem 0.3125rem 1rem;
+  color: #eb022f;
+  font-size: 0.75rem;
+  border-bottom: 1px solid #eb022f;
+}
+.creator-filters .filters .search-box form#search-form {
+  display: inline-block;
+}
+.creator-filters .filters .search-box form#search-form input.search-input {
+  background: transparent;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+.creator-filters .filters .search-box form#search-form input.search-input::placeholder {
+  color: #eb022f;
+}
+.input-sizer {
+  vertical-align: top;
+  align-items: center;
+}
+.input-sizer input {
+  position: absolute;
+  width: 100%;
+  padding: 0 13px 0 5px;
+}
+.input-sizer::after,
+.input-sizer input {
+  font: inherit;
+  margin: 0;
+  resize: none;
+  background: none;
+  appearance: none;
+  border: none;
+}
+.input-sizer::after {
+  content: attr(data-value) ' ';
+  visibility: hidden;
+  white-space: pre-wrap;
+  padding: 0 5px;
+}
+/*# sourceMappingURL=filters.css.map */

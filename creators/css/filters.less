@@ -1,0 +1,123 @@
+@red: #eb022f;
+@greytext: #505050;
+
+.creator-filters{
+	border-radius: 8px;
+	background-color: #d8d8d8;
+	margin:0 1rem;
+	&.creator-tags{
+		background:none;
+		margin-bottom:20px;
+		.cancel-filter{
+			display:none;
+		}
+		.active .cancel-filter, .clear-all .cancel-filter{
+			display:inline;
+		}
+	}
+	.row{
+		margin-bottom:0;
+	}
+	.filters{
+		.filter-container{
+			float:left;
+			.filter-instructions{
+				font-size:.625rem;
+				margin:0 1rem;
+			}
+			.filter-option{
+				font-family: "Fjalla One", sans-serif;
+					font-size: .75rem;
+					margin:0 .875rem;
+					a{
+	    			text-decoration:none;
+	    			color:@greytext;
+	    			&:hover{
+	    				color:black;
+	    			}
+	    		}
+			 		&.active a{
+	    			color:white;
+	    			background:@red;
+	    			border-radius: 4px;
+	    			padding: 1px 10px;
+	    			&:hover{
+	    				color:white;
+	    			}
+	    		}
+	    		.cancel-filter{
+					font-size: .7em;
+					position: relative;
+				    left: 5px; 
+				    vertical-align: middle;
+	    		}
+			}
+			@media  (max-width: 767px) {
+				p {
+			    	margin-top: 5px;
+				}
+			}
+		}
+		.search-box{
+			position:relative;
+			float:right;
+    		margin: 0 1rem .3125rem 1rem;
+    		color:@red;
+    		font-size: .75rem;
+    		border-bottom: 1px solid @red;
+    		form#search-form{
+    			display:inline-block;
+				input.search-input{				
+					background: transparent;
+				    text-align: center;
+				    font-size: .75rem;
+				    font-weight:bold;
+				    &::placeholder {
+				    	color:@red;
+				    }
+				}
+			}
+		}
+	}
+}
+
+.creator-filters.mobile-only{
+	.filter-toggle{
+		.toggle-icon{
+
+
+		}
+	}
+}
+
+
+.input-sizer {
+  //display: inline-grid;
+  vertical-align: top;
+  align-items: center;
+
+  input{
+  	position: absolute;
+  	width: 100%;
+    padding: 0 13px 0 5px;
+  }
+  
+  &::after,
+  input {
+    font: inherit;
+    margin: 0;
+    resize: none;
+    background: none;
+    appearance: none;
+    border: none;
+  }
+  
+  &::after {
+    content: attr(data-value) ' ';
+    visibility: hidden;
+    white-space: pre-wrap;
+    padding: 0 5px;
+  }
+  
+
+}

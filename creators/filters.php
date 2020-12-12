@@ -1,12 +1,15 @@
 <?php 
 function printFilters(){
+
 ?>
-<!--<div class="desktop-only">-->
+<?php if ( is_user_logged_in() ) { ?>
+<div class="desktop-only">
+<?php  } ?>
 	<div class="row creator-filters creator-categories">
 		<div class="col s12">
 			<div class="row">
 				<div class="filters">
-					<div class="col s12 m8 filter-container">		
+					<div class="filter-container">		
 						<?php 								
 						function getAllActiveClass(){
 							if( !isset($_GET["cat"]) || $_GET["cat"] == "" ){
@@ -38,25 +41,27 @@ function printFilters(){
 							<?php endif;  ?>
 						</p>						
 					</div>
-					<div class="col s12 m4 search-box-container">
-						<div class="search-box">
-							<form id="search-form" method="get">
-								<input type="hidden" name="cat" id="cat" value='<?php echo $_GET["cat"] ?>' >
-								<input type="hidden" name="tags" id="tags" value='<?php echo $_GET["tags"] ?>' >
-								<input type="text" name="search" size="13" placeholder="SEARCH CREATORS" id="search" value='<?php echo $_GET["search"] ?>'>								
-								<a href="#" onclick='document.getElementById("search-form").submit();return false;'><i class="fa fa-search" aria-hidden="true"></i></a>
-							</form>
-						</div>
+
+					<div class="search-box">
+						<form id="search-form" method="get">
+							<input type="hidden" name="cat" id="cat" value='<?php echo $_GET["cat"] ?>' >
+							<input type="hidden" name="tags" id="tags" value='<?php echo $_GET["tags"] ?>' >
+							<label class="input-sizer" data-value="SEARCH">
+								<input onInput="searchInputChange(this);" class="search-input" type="text" name="search" size="1" placeholder="SEARCH" value='<?php echo $_GET["search"] ?>'>
+							</label>
+							<a href="#" onclick='document.getElementById("search-form").submit();return false;'><i class="fa fa-search" aria-hidden="true"></i></a>
+						</form>
 					</div>
+				
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="row creator-filters creator-tags is-not-modal">
+	<div class="row creator-filters creator-tags">
 		<div class="col s12">
 			<div class="row">
 				<div class="filters">
-					<div class="col s12 filter-container">				
+					<div class="filter-container">				
 						<p>
 							<span class="filter-instructions">PHOTOGRAPHIC STYLE ></span>
 							<span class="filter-option clear-all"><a href="#" onclick="clearTags(this);return false;">CLEAR&nbsp;ALL&nbsp;<span class="cancel-filter">X</span></a></span>
@@ -108,11 +113,31 @@ function printFilters(){
 			</div>
 		</div>
 	</div>
-<!--</div>
+<?php if ( is_user_logged_in() ) { ?>
+</div>
+<div class="row creator-filters mobile-only">
+	<div class="col s12">
+		<div class="row">
+			<div class="filter-toggle">
+				<span>FILTER BY</span><i class="toggle-icon"></i>
+			</div>
+			<div class="filter-toggle">
+				<span>STYLE</span><i class="toggle-icon"></i>
+			</div>
+			
+			<div class="search-box">
+				<input class="search-input" type="text" name="search" size="13" placeholder="SEARCH" value='<?php echo $_GET["search"] ?>'>								
+				<a href="#" onclick='submitMobileSearch();return false;'><i class="fa fa-search" aria-hidden="true"></i></a>				
+			</div>
+		
+		</div>
+	</div>
+</div>
 
-<div class="mobile-only">
 
-</div>-->
+<?php  } ?>
+
+
 <?php
 }
 
