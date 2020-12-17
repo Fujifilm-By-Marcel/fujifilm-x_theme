@@ -1010,4 +1010,12 @@
     transform: rotate(360deg);
   }
 }
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .main .creators .creator {
+    display: block;
+  }
+  .main .creators .creator .creator-content {
+    display: block;
+  }
+}
 /*# sourceMappingURL=archive-creators.css.map */

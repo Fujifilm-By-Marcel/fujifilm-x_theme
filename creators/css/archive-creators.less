@@ -1082,3 +1082,9 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+//ie 10/11 fix
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {  
+	.main .creators .creator{display:block}
+	.main .creators .creator .creator-content{display:block}
+}
