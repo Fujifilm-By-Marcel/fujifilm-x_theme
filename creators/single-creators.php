@@ -622,21 +622,35 @@ function printExposureCenterArticles(){
 
         });
         $( window ).ready(function() {
-        	images = document.querySelectorAll(".lazyload");
+			var images = document.querySelectorAll(".lazyload");
 			lazyload(images, {
 				after: function(image){
-					var modalContent = $(image).closest('.modal-content');					
-					$(image).load(function() {  						
-						modalContent.find('.loader').hide();
-						modalContent.find('.controls').show();
-					});
-
-					var modalLoader = $(image).closest('.modal-opener');					
-					$(image).load(function() {  						
-						modalLoader.find('.loader').hide();						
-					});
+					var parent = $(image).closest('.modal-content');
+					if(!parent.length){
+						parent = $(image).closest('.modal-opener');			
+					}
+					parent.find('.loader').show();
 				}
 			});
+
+			$(images).each(function(i, image){
+				var modalContent = $(image).closest('.modal-content');
+				var modalLoader = $(image).closest('.modal-opener');	
+				if(modalContent.length){
+					$(image).load(function() {
+						modalContent.find('.loader').hide();
+						modalContent.find('.controls').show();				
+					});
+				}
+				else if(modalLoader.length){
+					$(image).load(function() {
+						modalLoader.find('.loader').hide();
+					});
+				}
+				
+			});
+
+
 		});
     }(jQuery, document));
 

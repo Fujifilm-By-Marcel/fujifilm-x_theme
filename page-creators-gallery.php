@@ -4,8 +4,8 @@ Template Name: Page-creators-gallery
 */
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css', false, NULL, 'all');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.103');
-	wp_enqueue_style('filters', get_stylesheet_directory_uri().'/en-us/creators/css/filters.css', array(),'1.0.10');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.2.0');
+	wp_enqueue_style('filters', get_stylesheet_directory_uri().'/en-us/creators/css/filters.css', array(),'1.0.32');
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true);
 	wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/lazyload.js', array(), '1.31',true); 
 	wp_enqueue_script('filters', get_stylesheet_directory_uri().'/en-us/creators/js/filters.js', array(), '1.0.12',true); 
@@ -93,7 +93,7 @@ require get_stylesheet_directory()."/en-us/creators/filters.php";
 						<div class="gallery-pane">
 							<?php foreach ($array as $key => $value) { //echo "<pre>";print_r($value);echo "</pre>"; ?>
 							<a href="#" class="modal-opener" data-modal="modal-<?php echo $value['index'] ?>">								
-								<div class="loader"></div>
+								<div style="display:none;" class="loader"></div>
 								<?php if( $value['imgsrc']['isvideo'] ){ ?>
 								<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
 								<?php } ?>
@@ -235,18 +235,33 @@ require get_stylesheet_directory()."/en-us/creators/filters.php";
 			var images = document.querySelectorAll(".lazyload");
 			lazyload(images, {
 				after: function(image){
-					var modalContent = $(image).closest('.modal-content');						
-					$(image).load(function() {  						
-						modalContent.find('.loader').hide();
-						modalContent.find('.controls').show();
-					});
+					var parent = $(image).closest('.modal-content');
+					if(!parent.length){
+						parent = $(image).closest('.modal-opener');			
+					}
+					parent.find('.loader').show();
+				}
+			});
 
-					var modalLoader = $(image).closest('.modal-opener');											
-					$(image).load(function() {  						
+			var images = document.querySelectorAll(".lazyload");
+			$(images).each(function(i, image){
+				var modalContent = $(image).closest('.modal-content');
+				var modalLoader = $(image).closest('.modal-opener');	
+				if(modalContent.length){
+					$(image).load(function() {
+						modalContent.find('.loader').hide();
+						modalContent.find('.controls').show();				
+					});
+				}
+				else if(modalLoader.length){
+					$(image).load(function() {
 						modalLoader.find('.loader').hide();
 					});
 				}
+				
 			});
+
+
 		});
 		$(document).on('contextmenu', 'img', function() {
 		    return false;
