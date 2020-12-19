@@ -69,14 +69,14 @@ function printFilters(){
 					<div class="filter-modal" style="width:150px;">
 						<div>
 							<label class="custom-checkbox">
-								<input style="-webkit-appearance: auto;-moz-appearance: auto;appearance:auto;" type="radio" name="category" value="All" checked>
+								<input type="radio" name="category" value="All" checked>
 								<span>All</span>
 							</label>
 						</div>
 						<?php foreach ( $catTerms as $term ) { ?>
 						<div>
 							<label class="custom-checkbox">
-			            		<input style="-webkit-appearance: auto;-moz-appearance: auto;appearance:auto;" type="radio" name="category" value="<?php echo $term->slug; ?>">
+			            		<input type="radio" name="category" value="<?php echo $term->slug; ?>">
 								<span><?php echo str_replace(" ", "&nbsp;", $term->name); ?></span>
 							</label> 				        	
 			        	</div>
@@ -93,7 +93,7 @@ function printFilters(){
 							?>
 							<div>
 								<label class="custom-checkbox">
-									<input style="-webkit-appearance: auto;-moz-appearance: auto;appearance:auto;" type="checkbox" name="tags[]" value="<?php echo $term->slug; ?>">
+									<input type="checkbox" name="tags[]" value="<?php echo $term->slug; ?>">
 									<span><?php echo str_replace(" ", "&nbsp;", $term->name); ?></span>
 								</label>    
 							</div>
