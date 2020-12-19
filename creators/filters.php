@@ -1,143 +1,117 @@
 <?php 
 function printFilters(){
+	$catTerms = getCatTerms("creator_category");
+	$tagTerms = getTagTerms('creator_tag');
+	if( isset( $_GET["cat"] ) && $_GET["cat"] != "" ){ 
+		$activeCat = $_GET["cat"];
+		$allActiveClass = "";
+	} else {
+		$activeCat = false;
+		$allActiveClass = "active";
+	}
+	?>
+	<div class="creator-filters <?php /*if ( is_user_logged_in() ) { */echo "desktop-only"; /*}*/ ?>">
+		<div class="row creator-categories">
+			<div class="col s12">
+				<div class="row">
+					<div class="filters">
+						<div class="filter-container">
+							<div style="float:left;"><span>FILTER BY</span><i class="right-arrow"></i></div>
+							<span class="filter-option <?php echo $allActiveClass; ?>"><a href="#" onclick="clearCat(this);return false;">ALL</a></span>
+							<?php foreach ( $catTerms as $term ) { ?>
+					            <span class="filter-option <?php echo getTaxActiveClass("cat", $term->slug) ?>"><a data-slug="<?php echo $term->slug; ?>" href="#" onclick="filterCat(this);return false;"><?php echo $term->name."s"; ?></a></span>				        	
+					        <?php } ?>							
+				    	</div>
 
-?>
-<?php if ( is_user_logged_in() ) { ?>
-<div class="desktop-only">
-<?php  } ?>
-	<div class="row creator-filters creator-categories">
-		<div class="col s12">
-			<div class="row">
-				<div class="filters">
-					<div class="filter-container">		
-						<?php 								
-						function getAllActiveClass(){
-							if( !isset($_GET["cat"]) || $_GET["cat"] == "" ){
-								return "active";
-							} else {
-								return "";
-							}
-						}
-						?>		
-						<p>
-							<span class="filter-instructions">FILTER BY ></span>
-							<span class="filter-option <?php echo getAllActiveClass() ?>"><a href="#" onclick="clearCat(this);return false;">ALL</a></span>
-							<?php
-							$activeCat = false;
-							$taxonomy = 'creator_category';
-							$terms = get_terms($taxonomy); // Get all terms of a taxonomy
-							if ( $terms && !is_wp_error( $terms ) ) :
-					        function getCatActiveClass($cat, &$activeCat){
-								if( isset($_GET["cat"]) && ( $_GET["cat"] == $cat ) ){ 
-									$activeCat = $cat;
-									return "active";
-								} else {
-									return "";
-								}
-							}
-					        foreach ( $terms as $term ) { ?>
-					            <span class="filter-option <?php echo getCatActiveClass($term->slug, $activeCat) ?>"><a data-slug="<?php echo $term->slug; ?>" href="#" onclick="filterCat(this);return false;"><?php echo $term->name."s"; ?></a></span>				        	
-					        <?php } ?>  								    
-							<?php endif;  ?>
-						</p>						
+						<div class="search-box">
+							<form id="search-form" method="get">
+								<input type="hidden" name="cat" id="cat" value='<?php echo $_GET["cat"] ?>' >
+								<input type="hidden" name="tags" id="tags" value='<?php echo $_GET["tags"] ?>' >
+								<label class="input-sizer" data-value="SEARCH">
+									<input onInput="searchInputChange(this);" class="search-input" type="text" name="search" size="1" placeholder="SEARCH" value='<?php echo $_GET["search"] ?>'>
+								</label>
+								<a style="position:relative;z-index:2;" href="#" onclick='document.getElementById("search-form").submit();return false;'><i class="fa fa-search" aria-hidden="true"></i></a>
+							</form>
+						</div>
+					
 					</div>
-
-					<div class="search-box">
-						<form id="search-form" method="get">
-							<input type="hidden" name="cat" id="cat" value='<?php echo $_GET["cat"] ?>' >
-							<input type="hidden" name="tags" id="tags" value='<?php echo $_GET["tags"] ?>' >
-							<label class="input-sizer" data-value="SEARCH">
-								<input onInput="searchInputChange(this);" class="search-input" type="text" name="search" size="1" placeholder="SEARCH" value='<?php echo $_GET["search"] ?>'>
-							</label>
-							<a href="#" onclick='document.getElementById("search-form").submit();return false;'><i class="fa fa-search" aria-hidden="true"></i></a>
-						</form>
-					</div>
-				
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="row creator-filters creator-tags">
-		<div class="col s12">
-			<div class="row">
-				<div class="filters">
-					<div class="filter-container">				
-						<p>
-							<span class="filter-instructions">PHOTOGRAPHIC STYLE ></span>
+		<div class="row creator-tags">
+			<div class="col s12">
+				<div class="row">
+					<div class="filters">
+						<div class="filter-container">
+							<div style="float:left;"><span>STYLE</span><i class="right-arrow"></i></div>
 							<span class="filter-option clear-all"><a href="#" onclick="clearTags(this);return false;">CLEAR&nbsp;ALL&nbsp;<span class="cancel-filter">X</span></a></span>
-							<?php
-							function tagHasPosts($cat, $tag){
-								$args = array(
-									'post_type' => 'creators',
-									'post_status' => array('publish'),
-									'orderby' => 'publish_date',
-									'tax_query' => array(
-										'relation' => 'AND',
-										array (
-								            'taxonomy' => 'creator_category',
-								            'field' => 'slug',
-								            'terms' => $cat,
-								        ),
-										array (
-								            'taxonomy' => 'creator_tag',
-								            'field' => 'slug',
-								            'terms' => $tag,
-								        ),
-									),
-								);
-								$the_query = new WP_Query( $args );
-								return $the_query->have_posts();
-							}
-							$args = array();
-							$args['taxonomy'] = 'creator_tag';
-							$terms = get_terms($args); // Get all terms of a taxonomy
-							if ( $terms && !is_wp_error( $terms ) ) :
-							function getTagActiveClass($tag){
-								if( strpos($_GET["tags"], $tag) !== false ){ 
-									return "active";
-								} else {
-									return "";
-								}
-							}	
-							foreach ( $terms as $term ) { 
+							<?php						
+							foreach ( $tagTerms as $term ) { 
 								if( !$activeCat || tagHasPosts($activeCat, $term->slug) ){
 								?>
-					            <span class="filter-option <?php echo getTagActiveClass($term->slug); ?>"><a href="#" onclick="filterTag(this);return false;"><span class="term" data-slug="<?php echo $term->slug; ?>"><?php echo str_replace(" ", "&nbsp;", $term->name); ?></span>&nbsp;<span class="cancel-filter">X</span></a></span>
-					        <?php } 
-					    	} ?>  								    
-							<?php endif;  ?>
-							
-						</p>						
+					            <span class="filter-option <?php echo getTaxActiveClass("tags", $term->slug); ?>"><a href="#" onclick="filterTag(this);return false;"><span class="term" data-slug="<?php echo $term->slug; ?>"><?php echo str_replace(" ", "&nbsp;", $term->name); ?></span>&nbsp;<span class="cancel-filter">X</span></a></span>
+					        	<?php 
+					    		} 
+					    	} 
+					    	?>						
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-<?php if ( is_user_logged_in() ) { ?>
-</div>
-<div class="row creator-filters mobile-only">
-	<div class="col s12">
-		<div class="row">
-			<div class="filter-toggle">
-				<span>FILTER BY</span><i class="toggle-icon"></i>
+	<?php //if ( is_user_logged_in() ) { ?>
+	<div class="row creator-filters mobile-only">
+		<div class="col s12">
+			<div class="row">
+				<div class="filters">
+					<div onclick="toggleModal(this, event)" class="toggle-button"><span>FILTER BY</span><i class="toggle-icon"></i></div>
+					<div class="filter-modal">
+						<div style="margin:0 0 8px 18px;">
+							<input style="appearance:auto;margin-left:-18px;" type="radio" id="cat_All" name="category" value="All" checked>
+							<label style="margin: 0 0 0 2px;position: relative;top: 2px;" for="cat_All">All</label>
+						</div>
+						<?php foreach ( $catTerms as $term ) { ?>
+							<div style="margin:0 0 8px 18px;">
+				            	<input style="appearance:auto;margin-left:-18px;" type="radio" id="cat_<?php echo str_replace(" ", "&nbsp;", $term->name); ?>" name="category" value="<?php echo $term->slug; ?>">
+								<label style="margin: 0 0 0 2px;position: relative;top: 2px;" for="cat_<?php echo str_replace(" ", "&nbsp;", $term->name); ?>"><?php echo str_replace(" ", "&nbsp;", $term->name); ?></label> 				        	
+				        	</div>
+				        <?php } ?>
+					</div>
+				</div>
+				<div class="filters">
+					<div onclick="toggleModal(this, event)" class="toggle-button"><span>STYLE</span><i class="toggle-icon"></i></div>
+					<div class="filter-modal">
+						<form>
+						<?php						
+						foreach ( $tagTerms as $term ) { 
+							if( !$activeCat || tagHasPosts($activeCat, $term->slug) ){
+							?>
+							<div style="margin:0 0 8px 18px;">
+								<input style="appearance:auto;margin-left:-18px;" type="checkbox" id="tag_<?php echo str_replace(" ", "&nbsp;", $term->name); ?>" name="tags[]" value="<?php echo $term->slug; ?>">
+								<label style="margin: 0 0 0 2px;position: relative;top: 2px;" for="tag_<?php echo str_replace(" ", "&nbsp;", $term->name); ?>"><?php echo str_replace(" ", "&nbsp;", $term->name); ?></label>    
+							</div>
+				        	<?php 
+				    		} 
+				    	} 
+				    	?>
+				    	</form>
+					</div>
+				</div>			
+				<div class="search-box">					
+					<form id="mobile-search-form" method="get">
+						<input type="hidden" name="cat" id="mobile-cat" value='<?php echo $_GET["cat"] ?>' >
+						<input type="hidden" name="tags" id="mobile-tags" value='<?php echo $_GET["tags"] ?>' >
+						<label class="input-sizer" data-value="SEARCH">
+							<input id="mobile-search-input" onInput="searchInputChange(this);" class="search-input" type="text" name="search" size="1" placeholder="SEARCH" value='<?php echo $_GET["search"] ?>'>
+						</label>
+						<a style="position:relative;z-index:2;" href="#" onclick='submitMobile();return false;'><i class="fa fa-search" aria-hidden="true"></i></a>					
+					</form>					
+				</div>	
 			</div>
-			<div class="filter-toggle">
-				<span>STYLE</span><i class="toggle-icon"></i>
-			</div>
-			
-			<div class="search-box">
-				<input class="search-input" type="text" name="search" size="13" placeholder="SEARCH" value='<?php echo $_GET["search"] ?>'>								
-				<a href="#" onclick='submitMobileSearch();return false;'><i class="fa fa-search" aria-hidden="true"></i></a>				
-			</div>
-		
 		</div>
 	</div>
-</div>
-
-
-<?php  } ?>
-
-
+	<?php  //} ?>
 <?php
 }
 
@@ -183,3 +157,58 @@ function get_main_query(){
 	$the_query = new WP_Query( $args );
 	return $the_query;
 }
+
+
+
+function getCatTerms($taxonomy){	
+	$terms = get_terms($taxonomy);
+	if ( $terms && !is_wp_error( $terms ) ) {
+		return $terms;
+	}else{
+		return false;
+	}    
+}
+
+function getTagTerms($taxonomy){	
+	$args = array();
+	$args['taxonomy'] = $taxonomy;
+	$terms = get_terms($args);
+	if ( $terms && !is_wp_error( $terms ) ) {
+		return $terms;
+	} else {
+		return false;
+	}
+}
+
+
+function getTaxActiveClass($type, $tag){
+	if( strpos($_GET[$type], $tag) !== false ){ 
+		return "active";
+	} else {
+		return "";
+	}
+}
+
+function tagHasPosts($cat, $tag){
+	$args = array(
+		'post_type' => 'creators',
+		'post_status' => array('publish'),
+		'orderby' => 'publish_date',
+		'tax_query' => array(
+			'relation' => 'AND',
+			array (
+	            'taxonomy' => 'creator_category',
+	            'field' => 'slug',
+	            'terms' => $cat,
+	        ),
+			array (
+	            'taxonomy' => 'creator_tag',
+	            'field' => 'slug',
+	            'terms' => $tag,
+	        ),
+		),
+	);
+	$the_query = new WP_Query( $args );
+	return $the_query->have_posts();
+}
+
