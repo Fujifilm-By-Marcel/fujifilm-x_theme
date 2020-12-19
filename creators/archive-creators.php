@@ -2,7 +2,7 @@
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css', false, NULL, 'all');
 	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.2.0');
-	wp_enqueue_style('filters', get_stylesheet_directory_uri().'/en-us/creators/css/filters.css', array(),'1.0.37');
+	wp_enqueue_style('filters', get_stylesheet_directory_uri().'/en-us/creators/css/filters.css', array(),'1.0.41');
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true);
 	wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/lazyload.js', array(), '1.22',true); 
 	wp_enqueue_script('filters', get_stylesheet_directory_uri().'/en-us/creators/js/filters.js', array(), '1.0.20',true); 

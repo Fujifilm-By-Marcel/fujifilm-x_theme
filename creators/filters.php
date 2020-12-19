@@ -66,30 +66,36 @@ function printFilters(){
 			<div class="row">
 				<div class="filters">
 					<div onclick="toggleModal(this, event)" class="toggle-button"><span>FILTER BY</span><i class="toggle-icon"></i></div>
-					<div class="filter-modal">
-						<div style="margin:0 0 8px 18px;">
-							<input style="appearance:auto;margin-left:-18px;" type="radio" id="cat_All" name="category" value="All" checked>
-							<label style="margin: 0 0 0 2px;position: relative;top: 2px;" for="cat_All">All</label>
+					<div class="filter-modal" style="width:150px;">
+						<div>
+							<label class="custom-checkbox">
+								<input style="-webkit-appearance: auto;-moz-appearance: auto;appearance:auto;" type="radio" name="category" value="All" checked>
+								<span>All</span>
+							</label>
 						</div>
 						<?php foreach ( $catTerms as $term ) { ?>
-							<div style="margin:0 0 8px 18px;">
-				            	<input style="appearance:auto;margin-left:-18px;" type="radio" id="cat_<?php echo str_replace(" ", "&nbsp;", $term->name); ?>" name="category" value="<?php echo $term->slug; ?>">
-								<label style="margin: 0 0 0 2px;position: relative;top: 2px;" for="cat_<?php echo str_replace(" ", "&nbsp;", $term->name); ?>"><?php echo str_replace(" ", "&nbsp;", $term->name); ?></label> 				        	
-				        	</div>
+						<div>
+							<label class="custom-checkbox">
+			            		<input style="-webkit-appearance: auto;-moz-appearance: auto;appearance:auto;" type="radio" name="category" value="<?php echo $term->slug; ?>">
+								<span><?php echo str_replace(" ", "&nbsp;", $term->name); ?></span>
+							</label> 				        	
+			        	</div>
 				        <?php } ?>
 					</div>
 				</div>
 				<div class="filters">
 					<div onclick="toggleModal(this, event)" class="toggle-button"><span>STYLE</span><i class="toggle-icon"></i></div>
-					<div class="filter-modal">
+					<div class="filter-modal" style="width:150px;">
 						<form>
 						<?php						
 						foreach ( $tagTerms as $term ) { 
 							if( !$activeCat || tagHasPosts($activeCat, $term->slug) ){
 							?>
-							<div style="margin:0 0 8px 18px;">
-								<input style="appearance:auto;margin-left:-18px;" type="checkbox" id="tag_<?php echo str_replace(" ", "&nbsp;", $term->name); ?>" name="tags[]" value="<?php echo $term->slug; ?>">
-								<label style="margin: 0 0 0 2px;position: relative;top: 2px;" for="tag_<?php echo str_replace(" ", "&nbsp;", $term->name); ?>"><?php echo str_replace(" ", "&nbsp;", $term->name); ?></label>    
+							<div>
+								<label class="custom-checkbox">
+									<input style="-webkit-appearance: auto;-moz-appearance: auto;appearance:auto;" type="checkbox" name="tags[]" value="<?php echo $term->slug; ?>">
+									<span><?php echo str_replace(" ", "&nbsp;", $term->name); ?></span>
+								</label>    
 							</div>
 				        	<?php 
 				    		} 
