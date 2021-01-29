@@ -81,12 +81,16 @@ function printGearCarousel(){
 function printExposureCenterArticles(){
 	//if ( is_user_logged_in() ) {
 
+	$bioID =false;
+	if(get_field('bio')){
+		$bioID = get_field('bio');
+	}
 	
  	$posts = get_posts(array(
 		'numberposts'	=> -1,
 		'post_type'		=> 'exposure_center',
-		'meta_key'		=> 'featured_creator',
-		'meta_value'	=> get_the_ID(),
+		'meta_key'		=> 'featured_biography',
+		'meta_value'	=> $bioID,
 	));
  	
     if( $posts ):
