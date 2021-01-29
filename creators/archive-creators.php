@@ -57,35 +57,40 @@ require get_stylesheet_directory()."/en-us/creators/filters.php";
 	<div class="container">
 		<div class="row creators">
 			<?php			            
+
 			$the_query = get_main_query();
 			if ( $the_query->have_posts() ) : 
 			while ( $the_query->have_posts() ) : $the_query->the_post();
+			$bioID =false;
+			if(get_field('bio', get_the_ID())){
+				$bioID = get_field('bio', get_the_ID());
+			}
 			$terms = get_the_terms(get_the_ID(), 'creator_category');
 			$term_name = $terms[0]->name;
             ?>
 			<div class="col s12 m6 l6 xl4 creator" style="display:none;">				
 				<div class="creator-content"> 
 					<?php 
-					if( get_field("archive_portrait_2x") && get_field("archive_portrait_3x") ){
+					if( get_field("image_x2", $bioID) && get_field("image_x3", $bioID) ){
 						$srcset = "data-srcset='";
-						$srcset .= get_field("archive_portrait")." 1x, ";
-						$srcset .= get_field("archive_portrait_2x")." 2x, ";
-						$srcset .= get_field("archive_portrait_3x")." 3x, ";
+						$srcset .= get_field("image_x1", $bioID)." 1x, ";
+						$srcset .= get_field("image_x2", $bioID)." 2x, ";
+						$srcset .= get_field("image_x3", $bioID)." 3x, ";
 						$srcset .= "'";
 					} else {
 						$srcset = "";
 					}
 					?>
 					<div class="creator-portrait-container">
-						<a href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>"><img class="portrait lazyload" width="160" height="160" data-src="<?php the_field("archive_portrait"); ?>" <?php echo $srcset; ?> >
-						<?php if($term_name == "X‑Photographer") { ?></a>
+						<a href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>"><img class="portrait lazyload" width="160" height="160" data-src="<?php the_field("image_x1", $bioID); ?>" <?php echo $srcset; ?> ></a>
+						<?php if($term_name == "X‑Photographer") { ?>
 						<img class="badge" width="34" height="34" src="<?php echo $imgDirectory ?>x-photographer-badge-small.png" srcset="<?php echo $imgDirectory ?>x-photographer-badge-small.png 1x, <?php echo $imgDirectory ?>x-photographer-badge-small@2x.png 2x, <?php echo $imgDirectory ?>x-photographer-badge-small@3x.png 3x">
 						<?php } ?>
 					</div>
 					<h3><?php echo $term_name ?></h3>
 					<p class="creator-name"><?php the_title(); ?></p>
 					<h3>BIO</h3>
-					<p class="creator-desc"><?php the_field("short_bio"); ?></p>
+					<p class="creator-desc"><?php echo get_the_excerpt($bioID);  ?></p>
 					<a class="creator-btn" href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>">view profile</a>
 				</div>
 			</div>

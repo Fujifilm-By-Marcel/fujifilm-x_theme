@@ -144,6 +144,10 @@ function printExposureCenterArticles(){
 <section class="main creators-single"> 
 	<?php 
 	require get_stylesheet_directory().'/en-us/creators/navigation.php';
+	$bioID =false;
+	if(get_field('bio')){
+		$bioID = get_field('bio');
+	}
 	?>
 
 	<div class="container"> 
@@ -161,17 +165,17 @@ function printExposureCenterArticles(){
 					<div class="row">
 						<div class="col s12">
 							<?php 
-							if( get_field("archive_portrait_2x") && get_field("archive_portrait_3x") ){
+							if( get_field("image_x2", $bioID) && get_field("image_x3", $bioID) ){
 								$srcset = "srcset='";
-								$srcset .= get_field("archive_portrait")." 1x, ";
-								$srcset .= get_field("archive_portrait_2x")." 2x, ";
-								$srcset .= get_field("archive_portrait_3x")." 3x, ";
+								$srcset .= get_field("image_x1", $bioID)." 1x, ";
+								$srcset .= get_field("image_x2", $bioID)." 2x, ";
+								$srcset .= get_field("image_x3", $bioID)." 3x, ";
 								$srcset .= "'";
 							} else {
 								$srcset = "";
 							}
 							?>
-							<img width="160" height="160" src="<?php the_field("archive_portrait"); ?>" <?php echo $srcset; ?> >
+							<img width="160" height="160" src="<?php the_field("image_x1", $bioID); ?>" <?php echo $srcset; ?> >
 						</div>
 					</div>
 					<div class="row">
@@ -183,48 +187,48 @@ function printExposureCenterArticles(){
 						<div class="col <?php echo $badgecolClass ?>"> 
 							<div class="large-badge">
 								<img src="<?php echo $imgDirectory ?>creator-badge.png" srcset="<?php echo $imgDirectory ?>creator-badge.png 1x, <?php echo $imgDirectory ?>creator-badge@2x.png 2x, <?php echo $imgDirectory ?>creator-badge@3x.png 3x">
-								<p><span class="text-overflow-center">Creator Since</span><br><?php the_field('creator_dates') ?></p>
+								<p><span class="text-overflow-center">Creator Since</span><br><?php the_field('creator_dates', $bioID) ?></p>
 							</div>
 						</div>
 						<div class="col <?php echo $badgecolClass ?>" <?php echo $badgecolHide; ?> >
 							<div class="large-badge">
 								<img src="<?php echo $imgDirectory ?>x-photographer-badge.png" srcset="<?php echo $imgDirectory ?>x-photographer-badge.png 1x, <?php echo $imgDirectory ?>x-photographer-badge@2x.png 2x, <?php echo $imgDirectory ?>x-photographer-badge@3x.png 3x">
-								<p><span class="text-overflow-center">X&#8209;Photographer</span><br><?php the_field('x-photographer_dates') ?></p>
+								<p><span class="text-overflow-center">X&#8209;Photographer</span><br><?php the_field('x_photographer_dates', $bioID) ?></p>
 							</div>
 						</div>
 					</div>				
 				</div>
-				<?php if( have_rows('social') ): ?>
-   				<?php while( have_rows('social') ): the_row(); ?>
+				<?php if( have_rows('social', $bioID) ): ?>
+   				<?php while( have_rows('social', $bioID) ): the_row(); ?>
 				<div class="social-icons lowres-only">
-					<?php if(get_sub_field('youtube')){ ?><a target="_blank" href="<?php the_sub_field('youtube') ?>"><span><img src="<?php echo $imgDirectory ?>svg/youtube-icon.svg"></span></a><?php } ?>
-					<?php if(get_sub_field('instagram')){ ?><a target="_blank" href="<?php the_sub_field('instagram') ?>"><span><img src="<?php echo $imgDirectory ?>svg/instagram-icon-black.svg"></span></a><?php } ?>
-					<?php if(get_sub_field('twitter')){ ?><a target="_blank" href="<?php the_sub_field('twitter') ?>"><span><img src="<?php echo $imgDirectory ?>svg/twitter-icon.svg?v=2"></span></a><?php } ?>
-					<?php if(get_sub_field('facebook')){ ?><a target="_blank" href="<?php the_sub_field('facebook') ?>"><span><img src="<?php echo $imgDirectory ?>svg/facebook-icon-black.svg"></span></a><?php } ?>
-					<?php if(get_sub_field('vimeo')){ ?><a target="_blank" href="<?php the_sub_field('vimeo') ?>"><span><img src="<?php echo $imgDirectory ?>svg/vimeo-logo.svg"></span></a><?php } ?>
+					<?php if(get_sub_field('youtube', $bioID)){ ?><a target="_blank" href="<?php the_sub_field('youtube', $bioID) ?>"><span><img src="<?php echo $imgDirectory ?>svg/youtube-icon.svg"></span></a><?php } ?>
+					<?php if(get_sub_field('instagram', $bioID)){ ?><a target="_blank" href="<?php the_sub_field('instagram', $bioID) ?>"><span><img src="<?php echo $imgDirectory ?>svg/instagram-icon-black.svg"></span></a><?php } ?>
+					<?php if(get_sub_field('twitter', $bioID)){ ?><a target="_blank" href="<?php the_sub_field('twitter', $bioID) ?>"><span><img src="<?php echo $imgDirectory ?>svg/twitter-icon.svg?v=2"></span></a><?php } ?>
+					<?php if(get_sub_field('facebook', $bioID)){ ?><a target="_blank" href="<?php the_sub_field('facebook', $bioID) ?>"><span><img src="<?php echo $imgDirectory ?>svg/facebook-icon-black.svg"></span></a><?php } ?>
+					<?php if(get_sub_field('vimeo', $bioID)){ ?><a target="_blank" href="<?php the_sub_field('vimeo', $bioID) ?>"><span><img src="<?php echo $imgDirectory ?>svg/vimeo-logo.svg"></span></a><?php } ?>
 				</div>
 				<?php endwhile; ?>
 				<?php endif; ?>
 			</div>
 			<div class="col s12 m8 l8 xl9">	
 				<div class="relative-container">				
-					<?php if( have_rows('social') ): ?>
-	   				<?php while( have_rows('social') ): the_row(); ?>
+					<?php if( have_rows('social', $bioID) ): ?>
+	   				<?php while( have_rows('social', $bioID) ): the_row(); ?>
 					<div class="social-icons highres-only">
-						<?php if(get_sub_field('youtube')){ ?><a target="_blank" href="<?php the_sub_field('youtube') ?>"><span><img src="<?php echo $imgDirectory ?>svg/youtube-icon.svg"></span></a><?php } ?>
-						<?php if(get_sub_field('instagram')){ ?><a target="_blank" href="<?php the_sub_field('instagram') ?>"><span><img src="<?php echo $imgDirectory ?>svg/instagram-icon-black.svg"></span></a><?php } ?>
-						<?php if(get_sub_field('twitter')){ ?><a target="_blank" href="<?php the_sub_field('twitter') ?>"><span><img src="<?php echo $imgDirectory ?>svg/twitter-icon.svg?v=2"></span></a><?php } ?>
-						<?php if(get_sub_field('facebook')){ ?><a target="_blank" href="<?php the_sub_field('facebook') ?>"><span><img src="<?php echo $imgDirectory ?>svg/facebook-icon-black.svg"></span></a><?php } ?>
-						<?php if(get_sub_field('vimeo')){ ?><a target="_blank" href="<?php the_sub_field('vimeo') ?>"><span><img src="<?php echo $imgDirectory ?>svg/vimeo-logo.svg"></span></a><?php } ?>
+						<?php if(get_sub_field('youtube', $bioID)){ ?><a target="_blank" href="<?php the_sub_field('youtube', $bioID) ?>"><span><img src="<?php echo $imgDirectory ?>svg/youtube-icon.svg"></span></a><?php } ?>
+						<?php if(get_sub_field('instagram', $bioID)){ ?><a target="_blank" href="<?php the_sub_field('instagram', $bioID) ?>"><span><img src="<?php echo $imgDirectory ?>svg/instagram-icon-black.svg"></span></a><?php } ?>
+						<?php if(get_sub_field('twitter', $bioID)){ ?><a target="_blank" href="<?php the_sub_field('twitter', $bioID) ?>"><span><img src="<?php echo $imgDirectory ?>svg/twitter-icon.svg?v=2"></span></a><?php } ?>
+						<?php if(get_sub_field('facebook', $bioID)){ ?><a target="_blank" href="<?php the_sub_field('facebook', $bioID) ?>"><span><img src="<?php echo $imgDirectory ?>svg/facebook-icon-black.svg"></span></a><?php } ?>
+						<?php if(get_sub_field('vimeo', $bioID)){ ?><a target="_blank" href="<?php the_sub_field('vimeo', $bioID) ?>"><span><img src="<?php echo $imgDirectory ?>svg/vimeo-logo.svg"></span></a><?php } ?>
 					</div>
 					<?php endwhile; ?>
 					<?php endif; ?>		
 					<h3><?php echo $term_name ?></h3>
 					<p class="creator-name"><?php the_title(); ?></p>
-					<h3>ABOUT <?php the_field("first_name"); ?></h3>		
+					<h3>ABOUT <?php the_field("first_name", $bioID); ?></h3>		
 				</div>
 				<div class="creator-desc">
-					<?php the_field("long_bio"); ?>
+					<?php the_field("biography", $bioID); ?>
 				</div>
 				<?php 
 				if(get_field("button_text")){

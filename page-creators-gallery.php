@@ -61,7 +61,11 @@ require get_stylesheet_directory()."/en-us/creators/filters.php";
 			$array = [];
 			$i = 0;
 			while ( $the_query->have_posts() ) : $the_query->the_post();
-				$portrait = get_field('archive_portrait');				
+				$bioID =false;
+				if(get_field('bio', get_the_ID())){
+					$bioID = get_field('bio', get_the_ID());
+				}
+				$portrait = get_field('image_x1', $bioID);				
 				$terms = get_the_terms(get_the_ID(), 'creator_category');
 				$term_name = $terms[0]->name;
 	            if( have_rows('gallery') ): 		
