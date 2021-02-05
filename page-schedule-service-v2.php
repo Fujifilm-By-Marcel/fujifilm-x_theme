@@ -25,7 +25,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 		}
 	}
 	h1{
-		font-size:4.25em;
+		font-size:4.25rem;
 		font-family: "Fjalla One", sans-serif;
 		line-height:normal;
 		margin-bottom: 16px;
@@ -47,7 +47,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 
 
 	h2{
-		font-size:2.8125em;
+		font-size:2.8125rem;
 		font-family: "Fjalla One", sans-serif;
 		line-height:normal;
 		margin-bottom: 16px;
@@ -59,13 +59,13 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 	}
 	
 	h3{
-		font-size:1.6em;		
+		font-size:1.6rem;		
 		line-height:normal;
 		margin-bottom: 16px;
 		font-weight:bold;
 	}
 	h4{
-		font-size:1.4em;
+		font-size:1.4rem;
 		font-family: "Fjalla One", sans-serif;
 		line-height:normal;
 		margin-bottom: 16px;
@@ -108,7 +108,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 		text-align:center;
 	}
 	.instruction-repeater .instruction{
-		font-size:1em;
+		font-size:1rem;
     	max-width: 17em;
     	margin: 0 auto;
 	}
@@ -117,20 +117,29 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 		margin-bottom:8px;
 	}
 
+	section.main section.red-strip .text.line-1{
+		text-transform: uppercase;
+	}
+
 	@media (max-width:992px){
+		h1.main-header{font-size:2.5rem;}
 		.instructions-container{
 			flex-direction:column;
 		}
 		.instructions-container .instruction-repeater{
 			width:100%;
-			margin-bottom:3rem;
+			margin-bottom:3em;
 		}
+		section.main section.red-strip .text.line-1{font-size:1.5rem;}
 	}
 	@media (min-width:601px){
-		.main{font-size:16px;}
+		html {font-size:16px;}
 	}
 	@media (max-width:600px){
-		.main{font-size:14px;}
+		
+		html {font-size: 14px;}
+		h1.main-header{font-size:2rem;}
+
 	}
 </style>
 <section class="main">
@@ -209,7 +218,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
     	}
     	.intro-section .btn{
     		display: inline-block;
-    		margin-bottom:4rem;
+    		margin-bottom:4em;
     		font-family: "Fjalla One", sans-serif;
     	}
     	.intro-section .btn a{
@@ -226,19 +235,64 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
     	}
     </style>
 
-	<section class="intro-section" style="padding:3rem 0;">
+	<section class="intro-section" style="padding:3em 0;">
 		<div class="container">
 			<div class="row">
 				<div class="col s12" style="color:white;text-align:center;">					
 					<p class="cta"><?php the_sub_field('text_line_1'); ?></p>
 					<p style="margin-bottom:1.5em;"><?php the_sub_field('text_line_2'); ?></p>					
 					<div class="btn"><a href="<?php echo get_sub_field('button')['href']; ?>" target="<?php echo get_sub_field('button')['target']; ?>"><?php echo get_sub_field('button')['text']; ?></a></div>					
-					<div style="max-width:50rem;margin:auto;"><div class="videoWrapper"><iframe width="560" height="315" src="<?php the_sub_field('video'); ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>
+					<div style="max-width:65em;margin:auto;"><div class="videoWrapper"><iframe width="560" height="315" src="<?php the_sub_field('video'); ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>
 				</div>
 			</div>
 		</div>
 	</section>
 	<?php endwhile; ?>
+	<?php endif; ?>
+
+	<?php if( have_rows('feature') ): ?>
+	<style>	
+		.features-section .image-aligned-left{flex-direction:row-reverse;}
+		.features-section .image-aligned-right{}
+		.features-section h3{
+			font-family: "Fjalla One", sans-serif;
+  			font-size: 1.875rem;
+  			line-height: normal;
+  			font-weight:normal;
+		}
+		.features-section p{
+			font-size: 1.125rem;
+			line-height: 1.44;
+		}
+
+		@media (max-width:600px){
+			.features-section .row{
+				flex-direction:column;
+			}
+			
+		}
+	</style>
+	<section class="features-section">
+	<?php 
+	 
+	$feature = get_field('feature'); 
+	foreach( $feature as $myfeature ) {
+	?>
+		<div class="background" style="background:<?php echo $myfeature['background']; ?>">
+			<div class="container" style="max-width:65em;margin:auto;padding: 2.5em 0;">
+				<div class="row image-aligned-<?php echo $myfeature['alignment']; ?>" style="display:flex;align-items:center;">
+					<div class="col s12 m6" class="text">					
+						<?php echo $myfeature['text']; ?>
+					</div>
+					<div class="col s12 m6" class="image">					
+						<?php echo wp_get_attachment_image($myfeature['image'], full); ?>
+
+					</div>
+				</div>
+			</div>		
+		</div>
+	<?php } ?>	
+    </section>
 	<?php endif; ?>
 
 
