@@ -66,10 +66,29 @@ section.main .button-notes p{
 		$logo = wp_get_attachment_image_src( get_sub_field("logo"), 'full' );
 		?>
 		<style>			
-			section.main section.background-header{
-				background:url('<?php the_sub_field("background_image"); ?>');
-				background-position: center;
-				background-size:cover
+			@media(min-width:601px){
+				section.main section.background-header{
+					background:url('<?php the_sub_field("background_image"); ?>');
+					background-position: center;
+					background-size:cover;
+					<?php 
+					if( get_sub_field("desktop-only_section_style") ){
+						the_sub_field("desktop-only_section_style");
+					} 
+					?>
+				}
+			}
+			@media(max-width:600px){
+				section.main section.background-header{
+					background:url('<?php the_sub_field("mobile_background_image"); ?>');		
+					background-position: center;
+					background-size:cover;	
+					<?php 
+					if( get_sub_field("mobile-only_section_style") ){
+						the_sub_field("mobile-only_section_style");
+					} 
+					?>	
+				}
 			}
 		</style>
 		<section class="background-header" style="display:flex;position:relative;padding:50px 0;color:white;text-align:center;">		
