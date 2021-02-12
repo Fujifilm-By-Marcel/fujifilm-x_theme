@@ -28,33 +28,45 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
  }
  ?>
  <style>
+ 	section.main section{
+ 		min-height:unset;
+ 	}
 section.main h2 {
-  font-size: 4.5rem;
+  font-size: 2.8rem;
+}
+section.main p{
+	font-size:1.125rem;
 }
 section.main p a{
 	text-decoration:underline;
 }
-section.main .subheader {
-  font-size: 1.875rem;
+section.main span.subheader, 
+section.main div.subheader {
+  font-size: 1.125rem;
   line-height: normal;
+  max-width: 600px;
+  margin: auto;
+}
+section.main h1{
+	font-size:2.8rem;
 }
 section.main .repeater h3{
-  font-size: 1.875rem;
+  font-size: 1.5rem;
   font-family: "Fjalla One", sans-serif;
   font-weight:normal;
 }
 section.main .repeater p {
-  font-size: 1.25rem;
+  font-size: 1rem;
   
 }
 section.main a .button {
   padding: .8rem 2rem;
 }
 section.main a .button span.text {
-  font-size: 1.25rem;  
+  font-size: 1rem;  
 }
 section.main .button-notes p{
-	font-size:1rem;
+	font-size:.8rem;
 }
 
  </style>
@@ -66,7 +78,7 @@ section.main .button-notes p{
 		$logo = wp_get_attachment_image_src( get_sub_field("logo"), 'full' );
 		?>
 		<style>			
-			@media(min-width:601px){
+			@media(min-width:992px){
 				section.main section.background-header{
 					background:url('<?php the_sub_field("background_image"); ?>');
 					background-position: center;
@@ -74,6 +86,18 @@ section.main .button-notes p{
 					<?php 
 					if( get_sub_field("desktop-only_section_style") ){
 						the_sub_field("desktop-only_section_style");
+					} 
+					?>
+				}
+			}
+			@media(min-width:601px) and (max-width:991px){
+				section.main section.background-header{
+					background:url('<?php the_sub_field("tablet_background_image"); ?>');
+					background-position: center;
+					background-size:cover;
+					<?php 
+					if( get_sub_field("tablet-only_section_style") ){
+						the_sub_field("tablet-only_section_style");
 					} 
 					?>
 				}
@@ -91,14 +115,17 @@ section.main .button-notes p{
 				}
 			}
 		</style>
-		<section class="background-header" style="display:flex;position:relative;padding:50px 0;color:white;text-align:center;">		
+		<section class="background-header" style="display:flex;position:relative;padding:50px 0;color:white;text-align:center;<?php the_sub_field('section_inline_style'); ?>">		
 			
 			<!--body-->
 			<div class="container" style="align-self:center;">
 				<div class="row">
 					<div class="col s12" >
 
+						<?php if( $logo ){ ?>
 						<p><img style="display:inline;" src="<?php echo $logo[0]; ?>" width="<?php echo $logo[1]; ?>" height="<?php echo $logo[2]; ?>"></p>
+						<?php } ?>
+
 						<h1><?php the_sub_field("header"); ?></h1>
 						<p><span class="subheader"><?php the_sub_field("subheader"); ?></span></p>
 						
@@ -125,7 +152,7 @@ section.main .button-notes p{
 	    $i++; //starts at 1
 	    ?>
 	    <style>
-	    	@media(min-width:601px){
+	    	@media(min-width:992px){
 				section.main section.background-<?php echo $i; ?>{
 					background:url('<?php the_sub_field("background_image"); ?>');
 					background-position: center;
@@ -136,25 +163,32 @@ section.main .button-notes p{
 					} 
 					?>
 				}
+	    	}
+	    	@media(min-width:601px) and (max-width:991px) {
+				section.main section.background-<?php echo $i; ?>{
+					background:url('<?php the_sub_field("tablet_background_image"); ?>');
+					background-position: center;
+					background-size:cover;			
+					<?php
+					if( get_sub_field("tablet-only_section_style") ){
+						the_sub_field("tablet-only_section_style");
+					} 
+					?>
+				}
 			}
 			@media(max-width:600px){
 				section.main section.background-<?php echo $i; ?>{
 					background:url('<?php the_sub_field("mobile_background_image"); ?>');
-					background-size:contain;
-					background-repeat:no-repeat;
-					<?php if( get_sub_field("mobile_background_position") ) { ?>
-						background-position: <?php the_sub_field("mobile_background_position"); ?>;												
-					<?php }
-					if( get_sub_field("mobile_background_color") ){ ?>
-						background-color:<?php the_sub_field("mobile_background_color"); ?>;					
-					<?php }
+					background-position: center;
+					background-size:cover;		
+					<?php
 					if( get_sub_field("mobile-only_section_style") ){
 						the_sub_field("mobile-only_section_style");
 					} ?>
 				}
 			}
 		</style>
-		<section id="<?php the_sub_field("section_id") ?>" class="background-<?php echo $i; ?>" style="display:flex;position:relative;padding:50px 0;<?php the_sub_field('section_inline_style'); ?>">
+		<section id="<?php the_sub_field("section_id") ?>" class="background-<?php echo $i; ?>" style="display:flex;position:relative;padding:100px 0;<?php the_sub_field('section_inline_style'); ?>">
 			
 			<!--body-->
 			<div class="container"  style="align-self:center;">
