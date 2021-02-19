@@ -6,7 +6,7 @@ function page_myfujifilmlegacy_styles(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css',array(),'1.0.0');	
 	wp_enqueue_style('tabs', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/tabs.css',array(),'1.0.1'); 
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css',array(),'1.0.5');
-	wp_enqueue_style('deals-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/deals.css',array(),'1.0.24'); 
+	wp_enqueue_style('deals-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/deals.css',array(),'1.0.25'); 
 }
 function page_myfujifilmlegacy_scripts(){
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true); 
