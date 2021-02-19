@@ -91,7 +91,6 @@
 .creators-single .ec-carousel-bg {
   color: white;
   overflow: hidden;
-  padding-top: 66%;
   height: 0;
   position: relative;
   border-radius: 5px;
@@ -116,7 +115,7 @@
 .creators-single .ec-carousel-bg .ec-carousel-inner h3 {
   line-height: normal;
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-family: 'Fjalla One', sans-serif;
   margin-bottom: 0.625rem;
   margin-top: auto;

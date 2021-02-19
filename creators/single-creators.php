@@ -2,7 +2,7 @@
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css', array(),'1.0.0');
 	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.100');
-	wp_enqueue_style('single-creators', get_stylesheet_directory_uri().'/en-us/creators/css/single-creators.css', array(),'1.0.6');
+	wp_enqueue_style('single-creators', get_stylesheet_directory_uri().'/en-us/creators/css/single-creators.css', array(),'1.0.8');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css', array(),'1.0.6');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
 	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
@@ -40,7 +40,7 @@ if( $term_name == "X‑Photographer" ){
 
 
 function printGearCarousel(){
-	if(get_field(enable_gear_v2)){
+	if(get_field('enable_gear_v2')){
 		echo '<div style="margin:0 0 4rem;" class="gear-carousel-container">';
 		if( have_rows('gear') ):
 		    //open carousel
@@ -78,21 +78,8 @@ function printGearCarousel(){
 
 
 
-function printExposureCenterArticles(){
-	//if ( is_user_logged_in() ) {
-
-	$bioID =false;
-	if(get_field('bio')){
-		$bioID = get_field('bio');
-	}
-	
- 	$posts = get_posts(array(
-		'numberposts'	=> -1,
-		'post_type'		=> 'exposure_center',
-		'meta_key'		=> 'featured_biography',
-		'meta_value'	=> $bioID,
-	));
- 	
+function printExposureCenterArticles($posts){
+	//if ( is_user_logged_in() ) { 	
     if( $posts ):
 
 	    //open container
@@ -111,7 +98,7 @@ function printExposureCenterArticles(){
 			echo '<a href="'.get_permalink($post->ID).'" target="_blank">';
 			
 			//open background div
-			echo '<div class="ec-carousel-bg" style="background:url('.get_the_post_thumbnail_url($post->ID, 'large').') center/cover no-repeat #000;">';
+			echo '<div class="ec-carousel-bg" style="background:url('.get_the_post_thumbnail_url($post->ID, 'large').') center/cover no-repeat #000;width: 15.625rem;height: 12.5rem;">';
 			
 			//open inner div
 			echo '<div class="ec-carousel-inner">';
@@ -184,7 +171,7 @@ function printExposureCenterArticles(){
 					</div>
 					<div class="row">
 						<div class="col s12">
-							<p class="website"><a href="<?php the_field("website_url") ?>" target="_blank"><?php the_field("website_text"); ?></a></p>
+							<p class="website"><a href="<?php the_field("website", $bioID) ?>" target="_blank"><?php the_field("website_text"); ?></a></p>
 						</div>
 					</div>
 					<div class="row">
@@ -242,7 +229,7 @@ function printExposureCenterArticles(){
 				}
 				?>
 				<div class="creator-btn-container">
-					<a class="creator-btn" href="<?php the_field("website_url") ?>" target="_blank"><?php echo $button_text; ?></a>
+					<a class="creator-btn" href="<?php the_field("website", $bioID ) ?>" target="_blank"><?php echo $button_text; ?></a>
 				</div>
 			</div>
 		</div>
@@ -433,14 +420,8 @@ function printExposureCenterArticles(){
 		        	<iframe class="resp-inner" src="<?php the_sub_field('video_src') ?>" width="<?php the_sub_field('video_width') ?>" height="<?php the_sub_field('videoyoutube_height') ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen;" allowfullscreen></iframe>
 		        	<?php } else { 
 		        	$imgsrc = wp_get_attachment_image_src( get_sub_field('fullsize_image'), 'full' ); 
-		        	/*$isVertical = false;
-		        	$verticalStyle = "style='max-height: 80vh;width: auto;'";
-		        	$horizontalStyle = "style='max-height: 80vh;width: auto;'";
-		        	if( $imgsrc[1]/$imgsrc[2] <= 1 ){
-		        		$isVertical = true;
-		        	}*/
 		        	?>
-		        	<img <?php //if($isVertical){echo $verticalStyle;}else{echo $horizontalStyle;} ?> class="normal-inner lazyload" data-src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>" >
+		        	<img class="normal-inner lazyload" data-src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>" >
 		        	<?php } ?>
 		    	</div>		    	
 		    </div>
@@ -451,51 +432,33 @@ function printExposureCenterArticles(){
 
 	<?php printGearCarousel(); ?>
 
-	<?php printExposureCenterArticles(); ?>
+	<?php 
+	$bioID =false;
+	if(get_field('bio')){
+		$bioID = get_field('bio');
+	}
+	
+ 	$posts = get_posts(array(
+		'numberposts'	=> -1,
+		'post_type'		=> 'exposure_center',
+		'meta_key'		=> 'featured_biography',
+		'meta_value'	=> $bioID,
+	));
+	if($posts): 
+	?>
+	<div class="row">
+		<div class="col s12 m3" style="margin-bottom:20px">
+			<h2>Articles</h2>
+			<h3>Featuring <?php the_field("first_name", $bioID); ?></h3>
+			<p>Take some time to read some of the articles featuring <?php the_field("first_name", $bioID); ?> or explore some of our free educational content on Exposure Center.</p>
+		</div>
+		<div class="col s12 m9">
+			<?php printExposureCenterArticles($posts); ?>
+		</div>
+	</div>
+	<?php endif; ?>
 
-	<?php //$post_id = get_page_by_path( 'creators' ); ?>
-	<?php //if( have_rows('about', $post_id)  ): ?>
-    <?php //while( have_rows('about', $post_id) ): the_row(); ?>
-	<!--<section class="grey-background">
-		<div class="container ">
-			<div class="row">
-				<div class="col s12 information-block center">
-					<div class="limit-width">
-						<div class="red-left-border">
-							<h2><?php the_sub_field( 'header', $post_id ); ?></h2>
-							<div class="text"><?php the_sub_field( 'text', $post_id ); ?></div>
-						</div>
-						<div class="creator-btn-container">
-							<a class="creator-btn" href="<?php the_sub_field( 'button_link', $post_id ); ?>" target="_blank"><?php the_sub_field( 'button_text', $post_id ); ?></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>-->
-	<?php //endwhile; ?>
-	<?php //endif;  ?>
-	<?php //if( have_rows('collaborate', $post_id) ): ?>
-    <?php //while( have_rows('collaborate', $post_id) ): the_row(); ?>
-	<!--<section class="black-background">
-		<div class="container">
-			<div class="row">
-				<div class="col s12 information-block center">
-					<div class="limit-width">
-						<div class="red-left-border">
-							<h2><?php the_sub_field( 'header', $post_id ); ?></h2>
-							<div class="text"><?php the_sub_field( 'text', $post_id ); ?></div>
-						</div>
-						<div class="creator-btn-container">
-							<a class="creator-btn" href="<?php the_sub_field( 'button_link', $post_id ); ?>" target="_blank"><?php the_sub_field( 'button_text', $post_id ); ?></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>-->
-	<?php //endwhile; ?>
-	<?php //endif; ?>
+
 </section>
 <script>
 	function toggleGalleryExpand(obj, e){
@@ -609,16 +572,16 @@ function printExposureCenterArticles(){
 			            items:1
 			        },
 			        600:{
-			            items:1
+			            items:2
 			        },
 			        800:{
   						items:2
 			        },
 			        1120:{
-			            items:3
+			            items:2
 			        },
 			        1800:{
-			        	items:4
+			        	items:3
 			        }
 			    }
 			});			
