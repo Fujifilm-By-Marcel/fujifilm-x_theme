@@ -218,7 +218,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
     	}
     	.intro-section .btn{
     		display: inline-block;
-    		margin-bottom:4em;
+    		margin-bottom:1rem;
     		font-family: "Fjalla One", sans-serif;
     	}
     	.intro-section .btn a{
@@ -231,8 +231,13 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
     		font-family: "Fjalla One", sans-serif;
     		font-size: 2.5rem;
     		line-height: normal;
-    		margin-bottom:.25em;
+    		margin-bottom:.25rem;
     	}
+    	section.main .button-notes p{
+			font-size:.8rem;
+			color:white;
+			margin-bottom:2rem;
+		}
     </style>
 
 	<section class="intro-section" style="padding:3em 0;">
@@ -241,7 +246,15 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 				<div class="col s12" style="color:white;text-align:center;">					
 					<p class="cta"><?php the_sub_field('text_line_1'); ?></p>
 					<p style="margin-bottom:1.5em;"><?php the_sub_field('text_line_2'); ?></p>					
-					<div class="btn"><a href="<?php echo get_sub_field('button')['href']; ?>" target="<?php echo get_sub_field('button')['target']; ?>"><?php echo get_sub_field('button')['text']; ?></a></div>					
+					<div class="btn"><a href="<?php echo get_sub_field('button')['href']; ?>" target="<?php echo get_sub_field('button')['target']; ?>"><?php echo get_sub_field('button')['text']; ?></a></div>	
+					<!-- button notes -->
+					<?php if( get_sub_field('button_notes') ){ ?>				
+					<div class="row">
+						<div class="col s12" >						
+							<div class="button-notes"><?php the_sub_field('button_notes'); ?></div>
+						</div>
+					</div>	
+					<?php } ?>					
 					<div style="max-width:65em;margin:auto;"><div class="videoWrapper"><iframe width="560" height="315" src="<?php the_sub_field('video'); ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>
 				</div>
 			</div>
