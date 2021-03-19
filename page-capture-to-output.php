@@ -101,9 +101,7 @@ section{
 	background: black;		
 }
 
-.black-white-bg{
-	background: linear-gradient(to bottom, black 0%,black 20%,#000000 20%,white 20%,white 100%); /* W3C */
-}
+
 
 .text-white{
 	color:white;
@@ -169,7 +167,6 @@ section.cto-navigation{
 	flex-direction: column;
 
 }
-
 @media (min-width:50em) {
 	.split{
 		flex-direction:row;
@@ -180,10 +177,6 @@ section.cto-navigation{
 	}
 	.split > * + * {
 		margin-left:2em;
-	}
-
-	.black-white-bg{
-		background: linear-gradient(to bottom, black 0%,black 45%,#000000 45%,white 45%,white 100%); /* W3C */
 	}
 	
 }
@@ -216,8 +209,8 @@ section.cto-navigation{
 }
 
 .owl-carousel .owl-item img.portrait-thumbnail{
-	width:46px;
-	height:46px;
+	width:46px !important;
+	height:auto !important;
 	transition: transform .25s;
 }
 .owl-carousel .owl-item img.portrait-thumbnail.active, .owl-carousel .owl-item img.portrait-thumbnail:hover{
@@ -227,7 +220,7 @@ section.cto-navigation{
 }
 
 .t-owl-carousel{
-	max-width:25em;
+	max-width:35em;
 	margin:auto;
 }
 
@@ -329,30 +322,54 @@ section.cto-navigation{
 
 .tech-1, .tech-2, .tech-3{
 	display: none;
+	height: 25em;
+    overflow-y: auto;
 }
-
+.tech-options{
+	max-width:28ch;	
+	text-align:center;
+	display:flex;
+	justify-content: space-between;
+	margin:auto;
+}
+.tech-options > * + *{
+	margin-left:1rem;
+}
+@media (min-width:50em) {
+	.tech-options{
+		margin:unset;
+	}
+}
 .tech-options>div{
 	max-width:90px;
-	margin-right: 1rem;
 	text-align:center;
 	font-size:.75rem;
 	display:inline-block;
+
+}
+.tech-images, .tech-options{
+	display:none;
 }
 .tech-images>img{
 	margin:auto;
 	max-width:28ch !important;
 	display:block;
 }
+
+.tech-options>div>*{
+    cursor:pointer;
+}
+
 .tech-options .active img{
 	border:2px solid var(--red-color);
 	border-radius:75px;
-
+}
+.tech-options img:hover{
+	filter: invert(100%);
+	border-color:#27dec4;
 }
 .tech-copy{
 	margin:auto;
-}
-.tech-options{
-	text-align:center;
 }
 #pagetop{
 	display: none;
@@ -469,9 +486,33 @@ section.cto-navigation{
 	</script>
 	<?php endif; ?>
 	<?php if( get_field('photo_paper')['header'] ): $photo_paper = get_field('photo_paper'); ?>
+	<style>
+		.black-white-bg{
+			background: linear-gradient(to bottom, black 0%,black <?php echo $photo_paper['background_gradient_percentage_mobile'] ?>,#000000 <?php echo $photo_paper['background_gradient_percentage_mobile'] ?>,white <?php echo $photo_paper['background_gradient_percentage_mobile'] ?>,white 100%); /* W3C */
+		}
+		@media (min-width:50em) {
+			.split{
+				flex-direction:row;
+			}
+			
+			.split > *{
+				flex-basis: 100%;
+			}
+			.split > * + * {
+				margin-left:2em;
+			}
+
+			.black-white-bg{
+				background: linear-gradient(to bottom, black 0%,black <?php echo $photo_paper['background_gradient_percentage_desktop'] ?>,#000000 <?php echo $photo_paper['background_gradient_percentage_desktop'] ?>,white <?php echo $photo_paper['background_gradient_percentage_desktop'] ?>,white 100%); /* W3C */
+			}
+			
+		}
+
+	</style>
 	<section class="black-white-bg vertical-padding-2">
 		<div class="container center-text">
 			<div class="contain-text-l  margin-bottom-2">
+				<img src="<?php echo $photo_paper["logo"] ?>" style="margin:auto;display:block;width:unset;" class="margin-bottom-1">
 				<h2 class="text-white"><?php echo $photo_paper['header'] ?></h2>
 				<p class="text-white margin-bottom-2"><?php echo $photo_paper['text'] ?></p>
 				<div class="split">
@@ -532,7 +573,7 @@ section.cto-navigation{
 					<img src="<?php echo $tech_3['image'] ?>" alt="<?php echo $tech_3['image_alt'] ?>" class="tech-3">
 				</div>
 				<div>
-					<div class="tech-copy" style="max-width: 28ch;">
+					<div class="tech-copy margin-bottom-1" style="max-width: 28ch;">
 						<div class="tech-1">
 							<h3 class="red-text"><?php echo $tech_1['name'] ?></h3>
 							<p class="margin-bottom-2"><?php echo $tech_1['text'] ?></p>
@@ -592,7 +633,10 @@ section.cto-navigation{
 			$('.tech-3').show();
 			$(this).addClass('active');
 		});
+
 		$( ".tech-1-option" ).click();
+		$(".tech-images").show();
+		$(".tech-options").css("display","flex");
 
 		$(window).scroll(function(){
 		  var sticky = $('.sticky'),
@@ -614,8 +658,8 @@ section.cto-navigation{
 		});
 		var towl = jQuery('.t-owl-carousel');
 		towl.owlCarousel({
-		    items:4,
-		    loop:true,
+		    items:5,
+		    loop:false,
 		    margin:10,
 		    autoplay:false,
 		    dots:false,
@@ -627,9 +671,13 @@ section.cto-navigation{
 			        items:3,
 			    },
 			    // breakpoint from 480 up
-			    480 : {
+			    400 : {
 			        items:4,
+			    },	
+			    600 : {
+			        items:5,
 			    },			
+			    
 			}
 		});
 	});
