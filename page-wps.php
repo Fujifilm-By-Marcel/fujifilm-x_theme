@@ -17,9 +17,9 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
  get_header(); 
  get_sidebar(); 
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 
 
  ?>
@@ -532,6 +532,7 @@ section{
 			    768 : {
 			        items:3,
 			        autoplay:false,
+			        loop:false,
 			    },			
 			}
 		});
