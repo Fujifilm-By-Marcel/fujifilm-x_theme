@@ -72,25 +72,28 @@ function printGearCarousel(){
 	    endwhile;
 	    
 	    $ls = get_field("gear_last_slide", $creators_post->ID);		
-	    //open carousel item
-    	echo '<div class="item">';
-        
-        
-        echo '<a href="'.$ls['link'].'" ><img src="'.$ls['image'].'" width="300" height="300" ></a>';
-        echo '<h3>'.$ls['title'].'</h3>';
-        echo '<h2>'.$ls['heading'].'</h2>';
-        //echo '<p class="subheader">'.get_field("subheader", $post_id).'</p>';
-        echo '<p class="subheader">'.$ls['copy'].'</p>';
 
-		echo '<div class="creator-btn-container">';
-		echo '<a style="display:inline;" class="creator-btn" href="'.$ls['link'].'" >'.$ls['cta'].'</a>';
-		echo '</div>';
-        
-        //close carousel item
-        echo '</div>';
+	    if ( is_user_logged_in() ) {
+		    //open carousel item
+	    	echo '<div class="item">';
+	        
+	        
+	        echo '<a href="'.$ls['link'].'" ><img src="'.$ls['image'].'" width="300" height="300" ></a>';
+	        echo '<h3>'.$ls['title'].'</h3>';
+	        echo '<h2>'.$ls['heading'].'</h2>';
+	        //echo '<p class="subheader">'.get_field("subheader", $post_id).'</p>';
+	        echo '<p class="subheader">'.$ls['copy'].'</p>';
 
+			echo '<div class="creator-btn-container">';
+			echo '<a style="display:inline;" class="creator-btn" href="'.$ls['link'].'" >'.$ls['cta'].'</a>';
+			echo '</div>';
+	        
+	        //close carousel item
+	        echo '</div>';
+	    }
 	    //close carousel
 	    echo '</div>';
+
 
     endif;
 	
