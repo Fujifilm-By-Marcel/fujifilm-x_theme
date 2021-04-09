@@ -438,7 +438,8 @@ section{
 			<div class="split <?php if($p['reverse_row']) { echo "reverse"; } ?> margin-bottom-1">
 				<div>
 					<h2 class="center-text desktop-left-text"><?php echo $p['header']; ?></h2>
-					<img class="margin-bottom-1 mobile-only" src="<?php echo $p['image']; ?>" alt="<?php echo $p['image_alt']; ?>">
+					<img class="<?php if($p['image_credit'] == ""){echo "margin-bottom-1";}?> mobile-only" src="<?php echo $p['image']; ?>" alt="<?php echo $p['image_alt']; ?>">
+					<p class="<?php if($p['image_credit'] != ""){echo "margin-bottom-1";}?> mobile-only center-text" style="font-size:0.8rem"><?php echo $p['image_credit']; ?></p>
 					<p class="center-text margin-bottom-2 desktop-left-text"><?php echo $p['text']; ?></p>
 
 					<?php if( is_array($p['options']) ){ ?>
@@ -460,7 +461,8 @@ section{
 					<?php } ?>
 				</div>
 				<div class="desktop-only">
-					<img class="margin-bottom-1" src="<?php echo $p['image']; ?>" alt="<?php echo $p['image_alt']; ?>">
+					<img class="<?php if($p['image_credit'] == ""){echo "margin-bottom-1";}?>" src="<?php echo $p['image']; ?>" alt="<?php echo $p['image_alt']; ?>">
+					<p class="<?php if($p['image_credit'] != ""){echo "margin-bottom-1";}?> center-text" style="font-size:0.8rem"><?php echo $p['image_credit']; ?></p>
 				</div>
 			</div>
 			<?php if( $p['expander']['header'] != "" ) { ?>
