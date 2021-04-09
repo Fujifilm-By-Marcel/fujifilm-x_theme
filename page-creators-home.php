@@ -4,8 +4,8 @@ Template Name: Page-creators-home
 */
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css', false, NULL, 'all');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.106');
-	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css',array(),'1.0.5');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.125');
+	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css',array(),'1.0.22');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
 	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
 
@@ -112,103 +112,61 @@ wp_reset_postdata();
 			</div>
 		</div>
 	</section>
-	<section class="creators-owl-container">
-		<div class="row creators owl-carousel">
-			<?php
-				
-            //setup args
-			$args = array(
-				'post_type' => 'creators',
-				'post_status' => array('publish'),
-				'orderby' => 'rand',
-				'posts_per_page' => -1,
-			);
-
-			//iterate they query
-			$the_query = new WP_Query( $args );
-			if ( $the_query->have_posts() ) : 
-			while ( $the_query->have_posts() ) : $the_query->the_post();
-			$bioID =false;
-			if(get_field('bio', get_the_ID())){
-				$bioID = get_field('bio', get_the_ID());
-			}
-			$terms = get_the_terms(get_the_ID(), 'creator_category');
-			$term_name = $terms[0]->name;
-            ?>
-			<div class="col creator">				
-				<div class="creator-content"> 
-					<div class="creator-portrait-container">
-						<?php 
-						if( get_field("image_x2", $bioID) && get_field("image_x3", $bioID) ){
-							$srcset = "data-srcset='";
-							$srcset .= get_field("image_x1", $bioID)." 1x, ";
-							$srcset .= get_field("image_x2", $bioID)." 2x, ";
-							$srcset .= get_field("image_x3", $bioID)." 3x, ";
-							$srcset .= "'";
-						} else {
-							$srcset = "";
-						}
-						?>
-						<a href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>"><img class="portrait lazyload" width="160" height="160" data-src="<?php the_field("image_x1", $bioID); ?>" <?php echo $srcset; ?> ></a>
-						<?php if($term_name == "X‑Photographer") { ?>
-						<img class="badge" width="34" height="34" src="<?php echo $imgDirectory ?>x-photographer-badge-small.png" srcset="<?php echo $imgDirectory ?>x-photographer-badge-small.png 1x, <?php echo $imgDirectory ?>x-photographer-badge-small@2x.png 2x, <?php echo $imgDirectory ?>x-photographer-badge-small@3x.png 3x">
-						<?php } ?>
+	<section class="owl-section">
+		<div class="creators-owl-container">
+			<div class="creators owl-carousel">
+				<?php				
+			    //setup args
+				$args = array(
+					'post_type' => 'creators',
+					'post_status' => array('publish'),
+					'orderby' => 'rand',
+					'posts_per_page' => -1,
+				);		
+				//iterate they query
+				$the_query = new WP_Query( $args );
+				if ( $the_query->have_posts() ) : 
+				while ( $the_query->have_posts() ) : $the_query->the_post();
+				$bioID =false;
+				if(get_field('bio', get_the_ID())){
+					$bioID = get_field('bio', get_the_ID());
+				}
+				$terms = get_the_terms(get_the_ID(), 'creator_category');
+				$term_name = $terms[0]->name;
+			            ?>
+				<div class="col creator">				
+					<div class="creator-content"> 
+						<div class="creator-portrait-container">
+							<?php 
+							if( get_field("image_x2", $bioID) && get_field("image_x3", $bioID) ){
+								$srcset = "data-srcset='";
+								$srcset .= get_field("image_x1", $bioID)." 1x, ";
+								$srcset .= get_field("image_x2", $bioID)." 2x, ";
+								$srcset .= get_field("image_x3", $bioID)." 3x, ";
+								$srcset .= "'";
+							} else {
+								$srcset = "";
+							}
+							?>
+							<a href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>"><img class="portrait lazyload" width="160" height="160" data-src="<?php the_field("image_x1", $bioID); ?>" <?php echo $srcset; ?> ></a>
+							<?php if($term_name == "X‑Photographer") { ?>
+							<img class="badge" width="34" height="34" src="<?php echo $imgDirectory ?>x-photographer-badge-small.png" srcset="<?php echo $imgDirectory ?>x-photographer-badge-small.png 1x, <?php echo $imgDirectory ?>x-photographer-badge-small@2x.png 2x, <?php echo $imgDirectory ?>x-photographer-badge-small@3x.png 3x">
+							<?php } ?>
+						</div>
+						<h3><?php echo $term_name ?></h3>
+						<p class="creator-name"><?php the_title(); ?></p>
+						<h3>BIO</h3>
+						<p class="creator-desc"><?php echo get_the_excerpt($bioID);  ?></p>
+						<a class="creator-btn" href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>">view profile</a>
 					</div>
-					<h3><?php echo $term_name ?></h3>
-					<p class="creator-name"><?php the_title(); ?></p>
-					<h3>BIO</h3>
-					<p class="creator-desc"><?php echo get_the_excerpt($bioID);  ?></p>
-					<a class="creator-btn" href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>">view profile</a>
 				</div>
+				<?php endwhile;	?>
+				<?php endif; ?>				
+			
 			</div>
-			<?php endwhile;	?>
-			<?php endif; ?>				
-		</div> 
-		<p class="meet-creators"><a href="<?php echo get_permalink( get_page_by_path( 'creators' ) ) ?>">Meet the rest of our creators <span class="arrow-right"></span></a></p>
+		</div>
+		<p class="meet-creators" style="margin:0 1rem;display:inline-block;float:right;"><a href="<?php echo get_permalink( get_page_by_path( 'creators' ) ) ?>">Meet the rest of our creators <i class='fas fa-caret-right' style="vertical-align: middle;color:#eb022f"></i></p>
 	</section>
-	<?php $post_id = get_page_by_path( 'creators' ); ?>
-	<?php if( have_rows('about', $post_id)  ): ?>
-    <?php while( have_rows('about', $post_id) ): the_row(); ?>
-	<!--<section class="grey-background">
-		<div class="container ">
-			<div class="row">
-				<div class="col s12 information-block center">
-					<div class="limit-width">
-						<div class="red-left-border">
-							<h2><?php the_sub_field( 'header', $post_id ); ?></h2>
-							<div class="text"><?php the_sub_field( 'text', $post_id ); ?></div>
-						</div>
-						<div class="creator-btn-container">
-							<a class="creator-btn" href="<?php the_sub_field( 'button_link', $post_id ); ?>" target="_blank"><?php the_sub_field( 'button_text', $post_id ); ?></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>-->
-	<?php endwhile; ?>
-	<?php endif;  ?>
-	<?php if( have_rows('collaborate', $post_id) ): ?>
-    <?php while( have_rows('collaborate', $post_id) ): the_row(); ?>
-	<!--<section class="black-background">
-		<div class="container">
-			<div class="row">
-				<div class="col s12 information-block center">
-					<div class="limit-width">
-						<div class="red-left-border">
-							<h2><?php the_sub_field( 'header', $post_id ); ?></h2>
-							<div class="text"><?php the_sub_field( 'text', $post_id ); ?></div>
-						</div>
-						<div class="creator-btn-container">
-							<a class="creator-btn" href="<?php the_sub_field( 'button_link', $post_id ); ?>" target="_blank"><?php the_sub_field( 'button_text', $post_id ); ?></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>-->
-	<?php endwhile; ?>
-	<?php endif; ?>
 </section>
 <script>
 	//onclick for video opener
@@ -232,6 +190,7 @@ wp_reset_postdata();
 			    loop:true,
 			    margin:10,
 			    nav:true,
+			    navText : ["<i class='fas fa-caret-left'></i>","<i class='fas fa-caret-right'></i>"],
 			    responsive:{
 			        0:{
 			            items:1

@@ -1,8 +1,8 @@
 <?php 
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css', array(),'1.0.0');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.100');
-	wp_enqueue_style('single-creators', get_stylesheet_directory_uri().'/en-us/creators/css/single-creators.css', array(),'1.0.8');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.119');
+	wp_enqueue_style('single-creators', get_stylesheet_directory_uri().'/en-us/creators/css/single-creators.css', array(),'1.0.41');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css', array(),'1.0.6');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
 	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
@@ -40,50 +40,71 @@ if( $term_name == "X‑Photographer" ){
 
 
 function printGearCarousel(){
-	if(get_field('enable_gear_v2')){
-		echo '<div style="margin:0 0 4rem;" class="gear-carousel-container">';
-		if( have_rows('gear') ):
-		    //open carousel
-		    echo '<div class="owl-carousel gear-carousel">';
-		    while( have_rows('gear') ) : the_row();
+	
+	if( have_rows('gear') ):
+		$creators_post = get_page_by_path( 'creators' );
+		echo '<h2 style="text-align:center;">'.get_field("gear_header", $creators_post->ID).'</h2>';
+	    echo '<h3 style="text-align:center;margin-bottom:3rem;">'.get_field("gear_subheader", $creators_post->ID).'</h3>';
+	    //open carousel
+	    echo '<div class="owl-carousel gear-carousel">';
+	    while( have_rows('gear') ) : the_row();
 
-		    	$post_id = get_sub_field('gear');
+	    	$post_id = get_sub_field('gear');
 
-		    	//open carousel item
-		    	echo '<div class="item">';
-		        
-		        
-		        echo '<a href="'.get_field("button_href", $post_id).'" target="'.get_field("button_target", $post_id).'"><img src="'.get_field("image_url", $post_id).'" width="300" height="300" ></a>';
-		        echo '<h3>'.get_field("header", $post_id).'</h3>';
-		        //echo '<p class="subheader">'.get_field("subheader", $post_id).'</p>';
-		        echo '<p style="min-height:66px;" class="subheader">'.get_field("text", $post_id).'</p>';
+	    	//open carousel item
+	    	echo '<div class="item">';
+	        
+	        
+	        echo '<a href="'.get_field("button_href", $post_id).'" target="'.get_field("button_target", $post_id).'"><img src="'.get_field("image_url", $post_id).'" width="300" height="300" ></a>';
+	        echo '<h3>'.get_field("subheader", $post_id).'</h3>';
+	        echo '<h2 title="'.get_field("header", $post_id).'">'.get_field("header", $post_id).'</h2>';
+	        //echo '<p class="subheader">'.get_field("subheader", $post_id).'</p>';
+	        echo '<p class="subheader">'.get_field("text", $post_id).'</p>';
 
-				echo '<div class="creator-btn-container">';
-				echo '<a style="display:inline;" class="creator-btn" href="'.get_field("button_href", $post_id).'" target="'.get_field("button_target", $post_id).'">'.get_field("button_text", $post_id).'</a>';
-				echo '</div>';
-		        
-		        //close carousel item
-		        echo '</div>';
+			echo '<div class="creator-btn-container">';
+			echo '<a style="display:inline;" class="creator-btn" href="'.get_field("button_href", $post_id).'" target="'.get_field("button_target", $post_id).'">'.get_field("button_text", $post_id).'</a>';
+			echo '</div>';
+	        
+	        //close carousel item
+	        echo '</div>';
 
 
-		    endwhile;
+	    endwhile;
+	    
+	    $ls = get_field("gear_last_slide", $creators_post->ID);		
+	    //open carousel item
+    	echo '<div class="item">';
+        
+        
+        echo '<a href="'.$ls['link'].'" ><img src="'.$ls['image'].'" width="300" height="300" ></a>';
+        echo '<h3>'.$ls['title'].'</h3>';
+        echo '<h2>'.$ls['heading'].'</h2>';
+        //echo '<p class="subheader">'.get_field("subheader", $post_id).'</p>';
+        echo '<p class="subheader">'.$ls['copy'].'</p>';
 
-		    //close carousel
-		    echo '</div>';
+		echo '<div class="creator-btn-container">';
+		echo '<a style="display:inline;" class="creator-btn" href="'.$ls['link'].'" >'.$ls['cta'].'</a>';
+		echo '</div>';
+        
+        //close carousel item
+        echo '</div>';
 
-	    endif;
+	    //close carousel
 	    echo '</div>';
-	}
+
+    endif;
+	
 }
 
 
 
 function printExposureCenterArticles($posts){
+	$creators_post = get_page_by_path( 'creators' );
 	//if ( is_user_logged_in() ) { 	
     if( $posts ):
 
 	    //open container
-		echo '<div style="margin:0 0 4rem;" class="ec-carousel-container">';
+		echo '<div class="ec-carousel-container">';
 		//open carousel
 		echo '<div class="owl-carousel ec-carousel">';
 		foreach( $posts as $post ):
@@ -94,32 +115,57 @@ function printExposureCenterArticles($posts){
 			//echo "</pre>";
 			//echo "<br>";
 
-			//link
-			echo '<a href="'.get_permalink($post->ID).'" target="_blank">';
-			
 			//open background div
 			echo '<div class="ec-carousel-bg" style="background:url('.get_the_post_thumbnail_url($post->ID, 'large').') center/cover no-repeat #000;width: 15.625rem;height: 12.5rem;">';
 			
+			//link			
+			echo '<a href="'.get_permalink($post->ID).'" target="_blank">';
+
 			//open inner div
 			echo '<div class="ec-carousel-inner">';
 
 			echo '<div class="article-label"><span>Articles</span></div>';
 			echo '<h3>'.$post->post_title.'</h3>';
 			echo '<p>'.$post->post_excerpt.'</p>';
-			echo '<div class="ec-cta"><div class="ec-cta-inner"><span class="cta-label">READ ARTICLE</span><span class="cta-right-arrow"></span></div></div>';
+			echo '<div class="ec-cta"><div class="ec-cta-inner"><span class="cta-label">READ ARTICLE</span><i class="fas fa-caret-right"></i></div></div>';
 
 			//close inner div
 			echo '</div>';
+
+			//close link
+			echo '</a>';	
 			
 			//close background div
 			echo '</div>';			
-
-			//close link
-			echo '</a>';
-
-		    
+	    
 			
 		endforeach;
+
+
+		$ls = get_field("articles_last_slide", $creators_post->ID);		
+		
+		//open background div
+		echo '<div class="ec-carousel-bg" style="background:url('.$ls['image'].') center/cover no-repeat #000;width: 15.625rem;height: 12.5rem;">';
+		
+		//link
+		echo '<a href="'.$ls['link'].'" target="_self">';
+
+		//open inner div
+		echo '<div class="ec-carousel-inner">';
+
+		echo '<h3>'.$ls['header'].'</h3>';
+		echo '<p>'.$ls['text'].'</p>';
+		echo '<div class="ec-cta"><div class="ec-cta-inner"><span class="cta-label">'.$ls['cta'].'</span><i class="fas fa-caret-right"></i></div></div>';
+
+		//close inner div
+		echo '</div>';
+		
+		//close link
+		echo '</a>';
+
+		//close background div
+		echo '</div>';					
+
 		//close carousel
 		echo '</div>';
 		//close container
@@ -379,24 +425,32 @@ function printExposureCenterArticles($posts){
 	<?php endif; ?>
 	<?php else: ?>
 	<?php if( have_rows('gallery') ): ?>
-	<section class="creators-owl-container" style="margin: 0 0 3rem;">
-		<div class="owl-carousel main-carousel">
-		 	<?php 
-			$i = 0;
-			while( have_rows('gallery') ) : the_row(); 
-			$i++;
-			?>						
-			<a class="modal-opener" data-modal="modal-<?php echo $i; ?>">
-				<div class="modal-opener-inner">
-					<div class="loader"></div>
-					<?php if( get_sub_field('video_src') ){ ?>
-					<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
-					<?php } 
-					$imgsrc = wp_get_attachment_image_src( get_sub_field('thumbnail_image'), 'full' ); ?>
-					<img class="lazyload" data-src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>">
+	<section  class="contain-carousel-section" style="background-color: #e9e9e9;" >
+		<div class="inner">
+			<div class="row">
+				<div class="col s12">
+					<div class="creators-owl-container">
+						<div class="owl-carousel main-carousel">
+						 	<?php 
+							$i = 0;
+							while( have_rows('gallery') ) : the_row(); 
+							$i++;
+							?>						
+							<a class="modal-opener" data-modal="modal-<?php echo $i; ?>">
+								<div class="modal-opener-inner">
+									<div class="loader"></div>
+									<?php if( get_sub_field('video_src') ){ ?>
+									<img class="play-icon" src="<?php echo $imgDirectory ?>svg/play.svg">
+									<?php } 
+									$imgsrc = wp_get_attachment_image_src( get_sub_field('thumbnail_image'), 'full' ); ?>
+									<img class="lazyload" data-src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>">
+								</div>
+							</a>							
+						 	<?php endwhile; ?> 
+						</div>
+					</div>
 				</div>
-			</a>							
-		 	<?php endwhile; ?> 
+			</div>
 		</div>
 	</section>
 	<?php endif; ?>
@@ -429,9 +483,19 @@ function printExposureCenterArticles($posts){
 
 		<?php endwhile; ?>
 	<?php endif; ?>
-
-	<?php printGearCarousel(); ?>
-
+	<?php if(get_field('enable_gear_v2')){ ?>
+	<div class="contain-carousel-section">
+		<div class="inner">
+			<div class="row">
+				<div class="col s12">
+					<div class="gear-carousel-container">
+						<?php printGearCarousel(); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php } ?>
 	<?php 
 	$bioID =false;
 	if(get_field('bio')){
@@ -446,14 +510,18 @@ function printExposureCenterArticles($posts){
 	));
 	if($posts): 
 	?>
-	<div class="row">
-		<div class="col s12 m3" style="margin-bottom:20px">
-			<h2>Articles</h2>
-			<h3>Featuring <?php the_field("first_name", $bioID); ?></h3>
-			<p>Take some time to read some of the articles featuring <?php the_field("first_name", $bioID); ?> or explore some of our free educational content on Exposure Center.</p>
-		</div>
-		<div class="col s12 m9">
-			<?php printExposureCenterArticles($posts); ?>
+	<div class="contain-carousel-section">
+		<div class="inner">
+			<div class="row">
+				<div class="col s12 m12 l3" style="margin-bottom:20px">
+					<h2>Articles</h2>
+					<h3>Featuring <?php the_field("first_name", $bioID); ?></h3>
+					<p>Take some time to read some of the articles featuring <?php the_field("first_name", $bioID); ?> or explore some of our free educational content on Exposure Center.</p>
+				</div>
+				<div class="col s12 m12 l9">
+					<?php printExposureCenterArticles($posts); ?>
+				</div>
+			</div>
 		</div>
 	</div>
 	<?php endif; ?>
@@ -546,6 +614,7 @@ function printExposureCenterArticles($posts){
 			jQuery('.owl-carousel.main-carousel, .owl-carousel.gear-carousel').owlCarousel({
 			    margin:10,
 			    nav:true,
+			    navText : ["<i class='fas fa-caret-left'></i>","<i class='fas fa-caret-right'></i>"],
 			    responsive:{
 			        0:{
 			            items:1
@@ -564,23 +633,18 @@ function printExposureCenterArticles($posts){
 			        }
 			    }
 			});
-			jQuery('.owl-carousel.main-carousel, .owl-carousel.ec-carousel').owlCarousel({
+			jQuery('.owl-carousel.ec-carousel').owlCarousel({
 			    margin:10,
 			    nav:true,
+			    navText : ["<i class='fas fa-caret-left'></i>","<i class='fas fa-caret-right'></i>"],
 			    responsive:{
 			        0:{
 			            items:1
 			        },
-			        600:{
-			            items:2
-			        },
-			        800:{
+			        720:{
   						items:2
-			        },
-			        1120:{
-			            items:2
-			        },
-			        1800:{
+			        },			        
+			        1260:{
 			        	items:3
 			        }
 			    }
