@@ -140,12 +140,13 @@ function my_transition(){
 				<div class="row">
 					<div class="col s12" >
 
+						<?php if(get_sub_field("header") != "") { ?>
 						<div style="max-width:500px;display:block;margin:auto;">
 							<h2><?php the_sub_field("header"); ?></h2>
 							<p style='font-family: "Fjalla One", sans-serif;font-size:1.25rem;color:#505050;line-height:normal;'><?php the_sub_field("subheader"); ?></p>
 							<p><?php the_sub_field("text"); ?></p>
 						</div>
-
+						<?php } ?>
 						<!-- image -->					
 						<?php 
 						$imgsrc = wp_get_attachment_image_src( get_sub_field('image'), 'full' ); 
@@ -159,7 +160,7 @@ function my_transition(){
 						<!-- Bullets -->
 						<?php 
 						$bullets = get_sub_field('bullets');
-						if( $bullets ):				    
+						if( $bullets['bullets'] ):				    
 					    //echo "<pre>";
 					    //print_r($bullets);
 					    //echo "</pre>";
