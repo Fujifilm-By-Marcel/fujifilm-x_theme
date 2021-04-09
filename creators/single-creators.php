@@ -1,7 +1,7 @@
 <?php 
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css', array(),'1.0.0');
-	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.119');
+	wp_enqueue_style('archive-creators', get_stylesheet_directory_uri().'/en-us/creators/css/archive-creators.css', array(),'1.1.122');
 	wp_enqueue_style('single-creators', get_stylesheet_directory_uri().'/en-us/creators/css/single-creators.css', array(),'1.0.41');
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css', array(),'1.0.6');
 	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
@@ -288,15 +288,30 @@ function printExposureCenterArticles($posts){
 		.add-monitor .overlayed-image{position: absolute;left: 50%;top: 36%;transform: translate(-50%,-50%);width: 94.8%;}
 	</style>
 
-	<?php if( get_field('enable_projects') ): ?>    
-	<?php if( have_rows('projects_slider') ): ?>    
+	<?php 
+	for ($i=1;$i<=4;$i++){
+		if ($i == 1){
+			$field_extension = "";
+		} else {
+			$field_extension = "_".$i;
+		}
+		if ($i % 2 == 1) {
+			$myslide_class = "reverse-desktop";
+			$informationblock_class = "right";
+		} else{
+			$myslide_class = "";
+			$informationblock_class = "left";
+		}
+	?>
+	<?php if( get_field('enable_projects'.$field_extension) ): ?>    
+	<?php if( have_rows('projects_slider'.$field_extension) ): ?>    
 	<div class="container full-width-mobile" style="padding:0 0 3rem;">
 		<div class="row">
 			<div class="col s12">							
 				<div class="my-slideshow">
 					<div class="slides-container">
-						<?php while ( have_rows('projects_slider') ) : the_row(); ?>
-						<div class="mySlide flex-when-active reverse-desktop">
+						<?php while ( have_rows('projects_slider'.$field_extension) ) : the_row(); ?>
+						<div class="mySlide flex-when-active <?php echo $myslide_class; ?>">
 
 							<div class="col s12 xl6 information-block right" style="display: flex;flex-direction:column;">
 								<h2><?php the_sub_field("header") ?></h2>
@@ -309,7 +324,13 @@ function printExposureCenterArticles($posts){
 							<div class="col s12 xl6" style="display: flex;align-items: center;justify-content: center;flex-direction:column;">
 								<div <?php if( get_sub_field("enable_monitor") ){ ?>class="add-monitor"<?php } ?>>
 									<?php if( get_sub_field("enable_monitor") ){ ?><img src="http://fujifilm-x.com/en-us/wp-content/themes/fujifilm-x_jp/en-us/creators/img/computer-mockup.png?v=2" /><?php } ?>
+									<?php if( get_sub_field("video") == "" ){ ?>
 									<img <?php if( get_sub_field("enable_monitor") ){ ?>class="overlayed-image"<?php } ?> src="<?php the_sub_field("image") ?>" />
+									<?php } else { ?>
+										<div class="resp-container youtube overlayed-image">
+											<?php the_sub_field("video") ?>
+										</div>
+									<?php } ?>
 								</div>
 							</div>						
 						</div>
@@ -337,56 +358,11 @@ function printExposureCenterArticles($posts){
 	</div>	
 	<?php endif; ?>
 	<?php endif; ?>
+	<?php 
+	}
+	?>
 
-	<?php if( get_field('enable_projects_2') ): ?>
-	<?php if( have_rows('projects_slider_2') ): ?>    
-	<div class="container full-width-mobile" style="padding:0 0 3rem;">
-		<div class="row">
-			<div class="col s12">							
-				<div class="my-slideshow">
-					<div class="slides-container">
-						<?php while ( have_rows('projects_slider_2') ) : the_row(); ?>
-						<div class="mySlide flex-when-active">
-
-							<div class="col s12 xl6 information-block left" style="display: flex;flex-direction:column;">
-								<h2><?php the_sub_field("header") ?></h2>
-								<h3><?php the_sub_field("subheader") ?></h3>
-								<div class="text"><?php the_sub_field("text") ?></div>
-								<div class="creator-btn-container">
-									<a class="creator-btn" href="<?php the_sub_field("button_link") ?>" target="<?php the_sub_field("button_target") ?>"><?php the_sub_field("button_text") ?></a>
-								</div>
-							</div>
-							<div class="col s12 xl6" style="display: flex;align-items: center;justify-content: center;flex-direction:column;">
-								<div <?php if( get_sub_field("enable_monitor") ){ ?>class="add-monitor"<?php } ?>>
-									<?php if( get_sub_field("enable_monitor") ){ ?><img src="http://fujifilm-x.com/en-us/wp-content/themes/fujifilm-x_jp/en-us/creators/img/computer-mockup.png?v=2" /><?php } ?>
-									<img <?php if( get_sub_field("enable_monitor") ){ ?>class="overlayed-image"<?php } ?> src="<?php the_sub_field("image") ?>" />
-								</div>
-							</div>						
-						</div>
-						<?php endwhile; ?>
-						<a class="myprev">
-							<div class="arrow-left"></div>
-						</a>
-						<a class="mynext">
-							<div class="arrow-right"></div>
-						</a>
-
-					</div>			
-
-					<div class="slideshow-nav">
-						<br>
-						<?php while ( have_rows('projects_slider') ) : the_row(); ?>
-						<span class="mydot"></span> 
-						<?php endwhile;	?>
-					</div>
-				</div>
-				
-			</div>
-			
-		</div>
-	</div>	
-	<?php endif; ?>
-	<?php endif; ?>
+	
 
 	
 	
@@ -610,6 +586,11 @@ function printExposureCenterArticles($posts){
                 }
                 return false;
             });
+
+            $(".resp-container iframe").attr("allow","accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen;");
+            $(".resp-container iframe").attr("allowfullscreen","");
+            $(".resp-container iframe").attr("frameborder","0");
+
             jQuery(".my-slideshow").slideshow({				
 
 			});
