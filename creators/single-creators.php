@@ -70,10 +70,9 @@ function printGearCarousel(){
 
 
 	    endwhile;
-	    
-	    $ls = get_field("gear_last_slide", $creators_post->ID);		
-
 	    if ( is_user_logged_in() ) {
+		    $ls = get_field("gear_last_slide", $creators_post->ID);		
+	    
 		    //open carousel item
 	    	echo '<div class="item">';
 	        
