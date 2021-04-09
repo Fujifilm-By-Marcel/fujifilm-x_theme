@@ -37,7 +37,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 
 :root{
 	--red-color: #e4022e;
-	--wine-color: #9c0541;
+	--wine-color: #D01663;
 	--grey-color: #efefef;
 	--darkgrey-color: #d8d8d8;
 	--accent-font: "Fjalla One", sans-serif;
