@@ -240,7 +240,11 @@ section{
 .split{
 	display: flex;
 	flex-direction: column;
-	align-items:center;
+	/*align-items:center;*/
+}
+
+.align-center{
+	align-items:center;	
 }
 
 @media (min-width:50em) {
@@ -435,7 +439,7 @@ section{
 	$i=0; foreach( $print_options as $p ) { $i++;	?>
 	<section class="print-options-section <?php echo $p['section_class']; ?> vertical-padding-2" >
 		<div class="container">
-			<div class="split <?php if($p['reverse_row']) { echo "reverse"; } ?> margin-bottom-1">
+			<div class="split align-center <?php if($p['reverse_row']) { echo "reverse"; } ?> margin-bottom-1">
 				<div>
 					<h2 class="center-text desktop-left-text"><?php echo $p['header']; ?></h2>
 					<img class="<?php if($p['image_credit'] == ""){echo "margin-bottom-1";}?> mobile-only" src="<?php echo $p['image']; ?>" alt="<?php echo $p['image_alt']; ?>">
@@ -447,7 +451,7 @@ section{
 						<?php foreach ($p['options'] as $o){ ?>
 						<div class="margin-bottom-1">
 							<h5 class="center-text desktop-left-text"><?php echo $o['header'] ?></h5>
-							<p class="small center-text desktop-left-text"><?php echo $o['text'] ?></p>
+							<?php if($o['text'] != ""){ ?><p class="small center-text desktop-left-text"><?php echo $o['text'] ?></p><?php } ?>
 							<?php if( $o['button_text'] != "" ){ ?>
 								<div class="center-text desktop-left-text"><a href="<?php echo $o['button_href']; ?>" target="<?php echo $o['button_target']; ?>" class="button"><?php echo $o['button_text']; ?></a></div>
 							<?php } ?>
@@ -467,7 +471,7 @@ section{
 			</div>
 			<?php if( $p['expander']['header'] != "" ) { ?>
 			<div class="expander" style="display: none;">	
-				<div class="split">
+				<div class="split align-center">
 					<div class="desktop-only">
 						<div class="option-set-<?php echo $i; ?>">
 							<?php $j=0; foreach( $ex['options'] as $o ) { $j++; ?>
