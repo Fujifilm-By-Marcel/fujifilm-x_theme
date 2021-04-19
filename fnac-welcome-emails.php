@@ -194,7 +194,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 	    <?php while( have_rows('pages') ) : the_row(); ?>
     	<div class="margin-bottom-2" data-tags="<?php the_sub_field('tags'); ?>">		     
 	        <div class="image-container margin-bottom-1">
-	        	<img src="<?php the_sub_field('image'); ?>" >
+	        	<a target="<?php the_sub_field('button_target'); ?>" href="<?php the_sub_field('button_href'); ?>"><img src="<?php the_sub_field('image'); ?>" ></a>
 	        	<p class="promo-end"><?php the_sub_field('end_date') ?></p>
 	        </div>
 	        <div class="contain-text">
