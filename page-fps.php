@@ -178,7 +178,7 @@ add_action( 'wp_enqueue_scripts', 'page_myfujifilmlegacy_scripts' );
 	endif;
 	?>
 	<?php	
-	if( have_rows('contact') ):	 	
+	if( get_field('contact')['header'] ):	 	
 	    while ( have_rows('contact') ) : the_row();
 	   	?>	
 	   	<section class="info-section contact-section">
