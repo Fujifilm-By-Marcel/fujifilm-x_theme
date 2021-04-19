@@ -165,7 +165,7 @@ wp_reset_postdata();
 			
 			</div>
 		</div>
-		<p class="meet-creators" style="margin:0 1rem;display:inline-block;float:right;"><a href="<?php echo get_permalink( get_page_by_path( 'creators' ) ) ?>">Meet the rest of our creators <i class='fas fa-caret-right' style="vertical-align: middle;color:#eb022f"></i></p>
+		<p class="meet-creators" style="margin:0 1rem;display:inline-block;float:right;"><a href="<?php echo get_permalink( get_page_by_path( 'creators' ) ) ?>">Meet the rest of our creators <i class='fas fa-caret-right' style="vertical-align: middle;color:#eb022f"></i></a></p>
 	</section>
 </section>
 <script>
