@@ -146,8 +146,8 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 	<?php if( have_rows('tabs') ): ?>
 	<section class="repeater">	    
 	    <?php while( have_rows('tabs') ) : the_row(); ?>
-    	<div class="margin-bottom-2" data-tabs="<?php the_sub_field('tab_button_text'); ?>">	        
-			<section class="free__first lower__first">
+    	<div style="max-width:90%;margin:auto;display:none;" class="margin-bottom-2" data-tabs="<?php the_sub_field('tab_button_text'); ?>">	        
+			<section style="padding-top:0;" class="free__first lower__first">
 				<div class="inner">
 				  	<div class="wp_content">
 						<?php the_sub_field('tab_content'); ?>
@@ -166,6 +166,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 			$(".repeater > *").hide();
 			$(".repeater > *[data-tabs='"+tab+"'").show();	
 		});
+		$('.tabs .tab-button:first-child').click();
 	});
 </script>
  <?php get_footer(); ?>
