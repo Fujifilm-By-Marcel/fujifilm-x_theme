@@ -53,12 +53,10 @@ section.main{
 	.tiles{
 		display:flex;
 		flex-wrap:wrap;
+		gap:2rem;
+		
 		.tile{
-			text-align:center;
-			margin-bottom:2rem;
-			max-width:300px;
-			margin-left:auto;
-			margin-right:auto;
+			text-align:center;			
 			a.tile-link{
 				text-decoration: none;
 				.tile-inner{
@@ -102,6 +100,13 @@ section.main{
 				}
 			}
 			
+		}
+		@media(min-width:601px){
+			.tile{flex:1 1 30%;}
+		}
+		
+		@media (max-width:600px){		
+			.tile{flex:1 1 100%;}
 		}
 	}
 

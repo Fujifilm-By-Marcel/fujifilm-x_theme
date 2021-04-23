@@ -4,7 +4,7 @@ Template Name: Page-creator-resources
 */
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css', false, NULL, 'all');
-	wp_enqueue_style('creator-resources', get_stylesheet_directory_uri().'/en-us/creators/css/creator-resources.css', array(), '1.0.52');	
+	wp_enqueue_style('creator-resources', get_stylesheet_directory_uri().'/en-us/creators/css/creator-resources.css', array(), '1.0.60');	
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.3', true);
 	//wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/lazyload.js', array(), '1.22',true); 
 } 
@@ -24,7 +24,7 @@ $tallest_px = get_field("tallest_button_image");
 function printTile($tile, $tallest_px){
 	$imgsrc = wp_get_attachment_image_src( $tile->image, 'full' );
     ?>
-	<div class="col s12 m6 l4 xl4 tile">
+	<div class="tile">
 		<a class="tile-link" href="<?php echo $tile->href; ?>" target="<?php echo $tile->target; ?>" onclick="changeTab(event, this);">
 			<div class="tile-inner">
 				<div class="icon-wrapper" style="min-height:<?php echo $tallest_px; ?>;">
@@ -40,7 +40,7 @@ function printTile($tile, $tallest_px){
 
 function printTiles(){
 	if( have_rows('buttons') ): ?>
-	<div class="row tiles">
+	<div class="tiles">
 		<?php 
 		while( have_rows('buttons') ): the_row();					
 			$tile = new stdClass();
@@ -60,10 +60,9 @@ function printMenu($class){
 	$rows = get_field('menu_item');
 	if( $rows ) {
 	    echo '<ul class="creator-resources-menu '.$class.'">';
-	    $isActive = true;
+	    $isActive = false;
 	    foreach( $rows as $row ) {	     	    	  
 	    	printMenuItem($row, $isActive);	    	
-	    	$isActive = false;
 	    }
 	    echo '</ul>';
 	}
@@ -123,9 +122,52 @@ function printTabs(){
 	    
 	}
 }
-
+function printDashboards(){
+	$rows = get_field('dashboards');
+	if( $rows ) {	    
+	    foreach( $rows as $row ) {
+	        $id = $row['dashboard_id'];
+	        $buttons = $row['buttons'];
+	        echo '<div id="'.$id.'" class="tab">';
+	        echo '<h1>'.$row['title'].'</h1>';
+	        echo '<p class="tagline">'.$row['tagline'].'</p>';
+			echo '<p>'.$row['text'].'</p>';
+			echo '<br><br>';
+	        echo '<div class="tiles">';
+	        foreach( $buttons as $button ) { ?>
+			
+				<?php 				
+					$tile = new stdClass();
+					$tile->title = $button["title"];
+					$tile->cta = $button["cta"];
+					$tile->image = $button["image"];
+					$tile->href = $button["href"];
+					$tile->target = $button["target"];
+					printTile($tile, $tallest_px);		
+				?>
+			
+			<?php }
+			echo '</div>';
+	        echo '</div>';
+	    }
+	    
+	}
+}
 ?>
-
+<style>
+.flex-container{
+	display:flex;
+}
+.flex-container .flex-item.nav-section{
+	flex-basis:30%;
+}
+.flex-container .flex-item.main-section{
+	flex-basis:100%;
+}
+.main-section-container{
+	padding:0 3rem;
+}
+</style>
 <section class="main"> 		
 
 	<?php if( $_POST['password'] == get_field('password') ){ ?>
@@ -159,32 +201,35 @@ function printTabs(){
 		</section>
 	</section>	
 	<br><br>
-	<div class="container">		
-		<div class="row">
+	<div class="">		
+		<div class="flex-container">
 
 			<!-- Menu -->
-			<div class="col s12 m12 l12 xl4 xl-desktop-only">
+			<div class="flex-item nav-section xl-desktop-only">
 				<div style="border-right: 2px solid #eb022f;max-width: 315px;padding: 20px;">
 					<?php printMenu(''); ?>
 				</div>
 			</div>
 
 			<!-- body -->
-			<div class="col s12 m12 l12 xl8">				
-				
-				<div class="tab" id="dashboard">
-					<h1><?php the_field("title"); ?></h1>
-					<p class="tagline"><?php the_field("tagline"); ?></p>
-					<p><?php the_field("text"); ?></p>
-					<br><br>
-					<!-- Tiles -->
-					<?php printTiles(); ?>
+			<div class="flex-item main-section">				
+				<div class="main-section-container">
+					<div class="tab" id="dashboard">
+						<h1><?php the_field("title"); ?></h1>
+						<p class="tagline"><?php the_field("tagline"); ?></p>
+						<p><?php the_field("text"); ?></p>
+						<br><br>
+						<!-- Tiles -->
+						<?php printTiles(); ?>
+					</div>
+					<?php printTabs(); ?>
+					<?php printDashboards();?>
 				</div>
-				<?php printTabs(); ?>
 
 			</div>
 		</div>
 	</div>
+	<br><br>
 	<?php } else { ?>
 	<form method="post">
 		<div style="min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:black;padding:30px 0;text-align:center;">

@@ -56,13 +56,10 @@ section.main p.tagline {
 section.main .tiles {
   display: flex;
   flex-wrap: wrap;
+  gap: 2rem;
 }
 section.main .tiles .tile {
   text-align: center;
-  margin-bottom: 2rem;
-  max-width: 300px;
-  margin-left: auto;
-  margin-right: auto;
 }
 section.main .tiles .tile a.tile-link {
   text-decoration: none;
@@ -103,6 +100,16 @@ section.main .tiles .tile a.tile-link .tile-inner .cta {
   font-size: 0.75rem;
   line-height: normal;
   color: #eb022f;
+}
+@media (min-width: 601px) {
+  section.main .tiles .tile {
+    flex: 1 1 30%;
+  }
+}
+@media (max-width: 600px) {
+  section.main .tiles .tile {
+    flex: 1 1 100%;
+  }
 }
 section.main .creator-resources-menu.mobile li a {
   color: white;
