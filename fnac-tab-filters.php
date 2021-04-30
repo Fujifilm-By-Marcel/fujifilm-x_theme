@@ -29,7 +29,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 	}
 	:root{
 		--grey-color: #ababab;
-		--red-color: #e4022e;
+		--red-color: #FB0020;
 		--accent-font: "Fjalla One", sans-serif;
 	}
 	h1{
@@ -90,7 +90,6 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 	}
 	
 	.main .button {
-	  background-color: var(--red-color);
 	  border: none;
 	  color: white;
 	  padding: .25em 1.25em;
@@ -123,6 +122,9 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 	.tabs > * + * {
 		margin-left:.625rem;
 	}
+	.tabs .button.active{
+		background:var(--red-color);
+	}
 	/*.repeater{
 		max-width: min(88em, 90%);
 		margin:auto;
@@ -146,7 +148,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 	<?php if( have_rows('tabs') ): ?>
 	<section class="repeater">	    
 	    <?php while( have_rows('tabs') ) : the_row(); ?>
-    	<div style="max-width:90%;margin:auto;display:none;" class="margin-bottom-2" data-tabs="<?php the_sub_field('tab_button_text'); ?>">	        
+    	<div style="max-width:90%;margin:auto;display:none;" class="margin-bottom-2 mytab" data-tab="<?php the_sub_field('tab_button_text'); ?>">	        
 			<section style="padding-top:0;" class="free__first lower__first">
 				<div class="inner">
 				  	<div class="wp_content">
@@ -160,13 +162,51 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 	<?php endif; ?>
 </section>
 <script>
+	function showTab(tab){
+		jQuery(".tabs > *").removeClass('active');
+		jQuery(".repeater > *").hide();
+		jQuery(".repeater > *[data-tab='"+tab+"'").show()
+		jQuery(".tabs > *[data-tab='"+tab+"'").addClass('active');
+	}
+
 	jQuery(function($) {
 		$( ".tab-button" ).click(function() {
 			let tab = $(this).data('tab');
-			$(".repeater > *").hide();
-			$(".repeater > *[data-tabs='"+tab+"'").show();	
+			showTab(tab);
 		});
 		$('.tabs .tab-button:first-child').click();
+	});
+
+
+	jQuery(window).ready(function(){
+		
+		//check anchor hash
+	    var anchorHash = window.location.href.toString();
+	    
+	    //if it url contains hash
+	    if( anchorHash.lastIndexOf('#') != -1 ) {
+	    	
+	    	//get hash
+	        anchorHash = anchorHash.substr(anchorHash.lastIndexOf('#'));
+	        
+	        //find anchor element using hash
+	        let myanchor = jQuery(anchorHash);
+
+	        //if there is an anchor
+	        if( myanchor.length > 0 ) {
+	        
+	        	//find and show the nearest tab
+	            let mytab_string = jQuery(myanchor.closest('.mytab')).data("tab");
+	            showTab(mytab_string);
+
+	            //scroll to anchor after 1 second
+				setTimeout(function(){			   
+			        let mytop = myanchor.offset().top;
+			    	window.scrollTo(0, mytop); 			        
+			    }, 1000);				
+
+	        }
+	    }
 	});
 </script>
  <?php get_footer(); ?>
