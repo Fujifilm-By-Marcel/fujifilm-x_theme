@@ -202,7 +202,7 @@ get_header();
 			endif;	
 			?>
 
-			
+			<!--
 			<div class="xstoriespost__contents lower__contents">
 				<div class="inner">
 					<div class="wp_content max-1000">
@@ -213,6 +213,9 @@ get_header();
 						$iteration = 0;
 						if ( $the_query->have_posts() ) : 
 						while ( $the_query->have_posts() ) : $the_query->the_post(); $iteration++;					
+
+							//print_r($the_query->post->ID);
+								
 						?>
 
 
@@ -232,13 +235,13 @@ get_header();
 								}
 							?>
 							<div class="featured-image">
-								<a href="<?php the_permalink(); ?>">
+								<a href="<?php the_permalink($the_query->post->ID); ?>">
 									<img class="lazyload" data-src="<?php echo $imgsrc ?>">
 								</a>
 							</div>
 							<?php endif; ?>
 							<div class="xt30-preview">
-								<a href="<?php the_permalink(); ?>" class="xt30-title">
+								<a href="<?php the_permalink($the_query->post->ID); ?>" class="xt30-title">
 									<?php the_title('<h3>', '</h3>'); ?>
 								</a>
 								<div class="xt30-synopsis">
@@ -277,7 +280,7 @@ get_header();
 					</div>	
 				</div>
 			</div>
-		
+		-->
 			
 		</div>
 		
