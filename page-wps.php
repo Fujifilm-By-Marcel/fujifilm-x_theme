@@ -246,6 +246,9 @@ section{
 .align-center{
 	align-items:center;	
 }
+.align-top{
+	align-items:top;	
+}
 
 @media (min-width:50em) {
 	.split{
@@ -471,7 +474,7 @@ section{
 			</div>
 			<?php if( $p['expander']['header'] != "" ) { ?>
 			<div class="expander" style="display: none;">	
-				<div class="split align-center">
+				<div class="split align-top">
 					<div class="desktop-only">
 						<div class="option-set-<?php echo $i; ?>">
 							<?php $j=0; foreach( $ex['options'] as $o ) { $j++; ?>
