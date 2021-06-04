@@ -1,5 +1,6 @@
 @red: #eb022f;
 @grey: #ececec;
+@hover: #656565;
 
 section.main{
 
@@ -19,6 +20,12 @@ section.main{
 	h3{
 		font-family: "Fjalla One", sans-serif;
 		font-size: 1.875rem; //30px
+		line-height:normal;
+		margin-bottom:1.25rem;
+	}
+	h4{
+		font-family: "Fjalla One", sans-serif;
+		font-size: 1.375rem; //30px
 		line-height:normal;
 		margin-bottom:1.25rem;
 	}
@@ -259,3 +266,35 @@ section.main{
 
 //resize font for mobile
 @media (max-width:600px){html{font-size:14px;}}
+
+
+.main .button {
+	background-color: @red;
+	border: none;
+	color: white;
+	padding: .5em 2em;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 1.375rem;
+	cursor: pointer;
+	font-family: "Fjalla One", sans-serif;
+	line-height:normal;
+	text-transform: uppercase;
+}
+
+.main .button.white-bg{
+	background:white;
+	color:black;
+	outline:1px solid #000;
+}
+
+.main .button.black-bg{
+	background:black;
+	color:white;
+}
+
+.main .button:hover {
+	background-color: @hover;
+	color:white;
+}

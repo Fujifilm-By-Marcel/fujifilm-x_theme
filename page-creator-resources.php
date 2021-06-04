@@ -4,7 +4,7 @@ Template Name: Page-creator-resources
 */
 function load_usa_js_css(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css', false, NULL, 'all');
-	wp_enqueue_style('creator-resources', get_stylesheet_directory_uri().'/en-us/creators/css/creator-resources.css', array(), '1.0.60');	
+	wp_enqueue_style('creator-resources', get_stylesheet_directory_uri().'/en-us/creators/css/creator-resources.css', array(), '1.0.66');	
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.3', true);
 	//wp_enqueue_script('lazyload', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/lazyload.js', array(), '1.22',true); 
 } 
@@ -28,7 +28,18 @@ function printTile($tile, $tallest_px){
 		<a class="tile-link" href="<?php echo $tile->href; ?>" target="<?php echo $tile->target; ?>" onclick="changeTab(event, this);">
 			<div class="tile-inner">
 				<div class="icon-wrapper" style="min-height:<?php echo $tallest_px; ?>;">
-					<img style="display:inline;" class="icon" src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>" >
+					<?php 
+					$has_icon = false;
+				    if( !empty($tile->fa_icon) && $tile->fa_icon != ""){
+				    	$has_icon = true;
+				    }				
+
+					if( !$has_icon ){ ?>
+						<img style="display:inline;" class="icon" src="<?php echo $imgsrc[0]; ?>" width="<?php echo $imgsrc[1]; ?>" height="<?php echo $imgsrc[2]; ?>" >
+					<?php } else { ?>
+						<i style="font-size: 2.5rem;" class="<?php echo $tile->fa_icon ?>"></i>
+					<?php } ?>
+
 				</div>
 				<h3 class="title"><span><?php echo $tile->title; ?></span></h3>
 				<p class="cta"><span ><?php echo $tile->cta; ?></span></p>
@@ -47,6 +58,7 @@ function printTiles(){
 			$tile->title = get_sub_field("title");
 			$tile->cta = get_sub_field("cta");
 			$tile->image = get_sub_field("image");
+			$tile->fa_icon = get_sub_field("image_override");
 			$tile->href = get_sub_field("href");
 			$tile->target = get_sub_field("target");
 			printTile($tile, $tallest_px); 
@@ -64,6 +76,12 @@ function printMenu($class){
 	    foreach( $rows as $row ) {	     	    	  
 	    	printMenuItem($row, $isActive);	    	
 	    }
+
+	    if ( is_user_logged_in() ) { 
+	    	echo '<li class=""><a href="#test" target="_self" onclick="changeTab(event, this);"><i class=""></i><p><span>test</span></p></a></li>';
+	    }
+
+
 	    echo '</ul>';
 	}
 }
@@ -80,7 +98,7 @@ function printMenuItem($row, $isActive){
 	//check for icon class
 	$class = "";
 	$has_icon = false;
-    if( !empty($row['fa_icon']) || $row['fa_icon'] != ""){
+    if( !empty($row['fa_icon']) && $row['fa_icon'] != ""){
     	$class .= " has-icon";
     	$has_icon = true;
     }
@@ -99,7 +117,7 @@ function printMenuItem($row, $isActive){
 	echo '<a href="'.$href.'" target="'.$row['target'].'" onclick="changeTab(event, this);">';
 
 	//print icon
-	if($has_icon){ echo '<i class="fas '.$row['fa_icon'].'"></i>'; }	            
+	if($has_icon){ echo '<i class="'.$row['fa_icon'].'"></i>'; }	            
 
 	//print title
     echo '<p><span>'.$row['title'].'</span></p>';
@@ -134,49 +152,99 @@ function printDashboards(){
 			echo '<p>'.$row['text'].'</p>';
 			echo '<br><br>';
 	        echo '<div class="tiles">';
-	        foreach( $buttons as $button ) { ?>
-			
-				<?php 				
-					$tile = new stdClass();
-					$tile->title = $button["title"];
-					$tile->cta = $button["cta"];
-					$tile->image = $button["image"];
-					$tile->href = $button["href"];
-					$tile->target = $button["target"];
-					printTile($tile, $tallest_px);		
-				?>
-			
-			<?php }
+	        foreach( $buttons as $button ) { 		
+				$tile = new stdClass();
+				$tile->title = $button["title"];
+				$tile->cta = $button["cta"];
+				$tile->image = $button["image"];
+				$tile->fa_icon = $button["fa_icon"];
+				$tile->href = $button["href"];
+				$tile->target = $button["target"];
+				printTile($tile, $tallest_px);
+			}
 			echo '</div>';
 	        echo '</div>';
 	    }
 	    
 	}
 }
+
+function printContentTabs(){
+
+	//print each tab
+	if( have_rows('content_tab') ):
+	while( have_rows('content_tab') ) : the_row(); 
+		?>
+		<div id="<?php the_sub_field('id') ?>" class="tab">
+			<h1><?php the_sub_field('title') ?></h1>
+			<?php 
+			//print each row
+			if( have_rows('row') ):
+			while( have_rows('row') ) : the_row(); 
+				?>
+				<div class="row">				
+				<?php
+				//print each column
+				if( have_rows('column') ):	?>
+					<div class="split">
+						<?php while( have_rows('column') ) : the_row(); ?>
+							<div>
+								<section style="padding-top:0;">	
+									<?php the_sub_field('content'); ?>
+								</section>							        
+							</div>
+						<?php endwhile; ?>
+					</div>
+				<?php endif;  ?>
+				</div>
+			<?php endwhile; ?>
+			<?php endif;  ?>				
+		</div>
+	<?php
+	endwhile;
+	endif;
+}
 ?>
 <style>
-.flex-container{
-	display:flex;
-}
-.flex-container .flex-item.nav-section{
-	flex-basis:30%;
-}
-.flex-container .flex-item.main-section{
-	flex-basis:100%;
-}
-.main-section-container{
-	padding:0 3rem;
-}
-</style>
-<section class="main"> 		
+	.flex-container{
+		display:flex;
+	}
+	.flex-container .flex-item.nav-section{
+		flex-basis:30%;
+	}
+	.flex-container .flex-item.main-section{
+		flex-basis:100%;
+	}
+	.main-section-container{
+		padding:0 3rem;
+	}
 
+	.split{
+		display: flex;
+		flex-direction: column;
+	}
+	@media (min-width:50em) {
+		.split{
+			flex-direction:row;
+		}		
+		.split > *{
+			flex-basis: 100%;
+		}
+		.split > * + * {
+			margin-left:2em;
+		}
+	}
+</style>
+<section class="main">
 	<?php if( $_POST['password'] == get_field('password') ){ ?>
 	<section class="creators-navigation">
 		<section class="creators-desktop-nav">
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col s8 m4">
-						<img alt="Fujifilm X | GFX Creators" width="267" height="43" class="creators-logo" src="<?php echo $imgDirectory ?>logo.png" srcset="<?php echo $imgDirectory ?>logo.png 1x, <?php echo $imgDirectory ?>logo@2x.png 2x, <?php echo $imgDirectory ?>logo@3x.png 3x">
+						<?php $logo = get_field('logo'); if( $logo ){ ?>
+						<img alt="Fujifilm X | GFX Creators" width="267" height="43" class="creators-logo" src="<?php echo $logo['x1'] ?>" srcset="<?php echo $logo['x1'] ?>, <?php echo $logo['x2'] ?> 2x, <?php echo $logo['x3'] ?> 3x">
+						<?php } ?>						
 					</div>
 					<div class="col s4 m8">
 						<div class="creators-navigation-list">
@@ -224,6 +292,11 @@ function printDashboards(){
 					</div>
 					<?php printTabs(); ?>
 					<?php printDashboards();?>
+					<?php if ( is_user_logged_in() ) {					
+						printContentTabs();
+					} ?>
+
+
 				</div>
 
 			</div>
