@@ -292,9 +292,7 @@ function printContentTabs(){
 					</div>
 					<?php printTabs(); ?>
 					<?php printDashboards();?>
-					<?php if ( is_user_logged_in() ) {					
-						printContentTabs();
-					} ?>
+					<?php printContentTabs(); ?>
 
 
 				</div>
