@@ -4,12 +4,12 @@ Template Name: fnac-dan-cuny
 */
 function page_usa_styles(){
 	//wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css',array(),'1.0.9');
-	//wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
-	//wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
+	wp_enqueue_style('owl-carousel', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.carousel.min.css',array(),'1.0.5');
+	wp_enqueue_style('owl-carousel-theme', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css',array(),'1.0.5');
 }
 function page_usa_scripts(){
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true); 	
-	//wp_enqueue_script('owl-carousel', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/owl.carousel.min.js', array(), '1.0.1',true); 
+	wp_enqueue_script('owl-carousel', get_stylesheet_directory_uri().'/en-us/fnac-assets/OwlCarousel2-2.3.4/owl.carousel.min.js', array(), '1.0.1',true); 
 }
 add_action( 'wp_enqueue_scripts', 'page_usa_styles' );
 add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
@@ -67,7 +67,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 	        <div>
 	        	<div style="max-width:237px;margin:auto;margin-bottom:1rem;"><img src="<?php the_field('image_url', $post->ID ) ?>" class="alignnone size-full wp-image-52513 aligncenter"></div>
 	        	<h4 style="text-align:center;"><?php the_field('header', $post->ID ) ?></h4>
-	        	<p><?php the_field('text', $post->ID ) ?></p>
+	        	<p class="desktop-only" style="<?php if(  get_field('center_cameras_text') ) { echo "text-align: center"; } ?>"><?php the_field('text', $post->ID ) ?></p>
 	            <p style="text-align: center;margin-top:auto;"><a href="<?php the_field('button_href', $post->ID ) ?>" class="cta" target="<?php the_field('button_target', $post->ID ) ?>"><?php the_field('button_text', $post->ID ) ?> ></a></p>
 
 	        </div>
@@ -83,18 +83,19 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
  	ob_start();
 
 	$select = get_field('lenses_select');
+	$i=0;
 	if( $select ): ?>
 	    <div  class='lenses'>
-	    <?php foreach( $select as $post ):  ?>
-	        <div>
+	    <?php foreach( $select as $post ): $i++; ?>
+	        <div class="<?php if($i>6){ ?>desktop-only<?php } ?>" >
 	        	<div style="max-width:237px;margin:auto;margin-bottom:1rem;"><img src="<?php the_field('image_url', $post->ID ) ?>" class="alignnone size-full wp-image-52513 aligncenter"></div>
 	        	<h5 style="text-align:center;"><?php the_field('header', $post->ID ) ?></h5>
 	        	<!--<p><?php the_field('text', $post->ID ) ?></p>-->
 	            <p style="text-align: center;margin-top:auto;"><a href="<?php the_field('button_href', $post->ID ) ?>" class="cta" target="<?php the_field('button_target', $post->ID ) ?>"><?php the_field('button_text', $post->ID ) ?> ></a></p>
-
 	        </div>
 	    <?php endforeach; ?>
 	    </div>
+	    <div style="text-align:center;"><a class="load-more-button mobile-only button grey-bg" onclick="loadMore();">Load More</a></div>
 	<?php endif;
 
 	return ob_get_clean();
@@ -104,10 +105,110 @@ add_shortcode( 'cameras', 'printCameras' );
 add_shortcode( 'lenses', 'printLenses' );
 add_shortcode( 'cameras_select', 'printCameras_select' );
 add_shortcode( 'lenses_select', 'printLenses_select' );
+
+
+function printExposureCenterArticles(){
+	
+	if(get_field('bio')){
+		$bioID = get_field('bio');
+	}
+	
+	$term = get_field('article_tags');
+	if( $term ):
+	 	$posts = get_posts(array(
+			'numberposts'	=> -1,
+			'post_type'		=> 'exposure_center',
+			'tax_query' => array(
+		      array(
+		        'taxonomy' => 'ec_tags',
+		        'field' => 'term_id',
+		        'terms'    => $term,	        
+		      )
+		   )		
+		)); 	
+		
+		//if ( is_user_logged_in() ) { 	
+	    if( $posts ):
+
+		    //open container
+			echo '<div class="ec-carousel-container">';
+			//open carousel
+			echo '<div class="owl-carousel ec-carousel">';
+			foreach( $posts as $post ):
+				
+
+			    //echo "<pre>";
+			    //print_r($post);
+				//echo "</pre>";
+				//echo "<br>";
+
+				//open background div
+				echo '<div class="ec-carousel-bg" style="background:url('.get_the_post_thumbnail_url($post->ID, 'large').') center/cover no-repeat #000;width: 20.875rem;height: 14.875rem;">';
+				
+				//link			
+				echo '<a href="'.get_permalink($post->ID).'" target="_blank">';
+
+				//open inner div
+				echo '<div class="ec-carousel-inner">';
+
+				echo '<div class="article-label"><span>Articles</span></div>';
+				echo '<h3>'.$post->post_title.'</h3>';
+				echo '<p>'.$post->post_excerpt.'</p>';
+				echo '<div class="ec-cta"><div class="ec-cta-inner"><span class="cta-label">READ MORE</span><i class="fas fa-caret-right"></i></div></div>';
+
+				//close inner div
+				echo '</div>';
+
+				//close link
+				echo '</a>';	
+				
+				//close background div
+				echo '</div>';			
+		    
+				
+			endforeach;
+
+
+			//$ls = get_field("articles_last_slide");		
+			
+			//open background div
+			//echo '<div class="ec-carousel-bg" style="background:url('.$ls['image'].') center/cover no-repeat #000;width: 15.625rem;height: 12.5rem;">';
+			
+			//link
+			//echo '<a href="'.$ls['link'].'" target="_self">';
+
+			//open inner div
+			//echo '<div class="ec-carousel-inner">';
+
+			//echo '<h3>'.$ls['header'].'</h3>';
+			//echo '<p>'.$ls['text'].'</p>';
+			//echo '<div class="ec-cta"><div class="ec-cta-inner"><span class="cta-label">'.$ls['cta'].'</span><i class="fas fa-caret-right"></i></div></div>';
+
+			//close inner div
+			//echo '</div>';
+			
+			//close link
+			//echo '</a>';
+
+			//close background div
+			//echo '</div>';					
+
+			//close carousel
+			echo '</div>';
+			//close container
+		    echo '</div>';
+		    //wp_reset_postdata();
+		endif;
+		
+		//}
+
+	endif;
+}
 ?>
 <style>
 	:root{
 		--grey-color: #e9e9e9;
+		--grey-color-dark: #c4c4c4;		
 		--red-color: #fc0019;
 		--green-color: #409d27;		
 		--accent-font: "Fjalla One", sans-serif;
@@ -211,11 +312,33 @@ add_shortcode( 'lenses_select', 'printLenses_select' );
 		color: black;
 	}
 
+	.main .button.grey-bg{
+		background: var(--grey-color-dark);
+		color: white;
+	}
+	.banner{
+		background-image: url('<?php the_field('banner_background') ?>');
+		background-size: cover;
+		color:white;
+		display:flex;
+		padding:3em 0;
+	}
+	.banner-content-container{
+		max-width: 60em;
+		margin: auto;
+		align-items:flex-end;
+	}
+	.banner-content-container > :first-child{
+		max-width: 180px !important;
+		position: relative;
+    	top: 32px;
+	}
+
 	/* helper claseses*/
 	.fjalla{
 		font-family:var(--accent-font);	
 	}
-	.desktop-only{
+	.main .desktop-only{
 		display: none;
 	}
 
@@ -233,7 +356,7 @@ add_shortcode( 'lenses_select', 'printLenses_select' );
 		margin: auto;
 	}
 	.cameras > *{
-		background: var(--grey-color);
+		/*background: var(--grey-color);*/
 		padding: 1.5rem 2.875rem;
 	}
 
@@ -257,7 +380,6 @@ add_shortcode( 'lenses_select', 'printLenses_select' );
 		column-gap: 3em;
 	}
 
-
 	/* responsive desktop*/
 	@media (min-width:50em) {
 		.split{
@@ -267,16 +389,18 @@ add_shortcode( 'lenses_select', 'printLenses_select' );
 		.split > *{
 			flex-basis: 100%;
 		}
+
+		
 		.split > * + * {
 			margin-left:2em;
 		}
 		html{
 			font-size:16px;
 		}
-		.desktop-only{
+		.main .desktop-only{
 			display:block;
 		}
-		.mobile-only{
+		.main .mobile-only{
 			display:none;
 		}
 
@@ -298,8 +422,173 @@ add_shortcode( 'lenses_select', 'printLenses_select' );
 			grid-template-columns: auto auto auto auto auto;
 			gap: 1.75em;
 		}
-
+		.banner{
+			min-height:630px;
+		}
+		.banner-content-container{
+			align-items: center;
+		}
+		.banner-content-container > :first-child{
+			max-width: unset !important;
+			top: 0;
+		}
 	}
+
+
+/* modal */
+.mymodal{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 40;
+	flex-flow:column nowrap;
+}
+.mymodal-inner{	
+	max-height: 100%;
+	overflow-y: auto;
+	position: relative;
+}
+
+.close-modal{
+	position: absolute;
+	top: 0;
+	right: 0;
+	cursor: pointer;
+	color: white;
+	margin: 10px 15px;
+	font-size: 1.25rem;
+}
+
+
+/* Owl Carousel */
+.ec-carousel .owl-stage{
+	display:block;
+}
+.ec-carousel .owl-item{
+	text-align:center;
+	background:none;
+	flex-grow: 1;
+	display: inline-block;
+	vertical-align: middle;
+	float:none;
+}
+.ec-carousel a{
+	display:block;
+	overflow:hidden;
+}
+.ec-carousel .ec-carousel-bg{		
+	color: white;
+	overflow: hidden;
+	height: 0;
+	position:relative;
+	margin:auto;
+}
+.ec-carousel .ec-carousel-inner{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background:rgba(0,0,0,.3);
+	text-align:left;
+	padding: 1.25em 1.875em;
+	display: flex;
+	flex-direction: column;
+}
+.ec-carousel .article-label span{
+	line-height:normal;
+	border-bottom:1px solid #eb022f;
+	font-family: 'Fjalla One', sans-serif;
+	text-transform: uppercase;
+}
+.ec-carousel h3{
+	line-height:normal;
+	color:white;
+	font-size:1.25rem;
+	font-family: 'Fjalla One', sans-serif;
+	margin-bottom: 0;
+	margin-top:auto;
+	text-overflow: ellipsis;
+   overflow: hidden;
+   white-space: nowrap;
+}
+.ec-carousel p{
+	/*overflow: hidden;
+	-webkit-line-clamp: 2;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;*/
+	margin-bottom: 0;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.ec-carousel .ec-cta-inner{
+	float:right;
+   display: flex;
+   align-items: center;
+   display:inline-block;
+}
+.ec-carousel .cta-label{
+	line-height:normal;
+	font-family: 'Fjalla One', sans-serif;font-size:.625rem;
+	border-bottom:1px solid #eb022f;
+	margin-right:.425rem;
+}
+.ec-carousel i{
+	vertical-align: middle;
+	color: var(--red-color);
+}
+.ec-carousel .owl-dots{
+	display: none;
+}
+
+.owl-prev {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    left: 0;
+    display: block !important;
+}
+
+.owl-next {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    right: 0;
+    display: block !important;
+}
+.owl-next.disabled, .owl-prev.disabled{
+	display: none !important;
+}
+.owl-prev i, .owl-next i {
+	font-size:28px;
+}
+
+/* exposure center grid */
+.ec-grid > *:first-child{
+	margin-bottom: 2rem;
+}
+@media (min-width:50em) {
+	.ec-grid{
+		display: grid;
+		grid-template-columns: 30% 70%;
+		gap: 2rem;
+	}
+	
+}
+
+
+/* modal width */
+@media (min-width: 414px){
+	.mymodal iframe{min-width: 414px;}
+}
+
 
 
 
@@ -307,10 +596,10 @@ add_shortcode( 'lenses_select', 'printLenses_select' );
 <section class="main">
 	<section class="content">
 
-		<section class="banner" style="background-image: url('<?php the_field('banner_background') ?>');background-size: cover;color:white;min-height:630px;display:flex;padding:3em 0;">
+		<section class="banner">
 			 
 			<div class="container">
-				<div class="split" style="max-width: 60em;margin: auto;align-items:center;">
+				<div class="split banner-content-container">
 					<div>	
 						<img src="<?php the_field('portrait') ?>" alt="" class="portrait">
 					</div>
@@ -324,13 +613,111 @@ add_shortcode( 'lenses_select', 'printLenses_select' );
 			<?php the_field('page_content') ?>
 		</section>
 	</section>
+
+
+	<div class="mymodal contact" style="display:none;">
+		<div class="mymodal-inner">
+			<div class="close-modal">
+				<i class="fas fa-times"></i>
+			</div>
+			<iframe id="contact-form" src="<?php the_field('contact_src') ?>" ></iframe>
+		</div>
+	</div>
+
+	<div class="mymodal loaner" style="display:none;">
+		<div class="mymodal-inner">
+			<div class="close-modal">
+				<i class="fas fa-times"></i>
+			</div>
+			<iframe id="loaner-form" src="<?php the_field('loaner_src') ?>" ></iframe>
+		</div>
+	</div>
+
+	<section style="background-color: var(--grey-color);padding: 5em 0;">
+		<div class="container">
+			
+				<div class="ec-grid">
+					<div>
+						<?php the_field('articles_content') ?>
+					</div>
+					<div>
+					<?php printExposureCenterArticles($posts); ?>
+					</div>
+				</div>
+		</div>
+	</section>
+
 </section>
 
 <script>
 
-jQuery(function($) {
+var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+var eventer = window[eventMethod];
+var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
 
+// Listen to message from child window
+eventer(messageEvent,function(e) {
+    var key = e.message ? "message" : "data";
+    var data = e[key];
+    console.log(data);
+    jQuery("#contact-form").height(data);
+    jQuery("#loaner-form").height(data);
+},false);
+
+jQuery(function($) {
+	$('.mymodal').click(function( event ){
+		if( $(event.target).not('mymodal') ){
+			$('.mymodal').hide();
+		}
+		
+	});
+
+	$('.open-contact').click(function(){
+		$('.mymodal.contact').show();
+	});
+
+	$('.open-loaner').click(function(){
+		$('.mymodal.loaner').show();
+	});
+
+	jQuery(".owl-carousel.ec-carousel").owlCarousel({
+	   margin:10,
+	   nav:true,
+	   navText : ["<i class='fas fa-caret-left desktop-only'></i>","<i class='fas fa-caret-right desktop-only'></i>"],
+	   autoplay : true,
+	   autoplayHoverPause : true,
+	   responsive:{
+	        0:{
+	        	items:1
+	        },
+	        700:{
+	        	items:2
+	        },
+	        800:{
+	        	items:1
+	        },
+	        1276:{
+	        		items:2
+	        },
+	    }
+	});
 
 });
+
+function loadMore(){		
+	var hiddenCreators = $(".lenses > *:hidden");
+	hiddenCreators.each(function(i,e){
+		var e = $(e);						
+		if( i<6 ){
+			e.show();
+			if( $(".lenses > *:hidden").length <= 0 ){
+				$(".load-more-button").hide();
+			}
+		} else {
+			return false
+		}			
+	});
+}
+
 </script>
 <?php get_footer(); ?>
