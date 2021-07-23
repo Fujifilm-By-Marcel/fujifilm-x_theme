@@ -17,7 +17,12 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
  ?>
 
 <style>
-
+	:root{
+		--grey-color: #e9e9e9;
+		--red-color: #fc0019;
+		--green-color: #409d27;		
+		--accent-font: "Fjalla One", sans-serif;
+	}
 	@media screen and (max-width: 767px), print{
 		img {
 		    width: initial;
@@ -66,8 +71,12 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 		margin-bottom:16px;
 		line-height: normal;
 	}
-
-
+	.fjalla{
+		font-family: "Fjalla One", sans-serif;	
+	}
+	.font-weight-normal{
+		font-weight: normal;
+	}
 
 	.section-1{
 		background:#000;
@@ -144,6 +153,21 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 	}
 	.flex{
 		display: flex;
+	}
+
+	.main .button {
+		background-color: var(--red-color);
+		border: none;
+		color: white;
+		padding: .25em 1.25em;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 1.25em;
+		cursor: pointer;
+		font-family: var(--accent-font);
+		line-height:normal;
+		margin-bottom: 1em;
 	}
 
 	.marker{position:relative;}
@@ -285,6 +309,22 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 					<?php endif; ?>
 				</div>				
 			</div>
+			
+			<?php
+			$webinars_section = get_field('webinars_section');
+			
+			if( $webinars_section['background_image'] ):
+			?>
+			<div class="row">
+				<div class="col s12" >
+					<div style="background-image:url('<?php echo $webinars_section['background_image'] ?>;');color:white;padding-top:4em; padding-bottom:3em;text-align:center;background-size:cover;">
+						<?php echo $webinars_section['content']; ?>
+					</div>
+				</div>
+			</div>			
+			<?php endif; ?>
+
+
 			<div class="row">
 				<div class="col s12">
 					<p><?php the_field("terms"); ?></p>
