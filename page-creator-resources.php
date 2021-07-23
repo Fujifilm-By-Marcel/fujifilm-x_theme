@@ -30,7 +30,7 @@ function printTile($tile, $tallest_px){
 				<div class="icon-wrapper" style="min-height:<?php echo $tallest_px; ?>;">
 					<?php 
 					$has_icon = false;
-				    if( !empty($tile->fa_icon) && $tile->fa_icon != ""){
+				    if( !empty($tile->fa_icon) && $tile->fa_icon != "" ){
 				    	$has_icon = true;
 				    }				
 
@@ -157,7 +157,7 @@ function printDashboards(){
 				$tile->title = $button["title"];
 				$tile->cta = $button["cta"];
 				$tile->image = $button["image"];
-				$tile->fa_icon = $button["fa_icon"];
+				$tile->fa_icon = $button["image_override"];
 				$tile->href = $button["href"];
 				$tile->target = $button["target"];
 				printTile($tile, $tallest_px);
