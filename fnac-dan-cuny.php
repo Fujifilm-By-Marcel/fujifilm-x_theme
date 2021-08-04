@@ -666,10 +666,7 @@ eventer(messageEvent,function(e) {
 
 jQuery(function($) {
 	$('.mymodal').click(function( event ){
-		if( $(event.target).not('mymodal') ){
-			$('.mymodal').hide();
-		}
-		
+		$('.mymodal').hide();		
 	});
 
 	$('.open-contact').click(function(){
