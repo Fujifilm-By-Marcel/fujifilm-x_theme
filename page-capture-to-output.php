@@ -45,7 +45,7 @@ section{
 	overflow:hidden;
 }
 
-
+.main a{text-decoration: underline}
 .main p, .main h1, .main h2, .main h3, .main h4{line-height:normal;}
 
 .main h2{
@@ -129,12 +129,13 @@ section.cto-navigation{
 	font-family: var(--accent-font);
 	display:inline-block;
 	font-size:1rem;
-    padding: 1.25em 1.25em;
-    font-family: var(--accent-font);
+  padding: 1.25em 1.25em;
+  font-family: var(--accent-font);
+
   
 }
-.cto-menu-item.active{
-
+.cto-menu-item a{
+	text-decoration: none;
 }
 
 .page-tagline{
@@ -316,8 +317,11 @@ section.cto-navigation{
 
 .tech-1, .tech-2, .tech-3{
 	display: none;
-	height: 25em;
-    overflow-y: auto;
+	/*height: 25em;*/
+  overflow-y: auto;
+}
+div.tech-1, div.tech-2, div.tech-3{
+	height: 30em;
 }
 .tech-options{
 	max-width:28ch;	
@@ -541,7 +545,7 @@ section.cto-navigation{
 			<div class="center-vertically">
 				<div class="center-text vertical-padding-3">
 					<p class="page-tagline margin-bottom-1"><?php echo get_field('tagline_section')['tagline'] ?></p>
-					<?php if( get_field('tagline_section')['terms_button_text'] != ""  ) { ?> <div class="margin-bottom-1" style="width: min(90%, 19ch);margin: auto;"><?php echo get_field('tagline_section')['terms_button_text'] ?></div><?php } ?>
+					<?php if( get_field('tagline_section')['terms_button_text'] != ""  ) { ?> <div class="margin-bottom-1" style="width: min(90%, 30ch);margin: auto;"><?php echo get_field('tagline_section')['terms_button_text'] ?></div><?php } ?>
 					<a href="<?php echo get_field('tagline_section')['button_link'] ?>" class="button <?php echo get_field('tagline_section')['button_class'] ?>" target="<?php echo get_field('tagline_section')['button_target'] ?>"><?php echo get_field('tagline_section')['button_text'] ?></a>
 				</div>
 			</div>
@@ -795,7 +799,7 @@ section.cto-navigation{
 						<!-- image, header, text, back, next -->
 						<div class="split no-basis margin-bottom-1">
 							<div>
-								<img src="<?php echo $row['image']['url']; ?>" alt="" width="<?php echo $row['image']['width']; ?>" height="<?php echo $row['image']['height']; ?>" style="min-width:<?php echo $row['image']['width']; ?>px" class="margin-bottom-1">
+								<img src="<?php echo $row['image']['url']; ?>" alt="" width="<?php echo $row['image']['width']; ?>" height="<?php echo $row['image']['height']; ?>" style="min-width:125px" class="margin-bottom-1">
 							</div>
 							<div>
 								<p class="fjalla" style="margin-bottom:.125rem"><?php echo $row['title']; ?></p>
