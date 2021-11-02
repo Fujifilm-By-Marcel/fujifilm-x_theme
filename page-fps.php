@@ -164,7 +164,9 @@ add_action( 'wp_enqueue_scripts', 'page_myfujifilmlegacy_scripts' );
 									<label><?php the_sub_field('label_2'); ?></label>
 									<p class="price-highlight"><?php the_sub_field('text_2'); ?></p>
 								</div>
+								<?php if( get_sub_field('button_text') != "" ) { ?>
 								<a href="<?php the_sub_field('button_link'); ?>"><div class="button"><?php the_sub_field('button_text'); ?></div></a>
+								<?php } ?>
 							    <?php endwhile; ?>
 							<?php endif; ?>
 							</div>
