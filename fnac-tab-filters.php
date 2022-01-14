@@ -53,7 +53,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 		margin-bottom:2rem;
 	}
 	.hero-section{
-		height:529px;
+		height:265px;
 		background:url('<?php the_field('banner'); ?>');
 		background-size: cover;
 		background-position: center;
