@@ -31,7 +31,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 		margin-bottom: 16px;
 		text-transform: uppercase;
 	}
-	h1.main-header{
+	.main-header{
 		position: absolute;
     	left: 50%;
 	    top: 50%;
@@ -141,6 +141,22 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 		h1.main-header{font-size:2rem;}
 
 	}
+	.main a.button {
+	    background: #E4032F;
+	    color: white;
+	    display: inline-block;
+	    padding: 10px 30px;
+	    font-size: 1rem;
+	    text-decoration: none;
+	}
+	.main a.button:hover {
+	    background: black;
+	    color: white;		    
+	}
+	.main a.button.alt-hover:hover {
+	    background: white;
+	    color: black;		    
+	}
 </style>
 <section class="main">
 
@@ -154,7 +170,15 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 			?>
 			<img class="hero-banner desktop" src="<?php echo $imgsrc_desktop[0]; ?>" width="<?php echo $imgsrc_desktop[1]; ?>" height="<?php echo $imgsrc_desktop[2]; ?>" srcset="<?php echo $imgsrcset_desktop; ?>">
 			<img class="hero-banner mobile" src="<?php echo $imgsrc_mobile[0]; ?>" width="<?php echo $imgsrc_mobile[1]; ?>" height="<?php echo $imgsrc_mobile[2]; ?>" srcset="<?php echo $imgsrcset_mobile; ?>">
-			<h1 class="main-header"><?php the_field('header'); ?></h1>
+			<div class="main-header">
+				<?php if (get_field('header')) { ?>
+				<h1><?php the_field('header'); ?></h1>
+				<?php } ?>
+				<?php if ( get_field('header_wysywig') ) { 
+					the_field('header_wysywig');
+				} ?>
+			</div>
+
 		</div>	
 	</section>
 
@@ -240,28 +264,36 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 		}
     </style>
 
-    <?php if( get_sub_field('text_line_1') ){ ?>
+    
 	<section class="intro-section" style="padding:3em 0;">
 		<div class="container">
 			<div class="row">
 				<div class="col s12" style="color:white;text-align:center;">					
+					<?php if( get_sub_field('text_line_1') ){ ?>
 					<p class="cta"><?php the_sub_field('text_line_1'); ?></p>
+					<?php } ?>
+					<?php if( get_sub_field('text_line_2') ){ ?>
 					<p style="margin-bottom:1.5em;"><?php the_sub_field('text_line_2'); ?></p>					
+					<?php } ?>
+					<?php if( get_sub_field('button')['href'] ){ ?>
 					<div class="btn"><a href="<?php echo get_sub_field('button')['href']; ?>" target="<?php echo get_sub_field('button')['target']; ?>"><?php echo get_sub_field('button')['text']; ?></a></div>	
+					<?php } ?>
 					<!-- button notes -->
-					<?php if( get_sub_field('button_notes') ){ ?>				
+					<?php if( get_sub_field('button_notes') ){ ?>
 					<div class="row">
 						<div class="col s12" >						
 							<div class="button-notes"><?php the_sub_field('button_notes'); ?></div>
 						</div>
 					</div>	
 					<?php } ?>					
+					<?php if( get_sub_field('video') ){ ?>
 					<div style="max-width:65em;margin:auto;"><div class="videoWrapper"><iframe width="560" height="315" src="<?php the_sub_field('video'); ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>
+					<?php } ?>					
 				</div>
 			</div>
 		</div>
 	</section>
-	<?php } ?>
+	
 
 	<?php endwhile; ?>
 	<?php endif; ?>
