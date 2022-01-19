@@ -39,6 +39,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 	    color: white;
 	    text-align: center;
 	    text-transform: unset;
+	    width: 60%;
 	}
 	h1 img{
 		position: relative;
@@ -122,7 +123,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 	}
 
 	@media (max-width:992px){
-		h1.main-header{font-size:2.5rem;}
+		.main-header h1{font-size:2.5rem;}
 		.instructions-container{
 			flex-direction:column;
 		}
@@ -138,8 +139,8 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 	@media (max-width:600px){
 		
 		html {font-size: 14px;}
-		h1.main-header{font-size:2rem;}
-
+		.main-header h1{font-size:2rem;}
+		.main-header { width:80%; }
 	}
 	.main a.button {
 	    background: #E4032F;
