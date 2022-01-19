@@ -240,6 +240,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 		}
     </style>
 
+    <?php if( get_sub_field('text_line_1') ){ ?>
 	<section class="intro-section" style="padding:3em 0;">
 		<div class="container">
 			<div class="row">
@@ -260,6 +261,8 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 			</div>
 		</div>
 	</section>
+	<?php } ?>
+
 	<?php endwhile; ?>
 	<?php endif; ?>
 
