@@ -79,8 +79,8 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 		padding:45px 0;
 	}
 
-	.section-2 h2{
-		color:#e4032f;
+	.section-2 h2, section.main section.faq h2{
+		color:<?php echo get_field('h2_color_override'); ?>;	
 	}
 
 	.section-3-1, .section-3-2{
@@ -170,6 +170,9 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 		.expander-button {cursor:pointer;}
 
 	}
+	section.faq .row .col.flex {
+	    margin-left: 0;
+	}
 </style>
 <section class="main">
 
@@ -189,7 +192,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 
 	<?php if( have_rows('red_strip') ): ?>
     <?php while( have_rows('red_strip') ): the_row(); ?>
-	<section class="red-strip">
+	<section class="red-strip" style="background:<?php echo get_sub_field('background_color'); ?>">
 		<div class="container">
 			<div class="row">
 				<p class="text line-1"><?php the_sub_field('line_1') ?></p>
@@ -231,7 +234,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 	<?php endwhile; ?>
 	<?php endif; ?>
 
-
+	<?php if( !get_field('disable_team_and_schedule_sections') ) { ?>
 	<section class="section-3">
 		<div class="container">
 			<div class="row flex-wrap-row">				
@@ -324,6 +327,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 			</div>
 		</div>
 	</section>
+	<?php } ?>
 
 	<?php if( have_rows('faq_section') ): ?>
     <?php while( have_rows('faq_section') ): the_row(); ?>
