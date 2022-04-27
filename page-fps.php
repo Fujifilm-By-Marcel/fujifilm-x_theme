@@ -148,7 +148,12 @@ add_action( 'wp_enqueue_scripts', 'page_myfujifilmlegacy_scripts' );
 									?>
 									</ul>
 								</div>														
-							</div>							
+							</div>				
+							<?php if( get_sub_field('exceptions') ) { ?>
+							<div class="row">	
+								<?php the_sub_field('exceptions'); ?>
+							</div>		
+							<?php } ?>	
 						</div>
 						<div class="col s12 m6 l4">
 							<div class="sidebar-box">						
