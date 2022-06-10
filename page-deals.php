@@ -36,8 +36,14 @@ function check_out_range($start_date, $end_date, $date_from_user){
 	// Check that user date is between start & end
 	return (($user_ts > $start_ts) && ($user_ts < $end_ts));
 }
-?>
 
+$shop_url = "https://fujifilm-x.com/en-us/shop/";
+
+if( get_field('shop_url') || get_field('shop_url') != "" ){
+	$shop_url = get_field('shop_url');
+}
+
+?>
 <?php get_header(); ?>
 <?php get_sidebar(); ?>
 <link rel="stylesheet" href="https://use.typekit.net/wjm6sve.css">
@@ -323,7 +329,7 @@ if($dateRangeIndex == -1){
 														<?php } ?>
 														<div class="overlay"></div>
 
-														<a href="https://fujifilm-x.com/en-us/shop/" target="_blank"><div class="cta-button">Find a Dealer</div></a>
+														<a href="<?php echo $shop_url ?>" target="_blank"><div class="cta-button">Find a Dealer</div></a>
 
 													</div>
 												</div>
@@ -363,7 +369,7 @@ if($dateRangeIndex == -1){
 	<div id="window-size-marker" class="window-size-marker" style="position:relative;"></div>	
 </section>
 <div id="sidepop-container">
-	<a href="/en-us/shop/" target="_blank">
+	<a href="<?php echo $shop_url ?>" target="_blank">
 	 	<div class="sidepop-button">
 	 		<span>Find a Dealer!</span>
 	 	</div>
