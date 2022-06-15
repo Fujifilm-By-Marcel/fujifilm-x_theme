@@ -328,8 +328,14 @@ if($dateRangeIndex == -1){
 														<p class="additional-incentive"><?php the_sub_field("additional_incentive") ?></p>
 														<?php } ?>
 														<div class="overlay"></div>
+														<?php 
+															$button_text = "Find a Dealer";							
 
-														<a href="<?php echo $shop_url ?>" target="_blank"><div class="cta-button">Find a Dealer</div></a>
+															if( get_sub_field('button_text') || get_sub_field('button_text') != "" ){
+																$button_text = get_sub_field('button_text');
+															}
+														?>
+														<a href="<?php echo $shop_url ?>" target="_blank"><div class="cta-button"><?php echo $button_text ?></div></a>
 
 													</div>
 												</div>
