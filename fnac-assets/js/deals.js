@@ -62,16 +62,16 @@ jQuery( document ).ready(function() {
 			var tile = $(this);
 
 			var href = tile.attr("data-href");
-			if (href.length){
+			/*if (href.length){
 				tile.css("cursor","pointer");
-			}
+			}*/
 
-			tile.click(function(event){
+			/*tile.click(function(event){
 				var href = $(this).attr("data-href");
 				if (href.length && !$(event.target).hasClass("myprev") && !$(event.target).hasClass("mynext") && !$(event.target).hasClass("mydot") ){
 					window.open(href);
 				}
-			});
+			});*/
 
 		});	
 			

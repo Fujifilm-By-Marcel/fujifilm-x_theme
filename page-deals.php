@@ -6,13 +6,13 @@ function page_myfujifilmlegacy_styles(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css',array(),'1.0.0');	
 	wp_enqueue_style('tabs', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/tabs.css',array(),'1.0.1'); 
 	wp_enqueue_style('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/jquery-slideshow.css',array(),'1.0.5');
-	wp_enqueue_style('deals-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/deals.css',array(),'1.0.25'); 
+	wp_enqueue_style('deals-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/deals.css',array(),'1.0.32'); 
 }
 function page_myfujifilmlegacy_scripts(){
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true); 
 	wp_enqueue_script('tabs', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/tabs.js', array(), '1.0.12',true); 
 	wp_enqueue_script('jquery-slideshow', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/jquery-slideshow.js', array(), '1.0.2',true);
-	wp_enqueue_script('deals-js', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/deals.js', array(), '1.0.7',true);
+	wp_enqueue_script('deals-js', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/deals.js', array(), '1.0.9',true);
 }
 add_action( 'wp_enqueue_scripts', 'page_myfujifilmlegacy_styles' );
 add_action( 'wp_enqueue_scripts', 'page_myfujifilmlegacy_scripts' );
@@ -38,9 +38,11 @@ function check_out_range($start_date, $end_date, $date_from_user){
 }
 
 $shop_url = "https://fujifilm-x.com/en-us/shop/";
+$sidepop_url = "https://fujifilm-x.com/en-us/shop/";
 
 if( get_field('shop_url') || get_field('shop_url') != "" ){
 	$shop_url = get_field('shop_url');
+	$sidepop_url = get_field('shop_url');
 }
 
 ?>
@@ -327,16 +329,28 @@ if($dateRangeIndex == -1){
 														<?php if(get_sub_field("additional_incentive")) { ?>
 														<p class="additional-incentive"><?php the_sub_field("additional_incentive") ?></p>
 														<?php } ?>
-														<div class="overlay"></div>
-														<?php 
-															$button_text = "Find a Dealer";							
+														<div class="overlay">
+															<?php 
+																$button_text = "Find a Dealer";							
 
-															if( get_sub_field('button_text') || get_sub_field('button_text') != "" ){
-																$button_text = get_sub_field('button_text');
-															}
-														?>
-														<a href="<?php echo $shop_url ?>" target="_blank"><div class="cta-button"><?php echo $button_text ?></div></a>
+																if( get_sub_field('button_text') || get_sub_field('button_text') != "" ){
+																	$button_text = get_sub_field('button_text');
+																}
 
+																if( get_sub_field('button_link') || get_sub_field('button_link') != "" ){
+																	$shop_url = get_sub_field('button_link');
+																}
+
+																if( get_sub_field('button_target') || get_sub_field('button_target') != "" ){
+																	$button_target = get_sub_field('button_target');
+																}
+
+															?>
+															<a href="<?php echo $shop_url ?>" target="<?php echo $button_target ?>"><div class="cta-button"><?php echo $button_text ?></div></a>
+															<?php if( get_sub_field('button_2_text') || get_sub_field('button_2_text') != "" ){ ?>
+															<a href="<?php the_sub_field('button_2_link') ?>" target="<?php the_sub_field('button_2_target') ?>"><div class="cta-button"><?php the_sub_field('button_2_text') ?></div></a>
+															<?php } ?>
+														</div>
 													</div>
 												</div>
 												<?php
@@ -375,7 +389,7 @@ if($dateRangeIndex == -1){
 	<div id="window-size-marker" class="window-size-marker" style="position:relative;"></div>	
 </section>
 <div id="sidepop-container">
-	<a href="<?php echo $shop_url ?>" target="_blank">
+	<a href="<?php echo $sidepop_url ?>" target="_blank">
 	 	<div class="sidepop-button">
 	 		<span>Find a Dealer!</span>
 	 	</div>
