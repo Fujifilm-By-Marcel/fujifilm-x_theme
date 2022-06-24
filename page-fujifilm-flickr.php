@@ -4,7 +4,7 @@ Template Name: Page-fujifilm-flickr
 */
 function page_usa_styles(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css',array(),'1.0.9');
-	wp_enqueue_style('fps-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/fujifilm-flickr.css',array(),'1.0.47');
+	wp_enqueue_style('fps-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/fujifilm-flickr.css',array(),'1.0.48');
 }
 function page_usa_scripts(){
 	wp_enqueue_script('uscommon', get_stylesheet_directory_uri().'/en-us/fnac-assets/js/common.js', array(), '1.0.0', true); 	
@@ -105,6 +105,11 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 			}
 		</style>
 		<section id="<?php the_sub_field("section_id") ?>" class="background-<?php echo $i; ?>" style="display:flex;position:relative;padding:50px 0;<?php the_sub_field('section_inline_style'); ?>">
+
+			<!--video iframe-->
+			<?php if(get_sub_field("video_embed")){ ?>
+				<div class="myvideo"><?php the_sub_field("video_embed"); ?></div>
+			<?php } else { ?>
 			
 			<!--body-->
 			<div class="container"  style="align-self:center;">
@@ -113,7 +118,7 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 						<h2><?php the_sub_field("header"); ?></h2>
 						<p><?php the_sub_field("text"); ?></p>
 
-						<!--iframe-->
+						<!--form iframe-->
 						<?php if(get_sub_field("form_embed")){ ?>
 							<div id="myform"><?php the_sub_field("form_embed"); ?></div>
 						<?php } ?>
@@ -184,6 +189,8 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 				<?php } ?>				
 
 			</div>
+
+			<?php } ?>
 
 			<!--photocredit-->
 			<span class="photo-credit"><?php the_sub_field("photocredit"); ?></span>
