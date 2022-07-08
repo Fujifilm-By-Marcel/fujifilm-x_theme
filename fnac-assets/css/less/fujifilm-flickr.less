@@ -16,6 +16,15 @@ section.main{
 		line-height:normal;
 		margin-bottom:1.25rem;
 	}	
+
+	h4{
+		font-family: "Fjalla One", sans-serif;
+		font-size: 2rem; //50px
+		line-height:normal;
+		margin-bottom:1.25rem;
+		color: #EB022F;
+	}	
+
 	p{
 		font-size:1.25rem; //20px
 		line-height:normal;
@@ -28,13 +37,15 @@ section.main{
 	}
 
 	.repeater{
+		margin-bottom:1rem;
 		h3, p{
 			font-size:.875rem; //14px
 			line-height:normal;
-			margin-bottom:1.25rem;
+			margin-bottom:1.5rem;
 		}
 		h3{
 			font-weight:bold;
+			font-family: "Fjalla One", sans-serif;
 		}
 	}
 	
@@ -107,6 +118,27 @@ section.main{
 		}
 	}
 
+	@media (max-width:600px){
+		h1{
+			font-size:2.5rem;
+		}
+		h2{
+			font-size:2.25rem;
+		}
+		span.subheader{
+			font-size:1.5rem;
+		}
+	}
+
+	.align-left{
+		text-align: left !important;
+	}
+	.align-center{
+		text-align: center !important;
+	}
+	.align-right{
+		text-align: right !important;
+	}
 }
 #pagetop{
 	display:none;
