@@ -15,12 +15,32 @@ section.main h4 {
   font-size: 2rem;
   line-height: normal;
   margin-bottom: 1.25rem;
-  color: #EB022F;
+  color: #e4032f;
+}
+section.main h5 {
+  font-family: "Fjalla One", sans-serif;
+  font-size: 2rem;
+  line-height: normal;
+  margin-bottom: 0.5rem;
+  color: black;
+}
+section.main h6 {
+  font-family: "Fjalla One", sans-serif;
+  font-size: 1.25rem;
+  line-height: normal;
+  margin-bottom: 1.25rem;
+  color: #e4032f;
 }
 section.main p {
   font-size: 1.25rem;
   line-height: normal;
   margin-bottom: 1.25rem;
+}
+section.main a.cta {
+  font-family: "Fjalla One", sans-serif;
+  border-bottom: 2px solid #e4032f;
+  padding-bottom: 0.25em;
+  text-decoration: none !important;
 }
 section.main section {
   overflow: hidden;

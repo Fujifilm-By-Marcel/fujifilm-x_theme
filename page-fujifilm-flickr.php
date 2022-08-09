@@ -136,9 +136,15 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
 :root{
 	--grey-color: #e9e9e9;
 	--grey-color-dark: #c4c4c4;		
-	--red-color: #fc0019;
+	--red-color: #e4032f;
 	--green-color: #409d27;		
 	--accent-font: "Fjalla One", sans-serif;
+}
+.exposure-center{
+	margin: 2em;
+}
+section.main .exposure-center p{
+	font-size: .875rem;
 }
 .ec-carousel-container{
 	padding: 0 3em;
@@ -255,6 +261,11 @@ section.main .ec-carousel p{
 }
 .owl-prev i, .owl-next i {
 	font-size:28px;
+}
+@media (max-width:600px){
+	.ec-carousel-container{
+		margin-top: 2em;
+	}
 }
 </style>
 <?php } ?>
@@ -474,13 +485,26 @@ section.main .ec-carousel p{
 	?>
 
 	<?php if( get_field('article_tags') ){ ?>
-	<section class="exposure-center" style="min-height: unset;margin: 4em 0 6em !important;">
-		<div class="container">
-			<h4 style="text-align:center;"><?php the_field('ec_header') ?></h4>
-			<div>
-				<?php printExposureCenterArticles($posts); ?>
+	<section class="exposure-center" style="min-height: unset;">
+		
+		<div class="row">
+			<div class="col s12">
+				<h4 style="text-align:center;"><?php the_field('ec_header') ?></h4>	
+			</div>				
+		</div>
+		<div class="row">
+			<div class="col s12 l4">
+				<div class="content">
+					<?php the_field('ec_content'); ?>
+				</div>
+			</div>
+			<div class="col s12 l8">					
+				<div>
+					<?php printExposureCenterArticles($posts); ?>
+				</div>
 			</div>
 		</div>
+	
 	</section>
 	<?php } ?>
 
@@ -505,7 +529,7 @@ jQuery(function($) {
 	jQuery(".owl-carousel.ec-carousel").owlCarousel({
 	   margin:10,
 	   nav:true,
-	   navText : ["<i class='fas fa-caret-left desktop-only'></i>","<i class='fas fa-caret-right desktop-only'></i>"],
+	   navText : ["<i class='fas fa-caret-left'></i>","<i class='fas fa-caret-right'></i>"],
 	   autoplay : true,
 	   autoplayHoverPause : true,
 	   responsive:{
@@ -515,7 +539,7 @@ jQuery(function($) {
 	        600:{
 	        	items:2
 	        },
-	        1276:{
+	        1600:{
 	        	items:3
 	        },
 	    }
