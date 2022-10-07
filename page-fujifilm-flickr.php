@@ -2,6 +2,11 @@
 /*
 Template Name: Page-fujifilm-flickr
 */
+/*
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+*/
 function page_usa_styles(){
 	wp_enqueue_style('materialize', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/materialize-gridonly.css',array(),'1.0.9');
 	wp_enqueue_style('fps-css', get_stylesheet_directory_uri().'/en-us/fnac-assets/css/fujifilm-flickr.css',array(),'1.0.56');
@@ -38,18 +43,26 @@ add_action( 'wp_enqueue_scripts', 'page_usa_scripts' );
  function printExposureCenterArticles(){
 	
 	$term = get_field('article_tags');
-	if( $term ):
+	$term_series = get_field('ec_series_title');
+	if( $term || $term_series ):
 	 	$posts = get_posts(array(
 			'numberposts'	=> -1,
-			'post_type'		=> 'exposure_center',
+			'post_type'		=> array('exposure_center','ec_series'),
 			'tax_query' => array(
+			  'relation' => 'OR',
 		      array(
 		        'taxonomy' => 'ec_tags',
 		        'field' => 'term_id',
 		        'terms'    => $term,	        
+		      ),
+		      array(
+		        'taxonomy' => 'exposure_center_series_title',
+		        'field' => 'term_id',
+		        'terms'    => $term_series,	        
 		      )
 		   )		
-		)); 	
+		)); 
+	
 		
 		//if ( is_user_logged_in() ) { 	
 	    if( $posts ):
